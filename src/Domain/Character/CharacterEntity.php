@@ -23,9 +23,7 @@ readonly class CharacterEntity
         public array $skills,
         public array $saving_throws,
         public string $hit_dice_type,
-        public int $hit_dice_amount,
-        public \DateTimeInterface $created_at,
-        public \DateTimeInterface $updated_at,
-        public \DateTimeInterface $deleted_at,
+        public int $current_hit_dice,
+        public int $max_hit_dice,
     ) {}
 }

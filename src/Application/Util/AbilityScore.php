@@ -8,6 +8,18 @@ final readonly class AbilityScore
         public int $value
     ) {}
 
+    /**
+     * @param array<int|string, int> $arr
+     */
+    public static function fromArray(array $arr): array
+    {
+        $returnVal = [];
+        foreach($arr as $key => $value) {
+            $returnVal[$key] = self::fromInteger($value);
+        }
+        return $returnVal;
+    }
+
     public static function fromInteger(int $value): self
     {
         return new self($value);

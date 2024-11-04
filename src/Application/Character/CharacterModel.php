@@ -33,6 +33,7 @@ class CharacterModel
     public function __construct(
         public CharacterId $id,
         public string $name,
+        public string $slug,
         public array $levels,
         public array $armour_class,
         public int $proficiency_bonus,
@@ -47,9 +48,10 @@ class CharacterModel
         public array $skills,
         public array $saving_throws,
         public string $hit_dice_type,
-        public int $hit_dice_amount,
+        public int $current_hit_dice,
+        public int $max_hit_dice,
         public \DateTimeInterface $created_at,
         public \DateTimeInterface $updated_at,
-        public \DateTimeInterface $deleted_at,
+        public ?\DateTimeInterface $deleted_at,
     ) {}
 }
