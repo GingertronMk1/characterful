@@ -2,7 +2,22 @@
 
 {% block body %}
     <a href="{{ path('character.create') }}">Add</a>
-    {% for character in characters %}
-        {{ dump(character) }}
-    {% endfor %}
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Main Class</th>
+                <th>Current HP</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for character in characters %}
+            <tr>
+                <td>{{ character.name }}</td>
+                <td>{{ character.mainClass ? character.mainClass.class : '' }}</td>
+                <td>{{ character.current_hit_points }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 {% endblock %}
