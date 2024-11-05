@@ -6,6 +6,7 @@ use App\Application\Character\CharacterFinderInterface;
 use App\Application\Character\CharacterModel;
 use App\Application\Util\Helpers;
 use App\Application\Util\Model\AbilityScore;
+use App\Application\Util\Model\Level;
 use App\Domain\Character\CharacterId;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
@@ -62,11 +63,16 @@ readonly class DbalCharacterFinder implements CharacterFinderInterface
     }
     private function createFromRow(array $row): CharacterModel
     {
+        $levels = array_map(
+            fn (array $row) => new Level($row['level'], $row['class'], $row['subClass']),
+            $this->helpers->jsonDecode($row['levels'])
+        );
+        usort($levels, fn ($a, $b) => $a->level - $b->level);
         return new CharacterModel(
             id: CharacterId::fromString($row['id']),
             name: $row['name'],
             slug: $row['slug'],
-            levels: $this->helpers->jsonDecode($row['levels']),
+            levels: $levels,
             armour_class: $this->helpers->jsonDecode($row['armour_class']),
             proficiency_bonus: (int) $row['proficiency_bonus'],
             speed: (int) $row['speed'],

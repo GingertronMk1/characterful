@@ -3,6 +3,7 @@
 namespace App\Application\Character;
 
 use App\Application\Util\Model\AbilityScore;
+use App\Application\Util\Model\Level;
 use App\Domain\Character\CharacterId;
 use DateTimeInterface;
 
@@ -11,7 +12,8 @@ class CharacterModel
     /**
      * @param CharacterId $id
      * @param string $name
-     * @param array $levels
+     * @param string $slug
+     * @param Level[] $levels
      * @param array $armour_class
      * @param int $proficiency_bonus
      * @param int $speed
@@ -21,14 +23,15 @@ class CharacterModel
      * @param int $temporary_hit_points
      * @param array $weapons
      * @param array $armours
-     * @param array<AbilityScore> $abilities
+     * @param AbilityScore[] $abilities
      * @param array $skills
      * @param array $saving_throws
      * @param string $hit_dice_type
-     * @param int $hit_dice_amount
+     * @param int $current_hit_dice
+     * @param int $max_hit_dice
      * @param DateTimeInterface $created_at
      * @param DateTimeInterface $updated_at
-     * @param DateTimeInterface $deleted_at
+     * @param DateTimeInterface|null $deleted_at
      */
     public function __construct(
         public CharacterId $id,
@@ -54,4 +57,13 @@ class CharacterModel
         public \DateTimeInterface $updated_at,
         public ?\DateTimeInterface $deleted_at,
     ) {}
+
+    public function getMainClass(): ?Level
+    {
+        if (!count($this->levels)) {
+            return null;
+        }
+
+        return array_values($this->levels)[0];
+    }
 }
