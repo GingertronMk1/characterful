@@ -4,8 +4,11 @@ namespace App\Framework\Controller;
 
 use App\Application\Character\CharacterFinderInterface;
 use App\Application\Character\Command\CreateCharacterCommand;
+use App\Application\Character\Command\UpdateCharacterCommand;
 use App\Application\Character\CommandHandler\CreateCharacterCommandHandler;
+use App\Application\Character\CommandHandler\UpdateCharacterCommandHandler;
 use App\Framework\Form\CreateCharacterFormType;
+use App\Framework\Form\UpdateCharacterFormType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -54,7 +57,36 @@ class CharacterController extends AbstractController
                 'form' => $form,
             ]
         );
+    }
 
+    #[Route(path: '/update/{slug}', name: 'update', methods: ['GET', 'POST'])]
+    public function update(
+        Request $request,
+        string $slug,
+        UpdateCharacterCommandHandler $handler,
+    ): Response
+    {
+        $character = $this->characterFinder->findBySlug($slug);
+        $command = UpdateCharacterCommand::fromModel($character);
+        $form = $this->createForm( UpdateCharacterFormType::class, $command);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            try {
+                $handler->handle($command);
+
+                return $this->redirectToRoute('character.index');
+            } catch (\Throwable $e) {
+                throw new \Exception('Error creating character', previous: $e);
+            }
+        }
+
+        return $this->render(
+            'character/update.html.twig',
+            [
+                'form' => $form
+            ]
+        );
     }
 
 }

@@ -8,6 +8,7 @@
                 <th>Name</th>
                 <th>Main Class</th>
                 <th>Current HP</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -16,6 +17,7 @@
                 <td>{{ character.name }}</td>
                 <td>{{ character.mainClass ? character.mainClass.class : '' }}</td>
                 <td>{{ character.current_hit_points }}</td>
+                <td><a href="{{ path('character.update', {slug: character.slug}) }}">Update</a></td>
             </tr>
         {% endfor %}
         </tbody>

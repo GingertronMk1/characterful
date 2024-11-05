@@ -2,6 +2,7 @@
 
 namespace App\Framework\Form;
 
+use App\Application\Util\Model\Level;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -27,7 +28,9 @@ class LevelFormType implements FormTypeInterface
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        // TODO: Implement configureOptions() method.
+        $resolver->setDefaults(array(
+            'data_class' => Level::class,
+        ));
     }
 
     /**
