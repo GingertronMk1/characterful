@@ -5,6 +5,7 @@
     <table>
         <thead>
             <tr>
+                <th>Slug</th>
                 <th>Name</th>
                 <th>Main Class</th>
                 <th>Current HP</th>
@@ -14,6 +15,7 @@
         <tbody>
         {% for character in characters %}
             <tr>
+                <td>{{ character.slug }}</td>
                 <td>{{ character.name }}</td>
                 <td>{{ character.mainClass ? character.mainClass.class : '' }}</td>
                 <td>{{ character.current_hit_points }}</td>

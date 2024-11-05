@@ -28,7 +28,25 @@ readonly class DbalCharacterRepository implements CharacterRepositoryInterface
 
     public function create(CharacterEntity $characterEntity): CharacterId
     {
-        $slug = $this->helpers->slug($characterEntity->name);
+        $initialSlug = $this->helpers->slug($characterEntity->name);
+        $slugExistsQuery = $this->connection->createQueryBuilder();
+        $slugExistsQuery
+            ->select('slug')
+            ->from(self::CHARACTERS_TABLE)
+            ->where('slug LIKE :slug')
+            ->setParameter('slug', "%{$initialSlug}%")
+        ;
+
+        $slugs = $slugExistsQuery->fetchFirstColumn();
+        $slug = $initialSlug;
+        if (in_array($slug, $slugs)) {
+            $i = 1;
+            do {
+                $slug = $initialSlug . '-' . $i;
+                $i++;
+            } while (in_array($slug, $slugs));
+        }
+
         $qb = $this->connection->createQueryBuilder();
         $qb->insert(self::CHARACTERS_TABLE)
             ->values([
