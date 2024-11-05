@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Application\Util;
+namespace App\Application\Util\Model;
 
 final readonly class AbilityScore
 {

@@ -39,10 +39,11 @@ final class Version20241104194207 extends AbstractMigration
         $table->addColumn('skills', 'json');
         $table->addColumn('saving_throws', 'json');
         $table->addColumn('hit_dice_type', 'string');
-        $table->addColumn('hit_dice_amount', 'integer');
+        $table->addColumn('current_hit_dice', 'integer');
+        $table->addColumn('max_hit_dice', 'integer');
         $table->addColumn('created_at', 'string');
         $table->addColumn('updated_at', 'string');
-        $table->addColumn('deleted_at', 'string');
+        $table->addColumn('deleted_at', 'string', ['notNull' => false]);
     }
 
     public function down(Schema $schema): void

@@ -2,20 +2,22 @@
 
 namespace App\Infrastructure\Character;
 
+use App\Application\Util\Helpers;
 use App\Domain\Character\CharacterEntity;
 use App\Domain\Character\CharacterId;
 use App\Domain\Character\CharacterRepositoryInterface;
 use Doctrine\DBAL\Connection;
-use Symfony\Component\String\Slugger\AsciiSlugger;
 use DateTimeImmutable;
 use Exception;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 readonly class DbalCharacterRepository implements CharacterRepositoryInterface
 {
-    private const CHARACTERS_TABLE = 'character';
+    private const CHARACTERS_TABLE = 'characters';
     public function __construct(
         private Connection   $connection,
-        private AsciiSlugger $slugger
+        private SluggerInterface $slugger,
+        private Helpers $helpers
     )
     {
     }
@@ -68,18 +70,18 @@ readonly class DbalCharacterRepository implements CharacterRepositoryInterface
                 'id' => (string)$characterEntity->id,
                 'name' => $characterEntity->name,
                 'slug' => $slug,
-                'levels' => json_encode($characterEntity->levels),
-                'armour_class' => json_encode($characterEntity->armour_class),
+                'levels' => $this->helpers->jsonEncode($characterEntity->levels),
+                'armour_class' => $this->helpers->jsonEncode($characterEntity->armour_class),
                 'proficiency_bonus' => $characterEntity->proficiency_bonus,
                 'speed' => $characterEntity->speed,
                 'passive_perception' => $characterEntity->passive_perception,
                 'current_hit_points' => $characterEntity->current_hit_points,
                 'max_hit_points' => $characterEntity->max_hit_points,
                 'temporary_hit_points' => $characterEntity->temporary_hit_points,
-                'weapons' => json_encode($characterEntity->weapons),
-                'armours' => json_encode($characterEntity->armours),
-                'abilities' => json_encode($characterEntity->abilities),
-                'skills' => json_encode($characterEntity->skills),
+                'weapons' => $this->helpers->jsonEncode($characterEntity->weapons),
+                'armours' => $this->helpers->jsonEncode($characterEntity->armours),
+                'abilities' => $this->helpers->jsonEncode($characterEntity->abilities),
+                'skills' => $this->helpers->jsonEncode($characterEntity->skills),
                 'saving_throws' => ':saving_throws',
                 'hit_dice_type' => $characterEntity->hit_dice_type,
                 'current_hit_dice' => $characterEntity->current_hit_dice,
@@ -121,18 +123,18 @@ readonly class DbalCharacterRepository implements CharacterRepositoryInterface
             ->setParameters([
                 'id' => (string)$characterEntity->id,
                 'name' => $characterEntity->name,
-                'levels' => json_encode($characterEntity->levels),
-                'armour_class' => json_encode($characterEntity->armour_class),
+                'levels' => $this->helpers->jsonEncode($characterEntity->levels),
+                'armour_class' => $this->helpers->jsonEncode($characterEntity->armour_class),
                 'proficiency_bonus' => $characterEntity->proficiency_bonus,
                 'speed' => $characterEntity->speed,
                 'passive_perception' => $characterEntity->passive_perception,
                 'current_hit_points' => $characterEntity->current_hit_points,
                 'max_hit_points' => $characterEntity->max_hit_points,
                 'temporary_hit_points' => $characterEntity->temporary_hit_points,
-                'weapons' => json_encode($characterEntity->weapons),
-                'armours' => json_encode($characterEntity->armours),
-                'abilities' => json_encode($characterEntity->abilities),
-                'skills' => json_encode($characterEntity->skills),
+                'weapons' => $this->helpers->jsonEncode($characterEntity->weapons),
+                'armours' => $this->helpers->jsonEncode($characterEntity->armours),
+                'abilities' => $this->helpers->jsonEncode($characterEntity->abilities),
+                'skills' => $this->helpers->jsonEncode($characterEntity->skills),
                 'saving_throws' => ':saving_throws',
                 'hit_dice_type' => $characterEntity->hit_dice_type,
                 'current_hit_dice' => $characterEntity->current_hit_dice,

@@ -4,7 +4,8 @@ namespace App\Infrastructure\Character;
 
 use App\Application\Character\CharacterFinderInterface;
 use App\Application\Character\CharacterModel;
-use App\Application\Util\AbilityScore;
+use App\Application\Util\Helpers;
+use App\Application\Util\Model\AbilityScore;
 use App\Domain\Character\CharacterId;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
@@ -12,7 +13,8 @@ use Doctrine\DBAL\Query\QueryBuilder;
 readonly class DbalCharacterFinder implements CharacterFinderInterface
 {
     public function __construct(
-        private Connection $connection
+        private Connection $connection,
+        private Helpers $helpers
     ) {}
 
     public function findBySlug(string $slug): CharacterModel
@@ -64,19 +66,19 @@ readonly class DbalCharacterFinder implements CharacterFinderInterface
             id: CharacterId::fromString($row['id']),
             name: $row['name'],
             slug: $row['slug'],
-            levels: json_decode($row['levels'], true),
-            armour_class: json_decode($row['armour_class'], true),
+            levels: $this->helpers->jsonDecode($row['levels']),
+            armour_class: $this->helpers->jsonDecode($row['armour_class']),
             proficiency_bonus: (int) $row['proficiency_bonus'],
             speed: (int) $row['speed'],
             passive_perception: (int) $row['passive_perception'],
             current_hit_points: (int) $row['current_hit_points'],
             max_hit_points: (int) $row['max_hit_points'],
             temporary_hit_points: (int) $row['temporary_hit_points'],
-            weapons: json_decode($row['weapons'], true),
-            armours: json_decode($row['armours'], true),
-            abilities: AbilityScore::fromArray(json_decode($row['abilities'], true)),
-            skills: json_decode($row['skills'], true),
-            saving_throws: json_decode($row['saving_throws'], true),
+            weapons: $this->helpers->jsonDecode($row['weapons']),
+            armours: $this->helpers->jsonDecode($row['armours']),
+            abilities: AbilityScore::fromArray($this->helpers->jsonDecode($row['abilities'])),
+            skills: $this->helpers->jsonDecode($row['skills']),
+            saving_throws: $this->helpers->jsonDecode($row['saving_throws']),
             hit_dice_type: $row['hit_dice_type'],
             current_hit_dice: (int) $row['current_hit_dice'],
             max_hit_dice: (int) $row['max_hit_dice'],

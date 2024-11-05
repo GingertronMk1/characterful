@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {{ form_start(form) }}
+    {{ form_row(form.name) }}
+    <h3>Tags</h3>
+    <ul
+            class="levels"
+            data-index="{{ form.levels|length > 0 ? form.levels|last.vars.name + 1 : 0 }}"
+            data-prototype="{{ form_widget(form.levels.vars.prototype)|e('html_attr') }}"
+    >
+        {% for level in form.levels %}
+            <li>{{ form_row(level.name) }}</li>
+        {% endfor %}
+    </ul>
+    <button
+            type="button"
+            class="add_item_link"
+            data-collection-holder-class="levels"
+    >
+        Add a level
+    </button>
+
+    {{ form_row(form.armour_class) }}
+    {{ form_row(form.proficiency_bonus) }}
+    {{ form_row(form.speed) }}
+    {{ form_row(form.passive_perception) }}
+    {{ form_row(form.current_hit_points) }}
+    {{ form_row(form.max_hit_points) }}
+    {{ form_row(form.temporary_hit_points) }}
+    {{ form_row(form.weapons) }}
+    {{ form_row(form.armours) }}
+    {{ form_row(form.abilities) }}
+    {{ form_row(form.skills) }}
+    {{ form_row(form.saving_throws) }}
+    {{ form_row(form.hit_dice_type) }}
+    {{ form_row(form.current_hit_dice) }}
+    {{ form_row(form.max_hit_dice) }}
+    {{ form_row(form.submit) }}
+
+    {{ form_end(form) }}
+{% endblock %}

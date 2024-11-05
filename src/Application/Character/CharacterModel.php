@@ -2,7 +2,7 @@
 
 namespace App\Application\Character;
 
-use App\Application\Util\AbilityScore;
+use App\Application\Util\Model\AbilityScore;
 use App\Domain\Character\CharacterId;
 use DateTimeInterface;
 

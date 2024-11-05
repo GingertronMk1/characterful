@@ -1,5 +1,8 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    hello
+    <a href="{{ path('character.create') }}">Add</a>
+    {% for character in characters %}
+        {{ dump(character) }}
+    {% endfor %}
 {% endblock %}
