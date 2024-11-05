@@ -28,9 +28,7 @@ class LevelFormType implements FormTypeInterface
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => Level::class,
-        ));
+
     }
 
     /**

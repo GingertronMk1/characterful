@@ -6,5 +6,6 @@ interface CharacterRepositoryInterface
 {
     public function generateId(): CharacterId;
 
-    public function store(CharacterEntity $characterEntity): CharacterId;
+    public function create(CharacterEntity $characterEntity): CharacterId;
+    public function update(CharacterEntity $characterEntity): CharacterId;
 }

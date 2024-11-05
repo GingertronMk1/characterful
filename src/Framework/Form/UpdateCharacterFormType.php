@@ -2,6 +2,7 @@
 
 namespace App\Framework\Form;
 
+use App\Application\Util\Model\Level;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
@@ -22,6 +23,9 @@ class UpdateCharacterFormType extends AbstractType
                     'entry_type' => LevelFormType::class,
                     'allow_add' => true,
                     'allow_delete' => true,
+                    'entry_options' => [
+                        'data_class' => Level::class,
+                    ]
                 ]
             )
             ->add('armour_class', CollectionType::class, [

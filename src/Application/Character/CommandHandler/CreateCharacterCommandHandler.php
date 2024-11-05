@@ -37,7 +37,7 @@ class CreateCharacterCommandHandler
             max_hit_dice: $command->max_hit_dice,
         );
 
-        return $this->characterRepository->store($entity);
+        return $this->characterRepository->create($entity);
     }
 
 }

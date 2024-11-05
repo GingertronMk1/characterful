@@ -68,6 +68,7 @@ class CharacterController extends AbstractController
     {
         $character = $this->characterFinder->findBySlug($slug);
         $command = UpdateCharacterCommand::fromModel($character);
+//        echo '<pre>'; print_r($command); die;
         $form = $this->createForm( UpdateCharacterFormType::class, $command);
         $form->handleRequest($request);
 

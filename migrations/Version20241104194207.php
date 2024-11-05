@@ -44,6 +44,8 @@ final class Version20241104194207 extends AbstractMigration
         $table->addColumn('created_at', 'string');
         $table->addColumn('updated_at', 'string');
         $table->addColumn('deleted_at', 'string', ['notNull' => false]);
+        $table->setPrimaryKey(['id']);
+        $table->addUniqueIndex(['slug']);
     }
 
     public function down(Schema $schema): void

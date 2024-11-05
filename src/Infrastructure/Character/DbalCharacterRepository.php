@@ -16,7 +16,6 @@ readonly class DbalCharacterRepository implements CharacterRepositoryInterface
     private const CHARACTERS_TABLE = 'characters';
     public function __construct(
         private Connection   $connection,
-        private SluggerInterface $slugger,
         private Helpers $helpers
     )
     {
@@ -27,20 +26,9 @@ readonly class DbalCharacterRepository implements CharacterRepositoryInterface
         return CharacterId::generate();
     }
 
-    public function store(CharacterEntity $characterEntity): CharacterId
+    public function create(CharacterEntity $characterEntity): CharacterId
     {
-        $checkQuery = $this->connection->createQueryBuilder();
-        $checkQuery->select('*')->from(self::CHARACTERS_TABLE);
-        return match ($checkQuery->executeQuery()->rowCount()) {
-            0 => $this->create($characterEntity),
-            1 => $this->update($characterEntity),
-            default => throw new Exception(),
-        };
-    }
-
-    private function create(CharacterEntity $characterEntity): CharacterId
-    {
-        $slug = $this->slugger->slug($characterEntity->name);
+        $slug = $this->helpers->slug($characterEntity->name);
         $qb = $this->connection->createQueryBuilder();
         $qb->insert(self::CHARACTERS_TABLE)
             ->values([
@@ -95,31 +83,29 @@ readonly class DbalCharacterRepository implements CharacterRepositoryInterface
     }
 
 
-    private function update(CharacterEntity $characterEntity): CharacterId
+    public function update(CharacterEntity $characterEntity): CharacterId
     {
         $qb = $this->connection->createQueryBuilder();
         $qb->update(self::CHARACTERS_TABLE)
             ->where('id = :id')
-            ->values([
-                'levels' => ':levels',
-                'armour_class' => ':armour_class',
-                'proficiency_bonus' => ':proficiency_bonus',
-                'speed' => ':speed',
-                'passive_perception' => ':passive_perception',
-                'current_hit_points' => ':current_hit_points',
-                'max_hit_points' => ':max_hit_points',
-                'temporary_hit_points' => ':temporary_hit_points',
-                'weapons' => ':weapons',
-                'armours' => ':armours',
-                'abilities' => ':abilities',
-                'skills' => ':skills',
-                'saving_throws' => ':saving_throws',
-                'hit_dice_type' => ':hit_dice_type',
-                'current_hit_dice' => ':current_hit_dice',
-                'max_hit_dice' => ':max_hit_dice',
-                'created_at' => ':now',
-                'updated_at' => ':now',
-            ])
+            ->set('levels', ':levels')
+            ->set('armour_class', ':armour_class')
+            ->set('proficiency_bonus', ':proficiency_bonus')
+            ->set('speed', ':speed')
+            ->set('passive_perception', ':passive_perception')
+            ->set('current_hit_points', ':current_hit_points')
+            ->set('max_hit_points', ':max_hit_points')
+            ->set('temporary_hit_points', ':temporary_hit_points')
+            ->set('weapons', ':weapons')
+            ->set('armours', ':armours')
+            ->set('abilities', ':abilities')
+            ->set('skills', ':skills')
+            ->set('saving_throws', ':saving_throws')
+            ->set('hit_dice_type', ':hit_dice_type')
+            ->set('current_hit_dice', ':current_hit_dice')
+            ->set('max_hit_dice', ':max_hit_dice')
+            ->set('created_at', ':now')
+            ->set('updated_at', ':now')
             ->setParameters([
                 'id' => (string)$characterEntity->id,
                 'name' => $characterEntity->name,
@@ -141,8 +127,9 @@ readonly class DbalCharacterRepository implements CharacterRepositoryInterface
                 'max_hit_dice' => $characterEntity->max_hit_dice,
                 'now' => (new DateTimeImmutable())->format('Y-m-d H:i:s'),
             ]);
-        if ($qb->executeStatement() !== 1) {
-            throw new Exception();
+        $result = $qb->executeStatement();
+        if ($result !== 1) {
+            throw new Exception($result);
         }
         return $characterEntity->id;
     }
