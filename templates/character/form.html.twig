@@ -30,7 +30,11 @@
     {{ form_row(form.temporary_hit_points) }}
     {{ form_row(form.weapons) }}
     {{ form_row(form.armours) }}
-    {{ form_row(form.abilities) }}
+    <ul>
+        {% for ability in form.abilities %}
+            <li>{{ form_row(ability) }}</li>
+        {% endfor %}
+    </ul>
     {{ form_row(form.skills) }}
     {{ form_row(form.saving_throws) }}
     {{ form_row(form.hit_dice_type) }}
