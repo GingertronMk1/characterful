@@ -9,4 +9,16 @@ class Level
         public string $class,
         public string $subClass,
     ) {}
+
+    /**
+     * @return array<string, int|string>
+     */
+    public function toArray(): array
+    {
+        return [
+            'level' => $this->level,
+            'class' => $this->class,
+            'subClass' => $this->subClass,
+        ];
+    }
 }

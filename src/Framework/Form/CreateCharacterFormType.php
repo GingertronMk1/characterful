@@ -43,6 +43,7 @@ class CreateCharacterFormType extends AbstractType
                 'entry_type' => AbilityScoreFormType::class,
                 'entry_options' => [
                     'label' => false,
+                    //                    'data_class' => null,
                 ],
             ])
             ->add('skills', CollectionType::class, [

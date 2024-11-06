@@ -2,7 +2,7 @@
 
 namespace App\Application\Util\Model;
 
-use App\Application\Util\Enum\AbilityEnum;
+use App\Application\Enum\AbilityEnum;
 
 final class AbilityScore
 {
@@ -48,5 +48,16 @@ final class AbilityScore
         }
 
         return $returnVal;
+    }
+
+    /**
+     * @return array<string, int|string>
+     */
+    public function toArray(): array
+    {
+        return [
+            'ability' => $this->ability->value,
+            'value' => $this->value,
+        ];
     }
 }

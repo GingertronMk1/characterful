@@ -3,6 +3,8 @@
 namespace App\Application\Character\CommandHandler;
 
 use App\Application\Character\Command\UpdateCharacterCommand;
+use App\Application\Util\Model\AbilityScore;
+use App\Application\Util\Model\Level;
 use App\Domain\Character\CharacterEntity;
 use App\Domain\Character\CharacterId;
 use App\Domain\Character\CharacterRepositoryInterface;
@@ -18,7 +20,10 @@ class UpdateCharacterCommandHandler
         $entity = new CharacterEntity(
             id: $command->characterId,
             name: $command->name,
-            levels: $command->levels,
+            levels: array_map(
+                fn (Level $level) => $level->toArray(),
+                $command->levels,
+            ),
             armour_class: $command->armour_class,
             proficiency_bonus: $command->proficiency_bonus,
             speed: $command->speed,
@@ -28,7 +33,10 @@ class UpdateCharacterCommandHandler
             temporary_hit_points: $command->temporary_hit_points,
             weapons: $command->weapons,
             armours: $command->armours,
-            abilities: $command->abilities,
+            abilities: array_map(
+                fn (AbilityScore $score) => $score->toArray(),
+                $command->abilities,
+            ),
             skills: $command->skills,
             saving_throws: $command->saving_throws,
             hit_dice_type: $command->hit_dice_type,

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Application\Util\Enum;
+namespace App\Application\Enum;
 
 enum AbilityEnum: string
 {

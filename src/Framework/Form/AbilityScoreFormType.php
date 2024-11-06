@@ -2,7 +2,7 @@
 
 namespace App\Framework\Form;
 
-use App\Application\Util\Enum\AbilityEnum;
+use App\Application\Enum\AbilityEnum;
 use App\Application\Util\Model\AbilityScore;
 use Symfony\Component\Form\Extension\Core\Type\EnumType;
 use Symfony\Component\Form\Extension\Core\Type\FormType;

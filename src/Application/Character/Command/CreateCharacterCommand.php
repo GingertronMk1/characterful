@@ -10,7 +10,7 @@ class CreateCharacterCommand
      * @param array<array<string, int|string>> $levels
      * @param string[] $weapons
      * @param string[] $armours
-     * @param array<array<string, int|string>> $abilities
+     * @param array<AbilityScore> $abilities
      * @param string[] $skills
      * @param string[] $armour_class
      * @param string[] $saving_throws
@@ -35,13 +35,7 @@ class CreateCharacterCommand
         public int $max_hit_dice = 0,
     ) {
         if (empty($this->abilities)) {
-            $this->abilities = array_map(
-                fn (AbilityScore $score) => [
-                    'ability' => $score->ability->value,
-                    'value' => $score->value,
-                ],
-                AbilityScore::getBase()
-            );
+            $this->abilities = AbilityScore::getBase();
         }
     }
 }
