@@ -35,7 +35,13 @@ class CreateCharacterCommand
         public int $max_hit_dice = 0,
     ) {
         if (empty($this->abilities)) {
-            $this->abilities = AbilityScore::getBase();
+            $this->abilities = array_map(
+                fn (AbilityScore $score) => [
+                    'ability' => $score->ability->value,
+                    'value' => $score->value,
+                ],
+                AbilityScore::getBase()
+            );
         }
     }
 }
