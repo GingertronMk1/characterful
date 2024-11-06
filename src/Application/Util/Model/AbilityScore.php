@@ -18,7 +18,7 @@ final class AbilityScore
     {
         $returnVal = [];
         foreach ($arr as $key => $value) {
-            $returnVal[$key] = self::fromInteger($value['ability'], $value['value']);
+            $returnVal[$key] = self::fromInteger((string) $value['ability'], (int) $value['value']);
         }
 
         return $returnVal;
@@ -31,9 +31,12 @@ final class AbilityScore
 
     public function getModifier(): int
     {
-        return floor(($this->value - 10) / 2);
+        return (int) floor(($this->value - 10) / 2);
     }
 
+    /**
+     * @return array<self>
+     */
     public static function getBase(): array
     {
         $returnVal = [];

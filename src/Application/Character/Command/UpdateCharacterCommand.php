@@ -3,10 +3,21 @@
 namespace App\Application\Character\Command;
 
 use App\Application\Character\CharacterModel;
+use App\Application\Util\Model\AbilityScore;
+use App\Application\Util\Model\Level;
 use App\Domain\Character\CharacterId;
 
 class UpdateCharacterCommand
 {
+    /**
+     * @param Level[] $levels
+     * @param string[] $weapons
+     * @param string[] $armours
+     * @param AbilityScore[] $abilities
+     * @param string[] $skills
+     * @param string[] $armour_class
+     * @param string[] $saving_throws
+     */
     public function __construct(
         public CharacterId $characterId,
         public string $name,

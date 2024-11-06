@@ -66,13 +66,29 @@ readonly class DbalCharacterFinder implements CharacterFinderInterface
         return $qb;
     }
 
-    private function createFromRow(array $row): CharacterModel
+    /**
+     * @param array<string, mixed>|false $row
+     *
+     * @throws \Exception
+     */
+    private function createFromRow(array|false $row): CharacterModel
     {
+        if (false === $row) {
+            throw new \Exception();
+        }
         $levels = array_map(
             fn (array $row) => new Level($row['level'], $row['class'], $row['subClass']),
             $this->helpers->jsonDecode($row['levels']),
         );
         usort($levels, fn ($a, $b) => $a->level - $b->level);
+
+        $createdAt = \DateTimeImmutable::createFromFormat('Y-m-d H:i:s', $row['created_at']);
+        $updatedAt = \DateTimeImmutable::createFromFormat('Y-m-d H:i:s', $row['updated_at']);
+        $deletedAt = $row['deleted_at'] ? \DateTimeImmutable::createFromFormat('Y-m-d H:i:s', $row['updated_at']) : null;
+
+        if (false === $createdAt || false === $updatedAt || false === $deletedAt) {
+            throw new \Exception('Invalid date');
+        }
 
         return new CharacterModel(
             id: CharacterId::fromString($row['id']),
@@ -94,9 +110,9 @@ readonly class DbalCharacterFinder implements CharacterFinderInterface
             hit_dice_type: $row['hit_dice_type'],
             current_hit_dice: (int) $row['current_hit_dice'],
             max_hit_dice: (int) $row['max_hit_dice'],
-            created_at: \DateTimeImmutable::createFromFormat('Y-m-d H:i:s', $row['created_at']),
-            updated_at: \DateTimeImmutable::createFromFormat('Y-m-d H:i:s', $row['updated_at']),
-            deleted_at: $row['deleted_at'] ? \DateTimeImmutable::createFromFormat('Y-m-d H:i:s', $row['updated_at']) : null,
+            created_at: $createdAt,
+            updated_at: $updatedAt,
+            deleted_at: $deletedAt,
         );
     }
 }

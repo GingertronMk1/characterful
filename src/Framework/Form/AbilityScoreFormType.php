@@ -20,14 +20,14 @@ class AbilityScoreFormType implements FormTypeInterface
         return FormType::class;
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
-        return $resolver->setDefaults([
+        $resolver->setDefaults([
             'data_class' => AbilityScore::class,
         ]);
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add('ability', EnumType::class, [
