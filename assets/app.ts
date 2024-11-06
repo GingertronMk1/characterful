@@ -9,32 +9,32 @@ import './styles/app.css';
 
 document
     .querySelectorAll('.add_item_link')
-    .forEach(btn => {
+    .forEach((btn: Element) => {
         btn.addEventListener("click", addFormToCollection)
     });
 document
     .querySelectorAll('ul.levels > li')
-    .forEach((level) => {
+    .forEach((level: Element) => {
         addTagFormDeleteLink(level)
     })
 
 function addFormToCollection(e) {
-    const collectionHolder = document.querySelector('.' + e.currentTarget.dataset.collectionHolderClass);
+    const collectionHolder: HTMLElement = document.querySelector('.' + e.currentTarget.dataset.collectionHolderClass) as HTMLElement;
 
-    const item = document.createElement('li');
+    const item: HTMLLIElement = document.createElement('li');
+    const { dataset } = collectionHolder;
 
-    item.innerHTML = collectionHolder
-        .dataset
+    item.innerHTML = dataset
         .prototype
         .replace(
             /__name__/g,
-            collectionHolder.dataset.index
+            dataset.index
         );
 
     addTagFormDeleteLink(item);
     collectionHolder.appendChild(item);
 
-    collectionHolder.dataset.index++;
+    collectionHolder.dataset.index = (parseInt(dataset.index) + 1).toString();
 }
 function addTagFormDeleteLink(item) {
     const removeFormButton = document.createElement('button');

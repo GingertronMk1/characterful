@@ -85,7 +85,7 @@
             "ref": "6c28c471640cc2c6e60812ebcb961c526ef8997f"
         },
         "files": [
-            "assets/app.js",
+            "assets/app.ts",
             "assets/styles/app.css",
             "config/packages/asset_mapper.yaml",
             "importmap.php"
@@ -330,7 +330,7 @@
             "ref": "35ee1edee91a1a7137095f53db7ed0c20884b745"
         },
         "files": [
-            "assets/app.js",
+            "assets/app.ts",
             "assets/styles/app.css",
             "config/packages/webpack_encore.yaml",
             "package.json",
