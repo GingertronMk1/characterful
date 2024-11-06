@@ -18,9 +18,7 @@ class LevelFormType implements FormTypeInterface
         return FormType::class;
     }
 
-    public function configureOptions(OptionsResolver $resolver)
-    {
-    }
+    public function configureOptions(OptionsResolver $resolver) {}
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {

@@ -9,11 +9,10 @@ final class AbilityScore
     private function __construct(
         public AbilityEnum $ability,
         public int $value,
-    ) {
-    }
+    ) {}
 
     /**
-     * @param array<int|string, array<string|int> $arr
+     * @param array<int|string, array<int|string>> $arr
      */
     public static function fromArray(array $arr): array
     {

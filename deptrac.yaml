@@ -4,27 +4,30 @@ deptrac:
     exclude_files:
         - '#.*test.*#'
     layers:
-        -
-            name: Controller
-            collectors:
-                -
-                    type: classLike
-                    value: .*Controller.*
-        -
-            name: Repository
-            collectors:
-                -
-                    type: classLike
-                    value: .*Repository.*
-        -
-            name: Service
-            collectors:
-                -
-                    type: classLike
-                    value: .*Service.*
+        - name: Framework
+          collectors:
+              - type: classNameRegex
+                value: '#App\\Framework\\.*#'
+        - name: Infrastructure
+          collectors:
+              - type: classNameRegex
+                value: '#App\\Infrastructure\\.*#'
+        - name: Application
+          collectors:
+              - type: classNameRegex
+                value: '#App\\Application\\.*#'
+        - name: Domain
+          collectors:
+              - type: classNameRegex
+                value: '#App\\Domain\\.*#'
     ruleset:
-        Controller:
-            - Service
-        Service:
-            - Repository
-        Repository:
+        Framework:
+            - Infrastructure
+            - Application
+            - Domain
+        Infrastructure:
+            - Application
+            - Domain
+        Application:
+            - Domain
+        Domain: ~

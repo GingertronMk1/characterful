@@ -22,7 +22,7 @@ class CreateCharacterFormType extends AbstractType
                     'entry_type' => LevelFormType::class,
                     'allow_add' => true,
                     'allow_delete' => true,
-                ]
+                ],
             )
             ->add('armour_class', CollectionType::class, [
                 'entry_type' => TextType::class,

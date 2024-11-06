@@ -10,5 +10,8 @@ interface CharacterFinderInterface
 
     public function findById(CharacterId $id): CharacterModel;
 
+    /**
+     * @return array<CharacterModel>
+     */
     public function all(): array;
 }

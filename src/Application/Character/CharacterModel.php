@@ -9,8 +9,13 @@ use App\Domain\Character\CharacterId;
 class CharacterModel
 {
     /**
-     * @param Level[]        $levels
+     * @param Level[] $levels
+     * @param string[] $weapons
+     * @param string[] $armours
      * @param AbilityScore[] $abilities
+     * @param string[] $skills
+     * @param string[] $armour_class
+     * @param string[] $saving_throws
      */
     public function __construct(
         public CharacterId $id,
@@ -35,8 +40,7 @@ class CharacterModel
         public \DateTimeInterface $created_at,
         public \DateTimeInterface $updated_at,
         public ?\DateTimeInterface $deleted_at,
-    ) {
-    }
+    ) {}
 
     public function getMainClass(): ?Level
     {

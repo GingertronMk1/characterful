@@ -15,8 +15,7 @@ readonly class DbalCharacterRepository implements CharacterRepositoryInterface
     public function __construct(
         private Connection $connection,
         private Helpers $helpers,
-    ) {
-    }
+    ) {}
 
     public function generateId(): CharacterId
     {
@@ -90,7 +89,8 @@ readonly class DbalCharacterRepository implements CharacterRepositoryInterface
                 'current_hit_dice' => $characterEntity->current_hit_dice,
                 'max_hit_dice' => $characterEntity->max_hit_dice,
                 'now' => (new \DateTimeImmutable())->format('Y-m-d H:i:s'),
-            ]);
+            ])
+        ;
         if (1 !== $qb->executeStatement()) {
             throw new \Exception();
         }
@@ -141,10 +141,11 @@ readonly class DbalCharacterRepository implements CharacterRepositoryInterface
                 'current_hit_dice' => $characterEntity->current_hit_dice,
                 'max_hit_dice' => $characterEntity->max_hit_dice,
                 'now' => (new \DateTimeImmutable())->format('Y-m-d H:i:s'),
-            ]);
+            ])
+        ;
         $result = $qb->executeStatement();
         if (1 !== $result) {
-            throw new \Exception($result);
+            throw new \Exception((string) $result);
         }
 
         return $characterEntity->id;

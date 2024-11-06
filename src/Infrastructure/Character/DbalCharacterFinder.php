@@ -16,8 +16,7 @@ readonly class DbalCharacterFinder implements CharacterFinderInterface
     public function __construct(
         private Connection $connection,
         private Helpers $helpers,
-    ) {
-    }
+    ) {}
 
     public function findBySlug(string $slug): CharacterModel
     {
@@ -51,7 +50,7 @@ readonly class DbalCharacterFinder implements CharacterFinderInterface
 
         return array_map(
             $this->createFromRow(...),
-            $qb->fetchAllAssociative()
+            $qb->fetchAllAssociative(),
         );
     }
 
@@ -71,7 +70,7 @@ readonly class DbalCharacterFinder implements CharacterFinderInterface
     {
         $levels = array_map(
             fn (array $row) => new Level($row['level'], $row['class'], $row['subClass']),
-            $this->helpers->jsonDecode($row['levels'])
+            $this->helpers->jsonDecode($row['levels']),
         );
         usort($levels, fn ($a, $b) => $a->level - $b->level);
 
@@ -97,7 +96,7 @@ readonly class DbalCharacterFinder implements CharacterFinderInterface
             max_hit_dice: (int) $row['max_hit_dice'],
             created_at: \DateTimeImmutable::createFromFormat('Y-m-d H:i:s', $row['created_at']),
             updated_at: \DateTimeImmutable::createFromFormat('Y-m-d H:i:s', $row['updated_at']),
-            deleted_at: $row['deleted_at'] ? \DateTimeImmutable::createFromFormat('Y-m-d H:i:s', $row['updated_at']) : null
+            deleted_at: $row['deleted_at'] ? \DateTimeImmutable::createFromFormat('Y-m-d H:i:s', $row['updated_at']) : null,
         );
     }
 }

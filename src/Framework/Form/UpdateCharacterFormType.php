@@ -26,7 +26,7 @@ class UpdateCharacterFormType extends AbstractType
                     'entry_options' => [
                         'data_class' => Level::class,
                     ],
-                ]
+                ],
             )
             ->add('armour_class', CollectionType::class, [
                 'entry_type' => TextType::class,

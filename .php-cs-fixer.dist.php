@@ -10,7 +10,9 @@ $finder = (new PhpCsFixer\Finder())
 return (new PhpCsFixer\Config())
     ->setParallelConfig(PhpCsFixer\Runner\Parallel\ParallelConfigFactory::detect())
     ->setRules([
-        '@Symfony' => true,
+        '@PER-CS2.0' => true,
+        '@PhpCsFixer' => true,
+        'phpdoc_align' => ['align' => 'left'],
     ])
     ->setFinder($finder)
 ;

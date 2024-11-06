@@ -8,6 +8,5 @@ class Level
         public int $level,
         public string $class,
         public string $subClass,
-    ) {
-    }
+    ) {}
 }

@@ -23,6 +23,5 @@ readonly class CharacterEntity
         public string $hit_dice_type,
         public int $current_hit_dice,
         public int $max_hit_dice,
-    ) {
-    }
+    ) {}
 }

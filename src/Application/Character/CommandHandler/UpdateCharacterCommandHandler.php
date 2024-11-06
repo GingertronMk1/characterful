@@ -11,8 +11,7 @@ class UpdateCharacterCommandHandler
 {
     public function __construct(
         private CharacterRepositoryInterface $characterRepository,
-    ) {
-    }
+    ) {}
 
     public function handle(UpdateCharacterCommand $command): CharacterId
     {

@@ -19,15 +19,14 @@ class CharacterController extends AbstractController
 {
     public function __construct(
         private readonly CharacterFinderInterface $characterFinder,
-    ) {
-    }
+    ) {}
 
     #[Route(path: '/', name: 'index', methods: ['GET'])]
     public function index(): Response
     {
         return $this->render(
             'character/index.html.twig',
-            ['characters' => $this->characterFinder->all()]
+            ['characters' => $this->characterFinder->all()],
         );
     }
 
@@ -53,7 +52,7 @@ class CharacterController extends AbstractController
             'character/create.html.twig',
             [
                 'form' => $form,
-            ]
+            ],
         );
     }
 
@@ -82,7 +81,7 @@ class CharacterController extends AbstractController
             'character/update.html.twig',
             [
                 'form' => $form,
-            ]
+            ],
         );
     }
 
@@ -96,7 +95,7 @@ class CharacterController extends AbstractController
             'character/view.html.twig',
             [
                 'character' => $character,
-            ]
+            ],
         );
     }
 }
