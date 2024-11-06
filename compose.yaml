@@ -1,25 +1,54 @@
-
 services:
-###> doctrine/doctrine-bundle ###
-  database:
-    image: postgres:${POSTGRES_VERSION:-16}-alpine
-    environment:
-      POSTGRES_DB: ${POSTGRES_DB:-app}
-      # You should definitely change the password in production
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-!ChangeMe!}
-      POSTGRES_USER: ${POSTGRES_USER:-app}
-    healthcheck:
-      test: ["CMD", "pg_isready", "-d", "${POSTGRES_DB:-app}", "-U", "${POSTGRES_USER:-app}"]
-      timeout: 5s
-      retries: 5
-      start_period: 60s
+  nginx:
+    platform: linux/x86_64
+    build:
+      context: .
+      dockerfile: _docker/config/nginx.dockerfile
     volumes:
-      - database_data:/var/lib/postgresql/data:rw
-      # You may use a bind-mounted host directory instead, so that it is harder to accidentally remove the volume and lose all your data!
-      # - ./docker/db/data:/var/lib/postgresql/data:rw
-###< doctrine/doctrine-bundle ###
+      - "./:/var/www:delegated"
+      - "./_docker/config/nginx/conf.d/:/etc/nginx/conf.d/:delegated"
+    depends_on:
+      - app
+    ports:
+      - "80:80"
+      - "443:443"
+    networks:
+      - characterful-network
 
-volumes:
-###> doctrine/doctrine-bundle ###
-  database_data:
-###< doctrine/doctrine-bundle ###
+  app:
+    platform: linux/x86_64
+    build:
+      context: .
+      dockerfile: _docker/config/app.dockerfile
+    volumes:
+      - '.:/var/www:delegated'
+      - './_docker/config/app/php.ini:/usr/local/etc/php/conf.d/zzz_app.ini'
+    networks:
+      - characterful-network
+
+  node:
+    platform: linux/x86_64
+    build:
+      context: .
+      dockerfile: _docker/config/node.dockerfile
+    volumes:
+        - '.:/app:delegated'
+    networks:
+        - characterful-network
+
+  adminer:
+    image: adminer:4-standalone
+    platform: linux/x86_64
+    ports:
+      - "8080:8080"
+    env_file:
+      - .env
+    volumes:
+      - './_docker/plugins:/var/www/html/plugins-enabled:delegated'
+      - '${SQLITE_LOCATION}:/var/www/html/data.db'
+    networks:
+      - characterful-network
+
+networks:
+  characterful-network:
+    driver: bridge
