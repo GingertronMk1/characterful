@@ -25,6 +25,7 @@ class UpdateCharacterFormType extends AbstractType
                     'allow_delete' => true,
                     'entry_options' => [
                         'data_class' => Level::class,
+                        'label' => false,
                     ],
                 ],
             )

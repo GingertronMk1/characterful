@@ -7,15 +7,13 @@ import './bootstrap.js';
  */
 import './styles/app.css';
 
-
-
 document
     .querySelectorAll('.add_item_link')
     .forEach(btn => {
         btn.addEventListener("click", addFormToCollection)
     });
 document
-    .querySelectorAll('ul.levels li')
+    .querySelectorAll('ul.levels > li')
     .forEach((level) => {
         addTagFormDeleteLink(level)
     })
@@ -50,3 +48,5 @@ function addTagFormDeleteLink(item) {
         item.remove();
     });
 }
+
+console.log('loaded app.js');
