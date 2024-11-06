@@ -7,9 +7,7 @@ class Level
     public function __construct(
         public int $level,
         public string $class,
-        public string $subClass
-    )
-    {
+        public string $subClass,
+    ) {
     }
-
 }

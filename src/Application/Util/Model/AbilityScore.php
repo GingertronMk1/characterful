@@ -3,14 +3,14 @@
 namespace App\Application\Util\Model;
 
 use App\Application\Util\Enum\AbilityEnum;
-use App\Framework\Form\AbilityScoreFormType;
 
 final class AbilityScore
 {
     private function __construct(
         public AbilityEnum $ability,
         public int $value,
-    ) {}
+    ) {
+    }
 
     /**
      * @param array<int|string, array<string|int> $arr
@@ -18,9 +18,10 @@ final class AbilityScore
     public static function fromArray(array $arr): array
     {
         $returnVal = [];
-        foreach($arr as $key => $value) {
+        foreach ($arr as $key => $value) {
             $returnVal[$key] = self::fromInteger($value['ability'], $value['value']);
         }
+
         return $returnVal;
     }
 

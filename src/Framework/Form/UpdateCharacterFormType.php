@@ -25,7 +25,7 @@ class UpdateCharacterFormType extends AbstractType
                     'allow_delete' => true,
                     'entry_options' => [
                         'data_class' => Level::class,
-                    ]
+                    ],
                 ]
             )
             ->add('armour_class', CollectionType::class, [
@@ -46,8 +46,8 @@ class UpdateCharacterFormType extends AbstractType
             ->add('abilities', CollectionType::class, [
                 'entry_type' => AbilityScoreFormType::class,
                 'entry_options' => [
-                    'label' => false
-                ]
+                    'label' => false,
+                ],
             ])
             ->add('skills', CollectionType::class, [
                 'entry_type' => TextType::class,

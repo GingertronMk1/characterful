@@ -7,7 +7,7 @@ use Symfony\Component\Uid\UuidV7;
 abstract readonly class AbstractUuidId extends AbstractId
 {
     final protected function __construct(
-        private UuidV7 $uuid
+        private UuidV7 $uuid,
     ) {
     }
 
@@ -72,5 +72,4 @@ abstract readonly class AbstractUuidId extends AbstractId
     {
         return (string) $uuid === (string) $this;
     }
-
 }

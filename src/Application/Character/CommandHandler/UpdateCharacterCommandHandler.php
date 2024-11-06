@@ -2,7 +2,6 @@
 
 namespace App\Application\Character\CommandHandler;
 
-use App\Application\Character\Command\CreateCharacterCommand;
 use App\Application\Character\Command\UpdateCharacterCommand;
 use App\Domain\Character\CharacterEntity;
 use App\Domain\Character\CharacterId;
@@ -11,8 +10,9 @@ use App\Domain\Character\CharacterRepositoryInterface;
 class UpdateCharacterCommandHandler
 {
     public function __construct(
-        private CharacterRepositoryInterface $characterRepository
-    ) {}
+        private CharacterRepositoryInterface $characterRepository,
+    ) {
+    }
 
     public function handle(UpdateCharacterCommand $command): CharacterId
     {
@@ -39,5 +39,4 @@ class UpdateCharacterCommandHandler
 
         return $this->characterRepository->update($entity);
     }
-
 }

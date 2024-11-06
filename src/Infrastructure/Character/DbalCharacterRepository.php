@@ -7,18 +7,15 @@ use App\Domain\Character\CharacterEntity;
 use App\Domain\Character\CharacterId;
 use App\Domain\Character\CharacterRepositoryInterface;
 use Doctrine\DBAL\Connection;
-use DateTimeImmutable;
-use Exception;
-use Symfony\Component\String\Slugger\SluggerInterface;
 
 readonly class DbalCharacterRepository implements CharacterRepositoryInterface
 {
     private const CHARACTERS_TABLE = 'characters';
+
     public function __construct(
-        private Connection   $connection,
-        private Helpers $helpers
-    )
-    {
+        private Connection $connection,
+        private Helpers $helpers,
+    ) {
     }
 
     public function generateId(): CharacterId
@@ -42,8 +39,8 @@ readonly class DbalCharacterRepository implements CharacterRepositoryInterface
         if (in_array($slug, $slugs)) {
             $i = 1;
             do {
-                $slug = $initialSlug . '-' . $i;
-                $i++;
+                $slug = $initialSlug.'-'.$i;
+                ++$i;
             } while (in_array($slug, $slugs));
         }
 
@@ -73,7 +70,7 @@ readonly class DbalCharacterRepository implements CharacterRepositoryInterface
                 'updated_at' => ':now',
             ])
             ->setParameters([
-                'id' => (string)$characterEntity->id,
+                'id' => (string) $characterEntity->id,
                 'name' => $characterEntity->name,
                 'slug' => $slug,
                 'levels' => $this->helpers->jsonEncode($characterEntity->levels),
@@ -92,14 +89,14 @@ readonly class DbalCharacterRepository implements CharacterRepositoryInterface
                 'hit_dice_type' => $characterEntity->hit_dice_type,
                 'current_hit_dice' => $characterEntity->current_hit_dice,
                 'max_hit_dice' => $characterEntity->max_hit_dice,
-                'now' => (new DateTimeImmutable())->format('Y-m-d H:i:s'),
+                'now' => (new \DateTimeImmutable())->format('Y-m-d H:i:s'),
             ]);
-        if ($qb->executeStatement() !== 1) {
-            throw new Exception();
+        if (1 !== $qb->executeStatement()) {
+            throw new \Exception();
         }
+
         return $characterEntity->id;
     }
-
 
     public function update(CharacterEntity $characterEntity): CharacterId
     {
@@ -125,7 +122,7 @@ readonly class DbalCharacterRepository implements CharacterRepositoryInterface
             ->set('created_at', ':now')
             ->set('updated_at', ':now')
             ->setParameters([
-                'id' => (string)$characterEntity->id,
+                'id' => (string) $characterEntity->id,
                 'name' => $characterEntity->name,
                 'levels' => $this->helpers->jsonEncode($characterEntity->levels),
                 'armour_class' => $this->helpers->jsonEncode($characterEntity->armour_class),
@@ -143,12 +140,13 @@ readonly class DbalCharacterRepository implements CharacterRepositoryInterface
                 'hit_dice_type' => $characterEntity->hit_dice_type,
                 'current_hit_dice' => $characterEntity->current_hit_dice,
                 'max_hit_dice' => $characterEntity->max_hit_dice,
-                'now' => (new DateTimeImmutable())->format('Y-m-d H:i:s'),
+                'now' => (new \DateTimeImmutable())->format('Y-m-d H:i:s'),
             ]);
         $result = $qb->executeStatement();
-        if ($result !== 1) {
-            throw new Exception($result);
+        if (1 !== $result) {
+            throw new \Exception($result);
         }
+
         return $characterEntity->id;
     }
 }

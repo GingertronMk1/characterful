@@ -15,8 +15,9 @@ readonly class DbalCharacterFinder implements CharacterFinderInterface
 {
     public function __construct(
         private Connection $connection,
-        private Helpers $helpers
-    ) {}
+        private Helpers $helpers,
+    ) {
+    }
 
     public function findBySlug(string $slug): CharacterModel
     {
@@ -27,6 +28,7 @@ readonly class DbalCharacterFinder implements CharacterFinderInterface
         ;
 
         $row = $qb->fetchAssociative();
+
         return $this->createFromRow($row);
     }
 
@@ -39,12 +41,14 @@ readonly class DbalCharacterFinder implements CharacterFinderInterface
         ;
 
         $row = $qb->fetchAssociative();
+
         return $this->createFromRow($row);
     }
 
     public function all(): array
     {
         $qb = $this->getQueryBuilder();
+
         return array_map(
             $this->createFromRow(...),
             $qb->fetchAllAssociative()
@@ -59,8 +63,10 @@ readonly class DbalCharacterFinder implements CharacterFinderInterface
             ->from('characters')
             ->orderBy('id')
         ;
+
         return $qb;
     }
+
     private function createFromRow(array $row): CharacterModel
     {
         $levels = array_map(
@@ -68,6 +74,7 @@ readonly class DbalCharacterFinder implements CharacterFinderInterface
             $this->helpers->jsonDecode($row['levels'])
         );
         usort($levels, fn ($a, $b) => $a->level - $b->level);
+
         return new CharacterModel(
             id: CharacterId::fromString($row['id']),
             name: $row['name'],

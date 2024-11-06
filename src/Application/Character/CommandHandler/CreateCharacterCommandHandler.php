@@ -10,8 +10,9 @@ use App\Domain\Character\CharacterRepositoryInterface;
 class CreateCharacterCommandHandler
 {
     public function __construct(
-        private CharacterRepositoryInterface $characterRepository
-    ) {}
+        private CharacterRepositoryInterface $characterRepository,
+    ) {
+    }
 
     public function handle(CreateCharacterCommand $command): CharacterId
     {
@@ -39,5 +40,4 @@ class CreateCharacterCommandHandler
 
         return $this->characterRepository->create($entity);
     }
-
 }

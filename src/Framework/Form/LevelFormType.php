@@ -2,7 +2,6 @@
 
 namespace App\Framework\Form;
 
-use App\Application\Util\Model\Level;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -14,26 +13,15 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class LevelFormType implements FormTypeInterface
 {
-
-    /**
-     * @inheritDoc
-     */
     public function getParent(): string
     {
         return FormType::class;
     }
 
-    /**
-     * @inheritDoc
-     */
     public function configureOptions(OptionsResolver $resolver)
     {
-
     }
 
-    /**
-     * @inheritDoc
-     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -43,25 +31,16 @@ class LevelFormType implements FormTypeInterface
         ;
     }
 
-    /**
-     * @inheritDoc
-     */
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
         // TODO: Implement buildView() method.
     }
 
-    /**
-     * @inheritDoc
-     */
     public function finishView(FormView $view, FormInterface $form, array $options)
     {
         // TODO: Implement finishView() method.
     }
 
-    /**
-     * @inheritDoc
-     */
     public function getBlockPrefix(): string
     {
         return 'level';

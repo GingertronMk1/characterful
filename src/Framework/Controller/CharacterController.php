@@ -19,8 +19,7 @@ class CharacterController extends AbstractController
 {
     public function __construct(
         private readonly CharacterFinderInterface $characterFinder,
-    )
-    {
+    ) {
     }
 
     #[Route(path: '/', name: 'index', methods: ['GET'])]
@@ -35,9 +34,8 @@ class CharacterController extends AbstractController
     #[Route(path: '/create', name: 'create', methods: ['GET', 'POST'])]
     public function create(
         Request $request,
-        CreateCharacterCommandHandler $handler
-    ): Response
-    {
+        CreateCharacterCommandHandler $handler,
+    ): Response {
         $command = new CreateCharacterCommand();
         $form = $this->createForm(CreateCharacterFormType::class, $command);
         $form->handleRequest($request);
@@ -64,11 +62,10 @@ class CharacterController extends AbstractController
         Request $request,
         string $slug,
         UpdateCharacterCommandHandler $handler,
-    ): Response
-    {
+    ): Response {
         $character = $this->characterFinder->findBySlug($slug);
         $command = UpdateCharacterCommand::fromModel($character);
-        $form = $this->createForm( UpdateCharacterFormType::class, $command);
+        $form = $this->createForm(UpdateCharacterFormType::class, $command);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -84,25 +81,22 @@ class CharacterController extends AbstractController
         return $this->render(
             'character/update.html.twig',
             [
-                'form' => $form
+                'form' => $form,
             ]
         );
     }
 
-
     #[Route(path: '/{slug}', name: 'view', methods: ['GET'])]
     public function view(
         string $slug,
-    ): Response
-    {
+    ): Response {
         $character = $this->characterFinder->findBySlug($slug);
 
         return $this->render(
             'character/view.html.twig',
             [
-                'character' => $character
+                'character' => $character,
             ]
         );
     }
-
 }

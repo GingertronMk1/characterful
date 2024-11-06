@@ -13,6 +13,7 @@ use Doctrine\Migrations\AbstractMigration;
 final class Version20241104194207 extends AbstractMigration
 {
     private const TABLE_NAME = 'characters';
+
     public function getDescription(): string
     {
         return '';
@@ -52,6 +53,5 @@ final class Version20241104194207 extends AbstractMigration
     {
         // this down() migration is auto-generated, please modify it to your needs
         $schema->dropTable(self::TABLE_NAME);
-
     }
 }
