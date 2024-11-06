@@ -6,7 +6,7 @@ use App\Application\Enum\AbilityEnum;
 use App\Application\Util\Model\AbilityScore;
 use Symfony\Component\Form\Extension\Core\Type\EnumType;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
-use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormTypeInterface;
@@ -33,7 +33,7 @@ class AbilityScoreFormType implements FormTypeInterface
             ->add('ability', EnumType::class, [
                 'class' => AbilityEnum::class,
             ])
-            ->add('value', NumberType::class, [])
+            ->add('value', IntegerType::class, [])
         ;
     }
 

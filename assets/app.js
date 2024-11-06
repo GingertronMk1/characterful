@@ -16,8 +16,8 @@ document
     });
 document
     .querySelectorAll('ul.levels li')
-    .forEach((tag) => {
-        addTagFormDeleteLink(tag)
+    .forEach((level) => {
+        addTagFormDeleteLink(level)
     })
 
 function addFormToCollection(e) {
@@ -40,13 +40,13 @@ function addFormToCollection(e) {
 }
 function addTagFormDeleteLink(item) {
     const removeFormButton = document.createElement('button');
-    removeFormButton.innerText = 'Delete this tag';
+    removeFormButton.innerText = 'Delete this level';
 
     item.append(removeFormButton);
 
     removeFormButton.addEventListener('click', (e) => {
         e.preventDefault();
-        // remove the li for the tag form
+        // remove the li for the level form
         item.remove();
     });
 }

@@ -4,7 +4,7 @@ namespace App\Framework\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
-use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -22,17 +22,20 @@ class CreateCharacterFormType extends AbstractType
                     'entry_type' => LevelFormType::class,
                     'allow_add' => true,
                     'allow_delete' => true,
+                    'entry_options' => [
+                        'label' => false,
+                    ]
                 ],
             )
             ->add('armour_class', CollectionType::class, [
                 'entry_type' => TextType::class,
             ])
-            ->add('proficiency_bonus', NumberType::class, [])
-            ->add('speed', NumberType::class, [])
-            ->add('passive_perception', NumberType::class, [])
-            ->add('current_hit_points', NumberType::class, [])
-            ->add('max_hit_points', NumberType::class, [])
-            ->add('temporary_hit_points', NumberType::class, [])
+            ->add('proficiency_bonus', IntegerType::class, [])
+            ->add('speed', IntegerType::class, [])
+            ->add('passive_perception', IntegerType::class, [])
+            ->add('current_hit_points', IntegerType::class, [])
+            ->add('max_hit_points', IntegerType::class, [])
+            ->add('temporary_hit_points', IntegerType::class, [])
             ->add('weapons', CollectionType::class, [
                 'entry_type' => TextType::class,
             ])
@@ -52,9 +55,9 @@ class CreateCharacterFormType extends AbstractType
             ->add('saving_throws', CollectionType::class, [
                 'entry_type' => TextType::class,
             ])
-            ->add('hit_dice_type', TextType::class, [])
-            ->add('current_hit_dice', NumberType::class, [])
-            ->add('max_hit_dice', NumberType::class, [])
+            ->add('hit_dice_type', IntegerType::class, [])
+            ->add('current_hit_dice', IntegerType::class, [])
+            ->add('max_hit_dice', IntegerType::class, [])
             ->add('submit', SubmitType::class)
         ;
     }

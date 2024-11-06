@@ -31,7 +31,7 @@ readonly class CharacterEntity
         public array $abilities,
         public array $skills,
         public array $saving_throws,
-        public string $hit_dice_type,
+        public int $hit_dice_type,
         public int $current_hit_dice,
         public int $max_hit_dice,
     ) {}

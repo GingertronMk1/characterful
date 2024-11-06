@@ -40,9 +40,10 @@ class CharacterController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             try {
-                $handler->handle($command);
+                $id = $handler->handle($command);
+                $character = $this->characterFinder->findById($id);
 
-                return $this->redirectToRoute('character.index');
+                return $this->redirectToRoute('character.view', ['slug' => $character->slug]);
             } catch (\Throwable $e) {
                 throw new \Exception('Error creating character', previous: $e);
             }
@@ -71,7 +72,7 @@ class CharacterController extends AbstractController
             try {
                 $handler->handle($command);
 
-                return $this->redirectToRoute('character.index');
+                return $this->redirectToRoute('character.view', ['slug' => $character->slug]);
             } catch (\Throwable $e) {
                 throw new \Exception('Error creating character', previous: $e);
             }

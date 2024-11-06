@@ -136,7 +136,7 @@ readonly class DbalCharacterRepository implements CharacterRepositoryInterface
                 'armours' => $this->helpers->jsonEncode($characterEntity->armours),
                 'abilities' => $this->helpers->jsonEncode($characterEntity->abilities),
                 'skills' => $this->helpers->jsonEncode($characterEntity->skills),
-                'saving_throws' => ':saving_throws',
+                'saving_throws' => $this->helpers->jsonEncode($characterEntity->saving_throws),
                 'hit_dice_type' => $characterEntity->hit_dice_type,
                 'current_hit_dice' => $characterEntity->current_hit_dice,
                 'max_hit_dice' => $characterEntity->max_hit_dice,

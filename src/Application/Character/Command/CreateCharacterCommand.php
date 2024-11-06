@@ -3,6 +3,7 @@
 namespace App\Application\Character\Command;
 
 use App\Application\Util\Model\AbilityScore;
+use App\Application\Util\Model\Level;
 
 class CreateCharacterCommand
 {
@@ -30,12 +31,15 @@ class CreateCharacterCommand
         public array $abilities = [],
         public array $skills = [],
         public array $saving_throws = [],
-        public string $hit_dice_type = '',
+        public int $hit_dice_type = 8,
         public int $current_hit_dice = 0,
         public int $max_hit_dice = 0,
     ) {
         if (empty($this->abilities)) {
             $this->abilities = AbilityScore::getBase();
+        }
+        if (empty($this->levels)) {
+            $this->levels = [new Level(1, '', '')];
         }
     }
 }
