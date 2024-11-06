@@ -92,7 +92,7 @@
         "deptrac": "vendor/bin/deptrac",
         "lint": [
             "@php-cs-fixer",
-            "@deptract",
+            "@deptrac",
             "@phpstan"
         ]
     },

@@ -18,10 +18,15 @@ readonly class Helpers
             $options['flags'] = ($options['flags'] ?? null) | JSON_PRETTY_PRINT;
         }
 
-        return json_encode($data, ...$options) ?? '[]';
+        $value = json_encode($data, ...$options);
+
+        return $value ? $value : '[]';
     }
 
-    public function jsonDecode(string|\Stringable $data, ...$options): array
+    /**
+     * @return array<int|string, mixed>
+     */
+    public function jsonDecode(string|\Stringable $data, mixed ...$options): array
     {
         $options['associative'] ??= true;
 

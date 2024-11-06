@@ -3,15 +3,14 @@
 namespace App\Application\Character\Command;
 
 use App\Application\Util\Model\AbilityScore;
-use App\Application\Util\Model\Level;
 
 class CreateCharacterCommand
 {
     /**
-     * @param Level[] $levels
+     * @param array<array<string, int|string>> $levels
      * @param string[] $weapons
      * @param string[] $armours
-     * @param AbilityScore[] $abilities
+     * @param array<array<string, int|string>> $abilities
      * @param string[] $skills
      * @param string[] $armour_class
      * @param string[] $saving_throws

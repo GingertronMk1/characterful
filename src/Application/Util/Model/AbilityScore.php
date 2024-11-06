@@ -13,6 +13,8 @@ final class AbilityScore
 
     /**
      * @param array<int|string, array<int|string>> $arr
+     *
+     * @return array<self>
      */
     public static function fromArray(array $arr): array
     {
