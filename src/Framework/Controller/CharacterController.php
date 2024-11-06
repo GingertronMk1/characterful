@@ -68,7 +68,6 @@ class CharacterController extends AbstractController
     {
         $character = $this->characterFinder->findBySlug($slug);
         $command = UpdateCharacterCommand::fromModel($character);
-//        echo '<pre>'; print_r($command); die;
         $form = $this->createForm( UpdateCharacterFormType::class, $command);
         $form->handleRequest($request);
 
@@ -86,6 +85,22 @@ class CharacterController extends AbstractController
             'character/update.html.twig',
             [
                 'form' => $form
+            ]
+        );
+    }
+
+
+    #[Route(path: '/{slug}', name: 'view', methods: ['GET'])]
+    public function view(
+        string $slug,
+    ): Response
+    {
+        $character = $this->characterFinder->findBySlug($slug);
+
+        return $this->render(
+            'character/view.html.twig',
+            [
+                'character' => $character
             ]
         );
     }

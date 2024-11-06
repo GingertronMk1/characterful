@@ -19,7 +19,14 @@
                 <td>{{ character.name }}</td>
                 <td>{{ character.mainClass ? character.mainClass.class : '' }}</td>
                 <td>{{ character.current_hit_points }}</td>
-                <td><a href="{{ path('character.update', {slug: character.slug}) }}">Update</a></td>
+                <td>
+                    <a href="{{ path('character.view', {slug: character.slug}) }}">
+                        View
+                    </a>
+                    <a href="{{ path('character.update', {slug: character.slug}) }}">
+                        Update
+                    </a>
+                </td>
             </tr>
         {% endfor %}
         </tbody>

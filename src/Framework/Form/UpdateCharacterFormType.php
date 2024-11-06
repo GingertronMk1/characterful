@@ -44,7 +44,10 @@ class UpdateCharacterFormType extends AbstractType
                 'entry_type' => TextType::class,
             ])
             ->add('abilities', CollectionType::class, [
-                'entry_type' => TextType::class,
+                'entry_type' => AbilityScoreFormType::class,
+                'entry_options' => [
+                    'label' => false
+                ]
             ])
             ->add('skills', CollectionType::class, [
                 'entry_type' => TextType::class,

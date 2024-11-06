@@ -2,6 +2,8 @@
 
 namespace App\Application\Character\Command;
 
+use App\Application\Util\Model\AbilityScore;
+
 class CreateCharacterCommand
 {
     public function __construct(
@@ -22,5 +24,9 @@ class CreateCharacterCommand
         public string $hit_dice_type = '',
         public int $current_hit_dice = 0,
         public int $max_hit_dice = 0,
-    ) {}
+    ) {
+        if (empty($this->abilities)) {
+            $this->abilities = AbilityScore::getBase();
+        }
+    }
 }

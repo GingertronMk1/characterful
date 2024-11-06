@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>{{ character.name }}</h1>
+    <a href="{{ path('character.update', {slug: character.slug}) }}">
+        Edit
+    </a>
+    <table>
+        <thead>
+        <tr>
+            {% for value in character.abilities %}
+            <th>{{ value.ability }}</th>
+            {% endfor %}
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            {% for value in character.abilities %}
+            <td>{{ value.value }}</td>
+            {% endfor %}
+        </tr>
+        </tbody>
+    </table>
+{% endblock %}

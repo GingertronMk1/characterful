@@ -2,31 +2,46 @@
 
 namespace App\Application\Util\Model;
 
-final readonly class AbilityScore
+use App\Application\Util\Enum\AbilityEnum;
+use App\Framework\Form\AbilityScoreFormType;
+
+final class AbilityScore
 {
     private function __construct(
-        public int $value
+        public AbilityEnum $ability,
+        public int $value,
     ) {}
 
     /**
-     * @param array<int|string, int> $arr
+     * @param array<int|string, array<string|int> $arr
      */
     public static function fromArray(array $arr): array
     {
         $returnVal = [];
         foreach($arr as $key => $value) {
-            $returnVal[$key] = self::fromInteger($value);
+            $returnVal[$key] = self::fromInteger($value['ability'], $value['value']);
         }
         return $returnVal;
     }
 
-    public static function fromInteger(int $value): self
+    public static function fromInteger(string $ability, int $value): self
     {
-        return new self($value);
+        return new self(AbilityEnum::from($ability), $value);
     }
 
     public function getModifier(): int
     {
         return floor(($this->value - 10) / 2);
+    }
+
+    public static function getBase(): array
+    {
+        $returnVal = [];
+
+        foreach (AbilityEnum::cases() as $value) {
+            $returnVal[] = new self($value, 10);
+        }
+
+        return $returnVal;
     }
 }

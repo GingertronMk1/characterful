@@ -39,8 +39,11 @@ class CreateCharacterFormType extends AbstractType
             ->add('armours', CollectionType::class, [
                 'entry_type' => TextType::class,
             ])
-            ->add('abilities', CollectionType::class, [
-                'entry_type' => TextType::class,
+            ->add('abilities', collectiontype::class, [
+                'entry_type' => AbilityScoreFormType::class,
+                'entry_options' => [
+                    'label' => false
+                ]
             ])
             ->add('skills', CollectionType::class, [
                 'entry_type' => TextType::class,
