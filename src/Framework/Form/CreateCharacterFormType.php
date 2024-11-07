@@ -24,7 +24,7 @@ class CreateCharacterFormType extends AbstractType
                     'allow_delete' => true,
                     'entry_options' => [
                         'label' => false,
-                    ]
+                    ],
                 ],
             )
             ->add('armour_class', CollectionType::class, [
@@ -46,11 +46,13 @@ class CreateCharacterFormType extends AbstractType
                 'entry_type' => AbilityScoreFormType::class,
                 'entry_options' => [
                     'label' => false,
-                    //                    'data_class' => null,
                 ],
             ])
             ->add('skills', CollectionType::class, [
-                'entry_type' => TextType::class,
+                'entry_type' => SkillScoreFormType::class,
+                'entry_options' => [
+                    'label' => false,
+                ],
             ])
             ->add('saving_throws', CollectionType::class, [
                 'entry_type' => TextType::class,

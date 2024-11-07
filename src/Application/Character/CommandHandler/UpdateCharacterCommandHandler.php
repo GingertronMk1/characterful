@@ -5,6 +5,7 @@ namespace App\Application\Character\CommandHandler;
 use App\Application\Character\Command\UpdateCharacterCommand;
 use App\Application\Util\Model\AbilityScore;
 use App\Application\Util\Model\Level;
+use App\Application\Util\Model\SkillScore;
 use App\Domain\Character\CharacterEntity;
 use App\Domain\Character\CharacterId;
 use App\Domain\Character\CharacterRepositoryInterface;
@@ -37,7 +38,10 @@ class UpdateCharacterCommandHandler
                 fn (AbilityScore $score) => $score->toArray(),
                 $command->abilities,
             ),
-            skills: $command->skills,
+            skills: array_map(
+                fn (SkillScore $skillScore) => $skillScore->toArray(),
+                $command->skills,
+            ),
             saving_throws: $command->saving_throws,
             hit_dice_type: $command->hit_dice_type,
             current_hit_dice: $command->current_hit_dice,

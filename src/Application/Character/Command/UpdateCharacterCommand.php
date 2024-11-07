@@ -5,6 +5,7 @@ namespace App\Application\Character\Command;
 use App\Application\Character\CharacterModel;
 use App\Application\Util\Model\AbilityScore;
 use App\Application\Util\Model\Level;
+use App\Application\Util\Model\SkillScore;
 use App\Domain\Character\CharacterId;
 
 class UpdateCharacterCommand
@@ -14,7 +15,7 @@ class UpdateCharacterCommand
      * @param string[] $weapons
      * @param string[] $armours
      * @param AbilityScore[] $abilities
-     * @param string[] $skills
+     * @param SkillScore[] $skills
      * @param string[] $armour_class
      * @param string[] $saving_throws
      */

@@ -7,6 +7,7 @@ use App\Application\Character\CharacterModel;
 use App\Application\Util\Helpers;
 use App\Application\Util\Model\AbilityScore;
 use App\Application\Util\Model\Level;
+use App\Application\Util\Model\SkillScore;
 use App\Domain\Character\CharacterId;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
@@ -105,7 +106,7 @@ readonly class DbalCharacterFinder implements CharacterFinderInterface
             weapons: $this->helpers->jsonDecode($row['weapons']),
             armours: $this->helpers->jsonDecode($row['armours']),
             abilities: AbilityScore::fromArray($this->helpers->jsonDecode($row['abilities'])),
-            skills: $this->helpers->jsonDecode($row['skills']),
+            skills: SkillScore::fromArray($this->helpers->jsonDecode($row['skills'])),
             saving_throws: $this->helpers->jsonDecode($row['saving_throws']),
             hit_dice_type: $row['hit_dice_type'],
             current_hit_dice: (int) $row['current_hit_dice'],

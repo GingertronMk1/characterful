@@ -36,10 +36,30 @@
         </thead>
         <tbody>
         {% for value in character.abilities %}
-        <tr>
+            <tr>
                 <td>{{ value.ability.value|capitalize }}</td>
                 <td>{{ value.value }}</td>
                 <td>{{ value.modifier }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <h3>Skills</h3>
+    <table>
+        <thead>
+        <tr>
+            <th>Skill</th>
+            <th>Value</th>
+            <th>Modifier</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for value in character.skills %}
+        <tr>
+                <td>{{ value.skill.value|capitalize }}</td>
+                <td>{{ value.proficiencies }}</td>
+                <td>{{ character.getSkillModifier(value.skill) }}</td>
         </tr>
         {% endfor %}
         </tbody>

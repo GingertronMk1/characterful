@@ -4,15 +4,16 @@ namespace App\Application\Character\Command;
 
 use App\Application\Util\Model\AbilityScore;
 use App\Application\Util\Model\Level;
+use App\Application\Util\Model\SkillScore;
 
 class CreateCharacterCommand
 {
     /**
-     * @param array<array<string, int|string>> $levels
+     * @param Level[] $levels
      * @param string[] $weapons
      * @param string[] $armours
-     * @param array<AbilityScore> $abilities
-     * @param string[] $skills
+     * @param AbilityScore[] $abilities
+     * @param SkillScore[] $skills
      * @param string[] $armour_class
      * @param string[] $saving_throws
      */
@@ -37,6 +38,10 @@ class CreateCharacterCommand
     ) {
         if (empty($this->abilities)) {
             $this->abilities = AbilityScore::getBase();
+        }
+
+        if (empty($this->skills)) {
+            $this->skills = SkillScore::getBase();
         }
         if (empty($this->levels)) {
             $this->levels = [new Level(1, '', '')];

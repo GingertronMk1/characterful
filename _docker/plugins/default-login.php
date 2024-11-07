@@ -16,7 +16,8 @@ HTML;
         return 0;
     }
 
-    public function login() {
+    public function login()
+    {
         return true;
     }
 }

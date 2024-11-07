@@ -2,8 +2,11 @@
 
 namespace App\Application\Character;
 
+use App\Application\Enum\AbilityEnum;
+use App\Application\Enum\SkillEnum;
 use App\Application\Util\Model\AbilityScore;
 use App\Application\Util\Model\Level;
+use App\Application\Util\Model\SkillScore;
 use App\Domain\Character\CharacterId;
 
 class CharacterModel
@@ -13,7 +16,7 @@ class CharacterModel
      * @param string[] $weapons
      * @param string[] $armours
      * @param AbilityScore[] $abilities
-     * @param string[] $skills
+     * @param SkillScore[] $skills
      * @param string[] $armour_class
      * @param string[] $saving_throws
      */
@@ -49,5 +52,39 @@ class CharacterModel
         }
 
         return array_values($this->levels)[0];
+    }
+
+    public function getAbilityScore(AbilityEnum $ability): ?AbilityScore
+    {
+        foreach ($this->abilities as $thisAbility) {
+            if ($thisAbility->ability === $ability) {
+                return $thisAbility;
+            }
+        }
+
+        return null;
+    }
+
+    public function getSkillScore(SkillEnum $skill): ?SkillScore
+    {
+        foreach ($this->skills as $thisSkill) {
+            if ($thisSkill->skill === $skill) {
+                return $thisSkill;
+            }
+        }
+
+        return null;
+    }
+
+    public function getSkillModifier(SkillEnum $skill): int
+    {
+        $ability = $skill->getAbilityEnum();
+        $abilityScore = $this->getAbilityScore($ability);
+        $abilityModifier = $abilityScore?->getModifier() ?? 0;
+
+        $skillScore = $this->getSkillScore($skill);
+        $skillModifier = $this->proficiency_bonus * ($skillScore?->proficiencies ?? 0);
+
+        return $abilityModifier + $skillModifier;
     }
 }

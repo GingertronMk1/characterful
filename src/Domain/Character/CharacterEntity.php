@@ -2,16 +2,14 @@
 
 namespace App\Domain\Character;
 
-use App\Application\Util\Model\AbilityScore;
-
 readonly class CharacterEntity
 {
     /**
      * @param array<array<string, int|string>> $levels
      * @param string[] $weapons
      * @param string[] $armours
-     * @param array<AbilityScore> $abilities
-     * @param string[] $skills
+     * @param array<array<string, int|string>> $abilities
+     * @param array<array<string, int|string>> $skills
      * @param string[] $armour_class
      * @param string[] $saving_throws
      */
