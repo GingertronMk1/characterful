@@ -18,18 +18,13 @@ document
         addTagFormDeleteLink(level)
     })
 
-interface FormPrototype {
-    prototype: string
-    index: number
-}
-
 function addFormToCollection({currentTarget}: Event) {
     if (currentTarget instanceof HTMLElement) {
         const collectionHolder = document.querySelector(`.${currentTarget.dataset.collectionHolderClass}`) as HTMLElement;
 
         const item: HTMLLIElement = document.createElement('li');
         const {dataset} = collectionHolder;
-        if (dataset.index !== undefined && dataset.prototype !== undefined) {
+        if (!(dataset.index === undefined || dataset.prototype === undefined)) {
             const {index, prototype} = dataset;
 
             item.innerHTML = prototype
