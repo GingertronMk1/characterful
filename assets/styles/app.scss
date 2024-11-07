@@ -5,3 +5,9 @@
 body {
     background-color: skyblue;
 }
+
+form > * {
+    + * {
+        margin-top: 1rem;
+    }
+}
