@@ -18,25 +18,35 @@ document
         addTagFormDeleteLink(level)
     })
 
-function addFormToCollection(e) {
-    const collectionHolder: HTMLElement = document.querySelector('.' + e.currentTarget.dataset.collectionHolderClass) as HTMLElement;
-
-    const item: HTMLLIElement = document.createElement('li');
-    const { dataset } = collectionHolder;
-
-    item.innerHTML = dataset
-        .prototype
-        .replace(
-            /__name__/g,
-            dataset.index
-        );
-
-    addTagFormDeleteLink(item);
-    collectionHolder.appendChild(item);
-
-    collectionHolder.dataset.index = (parseInt(dataset.index) + 1).toString();
+interface FormPrototype {
+    prototype: string
+    index: number
 }
-function addTagFormDeleteLink(item) {
+
+function addFormToCollection({currentTarget}: Event) {
+    if (currentTarget instanceof HTMLElement) {
+        const collectionHolder = document.querySelector(`.${currentTarget.dataset.collectionHolderClass}`) as HTMLElement;
+
+        const item: HTMLLIElement = document.createElement('li');
+        const {dataset} = collectionHolder;
+        if (dataset.index !== undefined && dataset.prototype !== undefined) {
+            const {index, prototype} = dataset;
+
+            item.innerHTML = prototype
+                .replace(
+                    /__name__/g,
+                    index
+                );
+
+            addTagFormDeleteLink(item);
+            collectionHolder.appendChild(item);
+
+            collectionHolder.dataset.index = (parseInt(index) + 1).toString();
+        }
+    }
+}
+
+function addTagFormDeleteLink(item: Element) {
     const removeFormButton = document.createElement('button');
     removeFormButton.innerText = 'Delete this level';
 
