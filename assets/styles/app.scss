@@ -6,8 +6,18 @@ body {
     background-color: skyblue;
 }
 
-form > * {
-    + * {
-        margin-top: 1rem;
+[name=update_character_form], [name=create_character_form] {
+    > * {
+        &:is(div) {
+            display: flex;
+        }
+
+        label + input {
+            margin-inline-start: auto;
+        }
+
+        + * {
+            margin-top: 1rem;
+        }
     }
 }
