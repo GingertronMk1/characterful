@@ -1,9 +1,19 @@
 {% extends 'base.html.twig' %}
 
+{% form_theme form _self %}
+
+{% block form_row %}
+    <div class="character-form__row">
+        {{ form_label(form, null, {label_attr: {class: 'character-form__label'}}) }}
+        {{ form_errors(form) }}
+        {{ form_widget(form, {attr: {class: 'character-form__widget'}}) }}
+    </div>
+{% endblock %}
+
 {% block body %}
-    {{ form_start(form) }}
+    {{ form_start(form, { 'attr': { 'class': 'character-form' } }) }}
     {{ form_row(form.name) }}
-    <h3>Tags</h3>
+    <h3>Levels</h3>
     <ul
             class="levels"
             data-index="{{ form.levels|length > 0 ? form.levels|last.vars.name + 1 : 0 }}"
