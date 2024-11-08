@@ -1,5 +1,6 @@
 * {
     font-family: sans-serif;
+    box-sizing: border-box;
 }
 
 body {
@@ -7,6 +8,11 @@ body {
 }
 
 .character-form {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
     &__row {
         display: flex;
         flex-direction: row;
@@ -27,12 +33,15 @@ body {
         margin-inline-start: 1rem;
     }
 
-    &__skills-and-abilities {
-        width: calc(100% / 3);
-    }
+    &__section {
+        width: calc(33% - 0.2rem);
+        background-color: #b4b4b4a0;
+        padding: 1rem;
+        border-radius: 1rem;
 
-    &__hit-dice {
-        width: calc(100% / 3);
+        &:nth-child(n+4) {
+            margin-top: 1rem;
+        }
     }
 }
 

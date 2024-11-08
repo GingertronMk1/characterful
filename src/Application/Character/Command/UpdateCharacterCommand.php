@@ -22,6 +22,8 @@ class UpdateCharacterCommand
     public function __construct(
         public CharacterId $characterId,
         public string $name,
+        public string $species,
+        public string $species_extra,
         public string $slug,
         public array $levels,
         public array $armour_class,
@@ -46,6 +48,8 @@ class UpdateCharacterCommand
         return new self(
             characterId: $model->id,
             name: $model->name,
+            species: $model->species,
+            species_extra: $model->species_extra,
             slug: $model->slug,
             levels: $model->levels,
             armour_class: $model->armour_class,

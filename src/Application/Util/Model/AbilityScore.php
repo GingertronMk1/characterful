@@ -38,6 +38,7 @@ final class AbilityScore
 
     /**
      * @param array<self> $mergeWith
+     *
      * @return array<self>
      */
     public static function getBase(array $mergeWith = []): array
@@ -48,6 +49,7 @@ final class AbilityScore
             foreach ($mergeWith as $mergeValue) {
                 if ($mergeValue->ability === $value) {
                     $returnVal[] = $mergeValue;
+
                     continue 2;
                 }
             }

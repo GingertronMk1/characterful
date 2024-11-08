@@ -16,6 +16,8 @@ class UpdateCharacterFormType extends AbstractType
     {
         $builder
             ->add('name', TextType::class)
+            ->add('species', TextType::class)
+            ->add('species_extra', TextType::class)
             ->add(
                 'levels',
                 CollectionType::class,

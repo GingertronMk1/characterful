@@ -16,6 +16,8 @@ readonly class CharacterEntity
     public function __construct(
         public CharacterId $id,
         public string $name,
+        public string $species,
+        public string $species_extra,
         public array $levels,
         public array $armour_class,
         public int $proficiency_bonus,

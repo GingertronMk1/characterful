@@ -25,6 +25,8 @@ final class Version20241104194207 extends AbstractMigration
         $table = $schema->createTable(self::TABLE_NAME);
         $table->addColumn('id', 'string');
         $table->addColumn('name', 'string');
+        $table->addColumn('species', 'string');
+        $table->addColumn('species_extra', 'string');
         $table->addColumn('slug', 'string');
         $table->addColumn('levels', 'json');
         $table->addColumn('armour_class', 'json');

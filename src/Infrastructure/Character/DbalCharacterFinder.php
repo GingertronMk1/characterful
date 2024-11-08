@@ -94,6 +94,8 @@ readonly class DbalCharacterFinder implements CharacterFinderInterface
         return new CharacterModel(
             id: CharacterId::fromString($row['id']),
             name: $row['name'],
+            species: $row['species'],
+            species_extra: $row['species_extra'],
             slug: $row['slug'],
             levels: $levels,
             armour_class: $this->helpers->jsonDecode($row['armour_class']),

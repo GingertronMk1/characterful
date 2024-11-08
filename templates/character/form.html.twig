@@ -3,7 +3,7 @@
 {% form_theme form _self %}
 
 {% block form_row %}
-    <div class="character-form__row">
+    <div class="character-form__row {{ attr.class is defined ? attr.class : '' }}">
         {{ form_label(form, null, {label_attr: {class: 'character-form__label'}}) }}
         {{ form_errors(form) }}
         {{ form_widget(form, {attr: {class: 'character-form__widget'}}) }}
@@ -11,8 +11,15 @@
 {% endblock %}
 
 {% block body %}
-    {{ form_start(form, { 'attr': { 'class': 'character-form' } }) }}
-    {{ form_row(form.name) }}
+    {{ form_start(form, { attr: { class: 'character-form' } }) }}
+    <div class="character-form__section character-form__row--base-info">
+        {{ form_row(form.name) }}
+        {{ form_row(form.species) }}
+        {{ form_row(form.species_extra) }}
+    </div>
+    <div class="character-form__section character-form__row--levels">
+
+
     <h3>Levels</h3>
     <ul
             class="levels"
@@ -31,17 +38,20 @@
         Add a level
     </button>
 
-    {{ form_row(form.armour_class) }}
-    {{ form_row(form.proficiency_bonus) }}
-    {{ form_row(form.speed) }}
-    {{ form_row(form.weapons) }}
-    {{ form_row(form.armours) }}
-    <div class="character-form__hit-points">
+    </div>
+    <div class="character-form__section character-form__row--combat-stats">
+        {{ form_row(form.armour_class) }}
+        {{ form_row(form.proficiency_bonus) }}
+        {{ form_row(form.speed) }}
+        {{ form_row(form.weapons) }}
+        {{ form_row(form.armours) }}
+    </div>
+    <div class="character-form__section character-form__row--hit-points">
         {{ form_row(form.current_hit_points) }}
         {{ form_row(form.max_hit_points) }}
         {{ form_row(form.temporary_hit_points) }}
     </div>
-    <div class="character-form__skills-and-abilities">
+    <div class="character-form__section character-form__row--skills-and-abilities">
         {{ form_row(form.abilities) }}
         <hr>
         {{ form_row(form.saving_throws) }}
@@ -50,7 +60,7 @@
         <hr>
         {{ form_row(form.passive_perception) }}
     </div>
-    <div class="character-form__hit-dice">
+    <div class="character-form__section character-form__row--hit-dice">
         {{ form_row(form.hit_dice_type) }}
         {{ form_row(form.current_hit_dice) }}
         {{ form_row(form.max_hit_dice) }}
