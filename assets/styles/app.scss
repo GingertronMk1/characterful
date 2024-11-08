@@ -26,4 +26,18 @@ body {
     &__label + &__widget {
         margin-inline-start: 1rem;
     }
+
+    &__skills-and-abilities {
+        width: calc(100% / 3);
+    }
+
+    &__hit-dice {
+        width: calc(100% / 3);
+    }
+}
+
+hr {
+    width: 100%;
+    margin: 1rem 0;
+    border: 1px solid black;
 }

@@ -34,22 +34,27 @@
     {{ form_row(form.armour_class) }}
     {{ form_row(form.proficiency_bonus) }}
     {{ form_row(form.speed) }}
-    {{ form_row(form.passive_perception) }}
-    {{ form_row(form.current_hit_points) }}
-    {{ form_row(form.max_hit_points) }}
-    {{ form_row(form.temporary_hit_points) }}
     {{ form_row(form.weapons) }}
     {{ form_row(form.armours) }}
-    <ul>
-        {% for ability in form.abilities %}
-            <li>{{ form_row(ability) }}</li>
-        {% endfor %}
-    </ul>
-    {{ form_row(form.skills) }}
-    {{ form_row(form.saving_throws) }}
-    {{ form_row(form.hit_dice_type) }}
-    {{ form_row(form.current_hit_dice) }}
-    {{ form_row(form.max_hit_dice) }}
+    <div class="character-form__hit-points">
+        {{ form_row(form.current_hit_points) }}
+        {{ form_row(form.max_hit_points) }}
+        {{ form_row(form.temporary_hit_points) }}
+    </div>
+    <div class="character-form__skills-and-abilities">
+        {{ form_row(form.abilities) }}
+        <hr>
+        {{ form_row(form.saving_throws) }}
+        <hr>
+        {{ form_row(form.skills) }}
+        <hr>
+        {{ form_row(form.passive_perception) }}
+    </div>
+    <div class="character-form__hit-dice">
+        {{ form_row(form.hit_dice_type) }}
+        {{ form_row(form.current_hit_dice) }}
+        {{ form_row(form.max_hit_dice) }}
+    </div>
     {{ form_row(form.submit) }}
 
     {{ form_end(form) }}
