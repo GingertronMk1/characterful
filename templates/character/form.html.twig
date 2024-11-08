@@ -12,12 +12,12 @@
 
 {% block body %}
     {{ form_start(form, { attr: { class: 'character-form' } }) }}
-    <div class="character-form__section character-form__row--base-info">
+    <div class="character-form__section character-form__section--base-info">
         {{ form_row(form.name) }}
         {{ form_row(form.species) }}
         {{ form_row(form.species_extra) }}
     </div>
-    <div class="character-form__section character-form__row--levels">
+    <div class="character-form__section character-form__section--levels">
 
 
     <h3>Levels</h3>
@@ -39,19 +39,19 @@
     </button>
 
     </div>
-    <div class="character-form__section character-form__row--combat-stats">
+    <div class="character-form__section character-form__section--combat-stats">
         {{ form_row(form.armour_class) }}
         {{ form_row(form.proficiency_bonus) }}
         {{ form_row(form.speed) }}
         {{ form_row(form.weapons) }}
         {{ form_row(form.armours) }}
     </div>
-    <div class="character-form__section character-form__row--hit-points">
+    <div class="character-form__section character-form__section--hit-points">
         {{ form_row(form.current_hit_points) }}
         {{ form_row(form.max_hit_points) }}
         {{ form_row(form.temporary_hit_points) }}
     </div>
-    <div class="character-form__section character-form__row--skills-and-abilities">
+    <div class="character-form__section character-form__section--skills-and-abilities">
         {{ form_row(form.abilities) }}
         <hr>
         {{ form_row(form.saving_throws) }}
@@ -60,7 +60,7 @@
         <hr>
         {{ form_row(form.passive_perception) }}
     </div>
-    <div class="character-form__section character-form__row--hit-dice">
+    <div class="character-form__section character-form__section--hit-dice">
         {{ form_row(form.hit_dice_type) }}
         {{ form_row(form.current_hit_dice) }}
         {{ form_row(form.max_hit_dice) }}

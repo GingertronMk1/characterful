@@ -42,6 +42,14 @@ body {
         &:nth-child(n+4) {
             margin-top: 1rem;
         }
+
+        &--skills-and-abilities > .character-form__row {
+            flex-direction: column;
+
+            .character-form__widget > .character-form__row {
+                width: 100%;
+            }
+        }
     }
 }
 
