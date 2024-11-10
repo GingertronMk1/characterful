@@ -2,7 +2,10 @@
 
 namespace App\Domain\Character;
 
-readonly class CharacterEntity
+use App\Domain\Common\AbstractMappedEntity;
+use App\Domain\Util\HelperInterface;
+
+readonly class CharacterEntity extends AbstractMappedEntity
 {
     /**
      * @param array<array<string, int|string>> $levels
@@ -33,4 +36,34 @@ readonly class CharacterEntity
         public int $current_hit_dice,
         public int $max_hit_dice,
     ) {}
+
+    /**
+     * @throws \Exception
+     */
+    public function getMappedData(array $externalServices = []): array
+    {
+        /** @var HelperInterface $helpers */
+        $helpers = $this->getServiceIfExists(HelperInterface::class, $externalServices);
+
+        return [
+            'id' => (string) $this->id,
+            'name' => $this->name,
+            'levels' => $helpers->jsonEncode($this->levels),
+            'armour_class' => $helpers->jsonEncode($this->armour_class),
+            'proficiency_bonus' => $this->proficiency_bonus,
+            'speed' => $this->speed,
+            'passive_perception' => $this->passive_perception,
+            'current_hit_points' => $this->current_hit_points,
+            'max_hit_points' => $this->max_hit_points,
+            'temporary_hit_points' => $this->temporary_hit_points,
+            'weapons' => $helpers->jsonEncode($this->weapons),
+            'armours' => $helpers->jsonEncode($this->armours),
+            'abilities' => $helpers->jsonEncode($this->abilities),
+            'skills' => $helpers->jsonEncode($this->skills),
+            'saving_throws' => $helpers->jsonEncode($this->saving_throws),
+            'hit_dice_type' => $this->hit_dice_type,
+            'current_hit_dice' => $this->current_hit_dice,
+            'max_hit_dice' => $this->max_hit_dice,
+        ];
+    }
 }

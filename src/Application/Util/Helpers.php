@@ -2,10 +2,11 @@
 
 namespace App\Application\Util;
 
+use App\Domain\Util\HelperInterface;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
-readonly class Helpers
+readonly class Helpers implements HelperInterface
 {
     public function __construct(
         private KernelInterface $kernel,

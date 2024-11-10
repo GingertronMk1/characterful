@@ -2,14 +2,16 @@
 
 namespace App\Application\Character;
 
+use App\Application\Common\AbstractMappedModel;
 use App\Application\Enum\AbilityEnum;
 use App\Application\Enum\SkillEnum;
 use App\Application\Util\Model\AbilityScore;
 use App\Application\Util\Model\Level;
 use App\Application\Util\Model\SkillScore;
 use App\Domain\Character\CharacterId;
+use App\Domain\Util\HelperInterface;
 
-class CharacterModel
+class CharacterModel extends AbstractMappedModel
 {
     /**
      * @param Level[] $levels
@@ -45,6 +47,52 @@ class CharacterModel
         public ?\DateTimeInterface $deleted_at,
     ) {}
 
+    public static function createFromRow(array $row, array $externalServices = []): static
+    {
+        [
+            HelperInterface::class => $helpers,
+        ] = $externalServices;
+
+        $levels = array_map(
+            fn (array $row) => new Level($row['level'], $row['class'], $row['subClass']),
+            $helpers->jsonDecode($row['levels']),
+        );
+        usort($levels, fn ($a, $b) => $a->level - $b->level);
+
+        $createdAt = \DateTimeImmutable::createFromFormat('Y-m-d H:i:s', $row['created_at']);
+        $updatedAt = \DateTimeImmutable::createFromFormat('Y-m-d H:i:s', $row['updated_at']);
+        $deletedAt = $row['deleted_at'] ? \DateTimeImmutable::createFromFormat('Y-m-d H:i:s', $row['updated_at']) : null;
+
+        if (false === $createdAt || false === $updatedAt || false === $deletedAt) {
+            throw new \Exception('Invalid date');
+        }
+
+        return new CharacterModel(
+            id: CharacterId::fromString($row['id']),
+            name: $row['name'],
+            slug: $row['slug'],
+            levels: $levels,
+            armour_class: $helpers->jsonDecode($row['armour_class']),
+            proficiency_bonus: (int) $row['proficiency_bonus'],
+            speed: (int) $row['speed'],
+            passive_perception: (int) $row['passive_perception'],
+            current_hit_points: (int) $row['current_hit_points'],
+            max_hit_points: (int) $row['max_hit_points'],
+            temporary_hit_points: (int) $row['temporary_hit_points'],
+            weapons: $helpers->jsonDecode($row['weapons']),
+            armours: $helpers->jsonDecode($row['armours']),
+            abilities: AbilityScore::fromArray($helpers->jsonDecode($row['abilities'])),
+            skills: SkillScore::fromArray($helpers->jsonDecode($row['skills'])),
+            saving_throws: $helpers->jsonDecode($row['saving_throws']),
+            hit_dice_type: $row['hit_dice_type'],
+            current_hit_dice: (int) $row['current_hit_dice'],
+            max_hit_dice: (int) $row['max_hit_dice'],
+            created_at: $createdAt,
+            updated_at: $updatedAt,
+            deleted_at: $deletedAt,
+        );
+    }
+
     public function getMainClass(): ?Level
     {
         if (!count($this->levels)) {
@@ -52,6 +100,18 @@ class CharacterModel
         }
 
         return array_values($this->levels)[0];
+    }
+
+    public function getSkillModifier(SkillEnum $skill): int
+    {
+        $ability = $skill->getAbilityEnum();
+        $abilityScore = $this->getAbilityScore($ability);
+        $abilityModifier = $abilityScore?->getModifier() ?? 0;
+
+        $skillScore = $this->getSkillScore($skill);
+        $skillModifier = $this->proficiency_bonus * ($skillScore?->proficiencies ?? 0);
+
+        return $abilityModifier + $skillModifier;
     }
 
     public function getAbilityScore(AbilityEnum $ability): ?AbilityScore
@@ -74,17 +134,5 @@ class CharacterModel
         }
 
         return null;
-    }
-
-    public function getSkillModifier(SkillEnum $skill): int
-    {
-        $ability = $skill->getAbilityEnum();
-        $abilityScore = $this->getAbilityScore($ability);
-        $abilityModifier = $abilityScore?->getModifier() ?? 0;
-
-        $skillScore = $this->getSkillScore($skill);
-        $skillModifier = $this->proficiency_bonus * ($skillScore?->proficiencies ?? 0);
-
-        return $abilityModifier + $skillModifier;
     }
 }
