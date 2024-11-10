@@ -23,7 +23,7 @@ final class AbilityScore
             $returnVal[$key] = self::fromInteger((string) $value['ability'], (int) $value['value']);
         }
 
-        return $returnVal;
+        return self::getBase($returnVal);
     }
 
     public static function fromInteger(string $ability, int $value): self
@@ -37,13 +37,22 @@ final class AbilityScore
     }
 
     /**
+     * @param array<self> $mergeWith
+     *
      * @return array<self>
      */
-    public static function getBase(): array
+    public static function getBase(array $mergeWith = []): array
     {
         $returnVal = [];
 
         foreach (AbilityEnum::cases() as $value) {
+            foreach ($mergeWith as $mergeValue) {
+                if ($mergeValue->ability === $value) {
+                    $returnVal[] = $mergeValue;
+
+                    continue 2;
+                }
+            }
             $returnVal[] = new self($value, 10);
         }
 

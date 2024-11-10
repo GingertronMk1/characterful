@@ -1,0 +1,4 @@
+#!/usr/bin/env sh
+
+./bin/console doctrine:migrations:migrate first -n \
+    && ./bin/console doctrine:migrations:migrate -n

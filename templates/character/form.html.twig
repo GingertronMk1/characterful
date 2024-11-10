@@ -2,52 +2,67 @@
 {% form_theme form _self %}
 
 {% block form_row %}
-    <div class="character-form__row">
+    <div class="character-form__row {{ attr.class is defined ? attr.class : '' }}">
         {{ form_label(form, null, {label_attr: {class: 'character-form__label'}}) }}
         {{ form_errors(form) }}
         {{ form_widget(form, {attr: {class: 'character-form__widget'}}) }}
     </div>
 {% endblock %}
 
-{{ form_start(form, { 'attr': { 'class': 'character-form' } }) }}
-{{ form_row(form.name) }}
-<h3>Levels</h3>
-<ul
-        class="levels"
-        data-index="{{ form.levels|length > 0 ? form.levels|last.vars.name + 1 : 0 }}"
-        data-prototype="{{ form_widget(form.levels.vars.prototype)|e('html_attr') }}"
->
-    {% for level in form.levels %}
-        <li>{{ form_row(level) }}</li>
-    {% endfor %}
-</ul>
-<button
-        type="button"
-        class="add_item_link"
-        data-collection-holder-class="levels"
->
-    Add a level
-</button>
+{% block body %}
+    {{ form_start(form, { attr: { class: 'character-form' } }) }}
+    <div class="character-form__section character-form__section--base-info">
+        {{ form_row(form.name) }}
+        {{ form_row(form.species) }}
+        {{ form_row(form.species_extra) }}
+    </div>
+    <div class="character-form__section character-form__section--levels">
 
-{{ form_row(form.armour_class) }}
-{{ form_row(form.proficiency_bonus) }}
-{{ form_row(form.speed) }}
-{{ form_row(form.passive_perception) }}
-{{ form_row(form.current_hit_points) }}
-{{ form_row(form.max_hit_points) }}
-{{ form_row(form.temporary_hit_points) }}
-{{ form_row(form.weapons) }}
-{{ form_row(form.armours) }}
-<ul>
-    {% for ability in form.abilities %}
-        <li>{{ form_row(ability) }}</li>
-    {% endfor %}
-</ul>
-{{ form_row(form.skills) }}
-{{ form_row(form.saving_throws) }}
-{{ form_row(form.hit_dice_type) }}
-{{ form_row(form.current_hit_dice) }}
-{{ form_row(form.max_hit_dice) }}
-{{ form_row(form.submit) }}
 
+    <h3>Levels</h3>
+    <ul
+            class="levels"
+            data-index="{{ form.levels|length > 0 ? form.levels|last.vars.name + 1 : 0 }}"
+            data-prototype="{{ form_widget(form.levels.vars.prototype)|e('html_attr') }}"
+    >
+        {% for level in form.levels %}
+            <li>{{ form_row(level) }}</li>
+        {% endfor %}
+    </ul>
+    <button
+            type="button"
+            class="add_item_link"
+            data-collection-holder-class="levels"
+    >
+        Add a level
+    </button>
+
+    </div>
+    <div class="character-form__section character-form__section--combat-stats">
+        {{ form_row(form.armour_class) }}
+        {{ form_row(form.proficiency_bonus) }}
+        {{ form_row(form.speed) }}
+        {{ form_row(form.weapons) }}
+        {{ form_row(form.armours) }}
+    </div>
+    <div class="character-form__section character-form__section--hit-points">
+        {{ form_row(form.current_hit_points) }}
+        {{ form_row(form.max_hit_points) }}
+        {{ form_row(form.temporary_hit_points) }}
+    </div>
+    <div class="character-form__section character-form__section--skills-and-abilities">
+        {{ form_row(form.abilities) }}
+        <hr>
+        {{ form_row(form.saving_throws) }}
+        <hr>
+        {{ form_row(form.skills) }}
+        <hr>
+        {{ form_row(form.passive_perception) }}
+    </div>
+    <div class="character-form__section character-form__section--hit-dice">
+        {{ form_row(form.hit_dice_type) }}
+        {{ form_row(form.current_hit_dice) }}
+        {{ form_row(form.max_hit_dice) }}
+    </div>
+    {{ form_row(form.submit) }}
 {{ form_end(form) }}
