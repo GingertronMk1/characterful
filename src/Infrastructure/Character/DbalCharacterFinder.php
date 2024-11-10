@@ -6,6 +6,7 @@ use App\Application\Character\CharacterFinderInterface;
 use App\Application\Character\CharacterModel;
 use App\Application\Util\Helpers;
 use App\Domain\Character\CharacterId;
+use App\Domain\Util\HelperInterface;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Exception;
 use Doctrine\DBAL\Query\QueryBuilder;
@@ -30,7 +31,7 @@ readonly class DbalCharacterFinder implements CharacterFinderInterface
 
         $row = $qb->fetchAssociative();
 
-        return CharacterModel::safeCreateFromRow($row, [Helpers::class => $this->helpers]);
+        return CharacterModel::safeCreateFromRow($row, [HelperInterface::class => $this->helpers]);
     }
 
     /**
@@ -46,7 +47,7 @@ readonly class DbalCharacterFinder implements CharacterFinderInterface
 
         $row = $qb->fetchAssociative();
 
-        return CharacterModel::safeCreateFromRow($row, [Helpers::class => $this->helpers]);
+        return CharacterModel::safeCreateFromRow($row, [HelperInterface::class => $this->helpers]);
     }
 
     /**
@@ -58,7 +59,7 @@ readonly class DbalCharacterFinder implements CharacterFinderInterface
         $qb = $this->getQueryBuilder();
 
         return array_map(
-            fn (array $row) => CharacterModel::safeCreateFromRow($row, [Helpers::class => $this->helpers]),
+            fn (array $row) => CharacterModel::safeCreateFromRow($row, [HelperInterface::class => $this->helpers]),
             $qb->fetchAllAssociative(),
         );
     }
