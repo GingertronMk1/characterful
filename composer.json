@@ -87,16 +87,16 @@
         "post-update-cmd": [
             "@auto-scripts"
         ],
-        "php-cs-fixer": "vendor/bin/php-cs-fixer",
+        "php-cs-fixer": "./vendor/bin/php-cs-fixer",
         "php-cs-fixer:fix": "@php-cs-fixer fix",
-        "phpstan": "vendor/bin/phpstan",
-        "deptrac": "vendor/bin/deptrac",
+        "phpstan": "./vendor/bin/phpstan",
+        "deptrac": "./vendor/bin/deptrac",
         "lint": [
             "@php-cs-fixer:fix",
             "@deptrac",
             "@phpstan"
         ],
-        "phpunit": "@php vendor/bin/phpunit"
+        "phpunit": "@php ./vendor/bin/phpunit"
     },
     "conflict": {
         "symfony/symfony": "*"
