@@ -95,7 +95,8 @@
             "@php-cs-fixer:fix",
             "@deptrac",
             "@phpstan"
-        ]
+        ],
+        "phpunit": "@php vendor/bin/phpunit"
     },
     "conflict": {
         "symfony/symfony": "*"

@@ -31,9 +31,12 @@ jobs:
       - name: CS-Fixer
         run: docker compose exec app composer php-cs-fixer
         if: always()
-      - name: CS-Fixer
+      - name: PHPStan
         run: docker compose exec app composer phpstan
         if: always()
-      - name: CS-Fixer
+      - name: Deptrac
         run: docker compose exec app composer deptrac
+        if: always()
+      - name: PHPUnit
+        run: docker compose exec app composer phpunit
         if: always()
