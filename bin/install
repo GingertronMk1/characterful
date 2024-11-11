@@ -1,0 +1,9 @@
+#!/usr/bin/env sh
+
+. .env
+
+docker compose up -d --build --remove-orphans \
+  && touch "$SQLITE_LOCATION" \
+  && docker compose exec app composer install \
+  && docker compose exec node npm install \
+  && docker compose exec app ./bin/console doctrine:migrations:migrate -n
