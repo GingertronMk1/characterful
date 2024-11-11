@@ -11,7 +11,7 @@ use App\Application\Util\Model\SkillScore;
 use App\Domain\Character\CharacterId;
 use App\Domain\Util\HelperInterface;
 
-class CharacterModel extends AbstractMappedModel
+final class CharacterModel extends AbstractMappedModel
 {
     /**
      * @param Level[] $levels
@@ -69,9 +69,11 @@ class CharacterModel extends AbstractMappedModel
             throw new \Exception('Invalid date');
         }
 
-        return new CharacterModel(
+        return new self(
             id: CharacterId::fromString($row['id']),
             name: $row['name'],
+            species: $row['species'],
+            species_extra: $row['species_extra'],
             slug: $row['slug'],
             levels: $levels,
             armour_class: $helpers->jsonDecode($row['armour_class']),

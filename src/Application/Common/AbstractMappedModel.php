@@ -13,6 +13,7 @@ abstract class AbstractMappedModel
     /**
      * @param array<string, int|string>|false $row
      * @param array<string, mixed> $externalServices
+     *
      * @throws \Exception
      */
     public static function safeCreateFromRow(array|false $row, array $externalServices = []): static
