@@ -1,0 +1,8 @@
+{% block form_row %}
+    <div class="form__row {{ attr.class is defined ? attr.class : '' }}">
+        {{ form_label(form, null, {label_attr: {class: 'form__label'}}) }}
+        {{ form_errors(form) }}
+        {{ form_widget(form, {attr: {class: 'form__widget'}}) }}
+    </div>
+{% endblock %}
+

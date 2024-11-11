@@ -1,5 +1,9 @@
 {% extends 'base.html.twig' %}
 
+{% block header %}
+    Create new Character
+{% endblock %}
+
 {% block body %}
     {% include 'character/form.html.twig' with {form: form} only %}
 {% endblock %}
