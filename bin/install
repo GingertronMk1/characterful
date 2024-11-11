@@ -3,6 +3,7 @@
 . ./.env
 
 docker compose up -d --build --remove-orphans \
+  && docker compose exec app mkdir -p "$(dirname "$SQLITE_LOCATION")" \
   && docker compose exec app echo '' > "$SQLITE_LOCATION" \
   && docker compose exec app composer install \
   && docker compose exec app ./bin/console doctrine:migrations:migrate -n \
