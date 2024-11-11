@@ -26,7 +26,7 @@ class LevelFormType implements FormTypeInterface
         ]);
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add('class', TextType::class)
