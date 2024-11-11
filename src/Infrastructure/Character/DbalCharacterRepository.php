@@ -6,6 +6,7 @@ use App\Application\Util\Helpers;
 use App\Domain\Character\CharacterEntity;
 use App\Domain\Character\CharacterId;
 use App\Domain\Character\CharacterRepositoryInterface;
+use App\Domain\Util\HelperInterface;
 use App\Infrastructure\AbstractDbalRepository;
 use Doctrine\DBAL\Connection;
 
@@ -48,6 +49,9 @@ readonly class DbalCharacterRepository extends AbstractDbalRepository implements
             $characterEntity,
             $this->connection,
             self::CHARACTERS_TABLE,
+            externalServices: [
+                HelperInterface::class => $this->helpers,
+            ]
         );
 
         if (1 !== $result) {
@@ -63,6 +67,9 @@ readonly class DbalCharacterRepository extends AbstractDbalRepository implements
             $characterEntity,
             $this->connection,
             self::CHARACTERS_TABLE,
+            externalServices: [
+                HelperInterface::class => $this->helpers,
+            ]
         );
         if (1 !== $result) {
             throw new \Exception((string) $result);

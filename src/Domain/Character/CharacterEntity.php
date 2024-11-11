@@ -19,6 +19,7 @@ readonly class CharacterEntity extends AbstractMappedEntity
     public function __construct(
         public CharacterId $id,
         public string $name,
+        public string $slug,
         public string $species,
         public string $species_extra,
         public array $levels,
@@ -50,6 +51,9 @@ readonly class CharacterEntity extends AbstractMappedEntity
         return [
             'id' => (string) $this->id,
             'name' => $this->name,
+            'slug' => $this->slug,
+            'species' => $this->species,
+            'species_extra' => $this->species_extra,
             'levels' => $helpers->jsonEncode($this->levels),
             'armour_class' => $helpers->jsonEncode($this->armour_class),
             'proficiency_bonus' => $this->proficiency_bonus,

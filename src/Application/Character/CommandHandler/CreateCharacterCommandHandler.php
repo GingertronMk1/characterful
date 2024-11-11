@@ -2,6 +2,8 @@
 
 namespace App\Application\Character\CommandHandler;
 
+use App\Application\Character\CharacterFinderInterface;
+use App\Application\Character\CharacterModel;
 use App\Application\Character\Command\CreateCharacterCommand;
 use App\Application\Util\Model\AbilityScore;
 use App\Application\Util\Model\Level;
@@ -9,19 +11,34 @@ use App\Application\Util\Model\SkillScore;
 use App\Domain\Character\CharacterEntity;
 use App\Domain\Character\CharacterId;
 use App\Domain\Character\CharacterRepositoryInterface;
+use App\Domain\Util\HelperInterface;
 
-class CreateCharacterCommandHandler
+readonly class CreateCharacterCommandHandler
 {
     public function __construct(
         private CharacterRepositoryInterface $characterRepository,
+        private CharacterFinderInterface $characterFinder,
+        private HelperInterface $helpers,
     ) {}
 
     public function handle(CreateCharacterCommand $command): CharacterId
     {
+        $initialSlug = $this->helpers->slug($command->name);
+        $firstCheck = $this->checkSlug($initialSlug);
+        if ($firstCheck instanceof CharacterModel) {
+            $int = 1;
+            do {
+                $slug = "{$initialSlug}-{$int}";
+                ++$int;
+            } while (null !== $this->checkSlug($slug));
+        } else {
+            $slug = $initialSlug;
+        }
         $id = $this->characterRepository->generateId();
         $entity = new CharacterEntity(
             id: $id,
             name: $command->name,
+            slug: $slug,
             species: $command->species,
             species_extra: $command->species_extra,
             levels: array_map(
@@ -52,5 +69,14 @@ class CreateCharacterCommandHandler
         );
 
         return $this->characterRepository->create($entity);
+    }
+
+    private function checkSlug(string $slug): ?CharacterModel
+    {
+        try {
+            return $this->characterFinder->findBySlug($slug);
+        } catch (\Throwable) {
+            return null;
+        }
     }
 }

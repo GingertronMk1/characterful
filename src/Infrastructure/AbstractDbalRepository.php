@@ -12,7 +12,7 @@ abstract readonly class AbstractDbalRepository
      * @param array<string, mixed> $externalServices
      */
     protected function storeNewEntity(
-        AbstractMappedEntity $entity,
+        AbstractMappedEntity|array $entity,
         Connection $connection,
         string $tableName,
         //        ?ClockInterface $clock = null,
@@ -28,13 +28,11 @@ abstract readonly class AbstractDbalRepository
                 ->setParameter($column, $value)
             ;
         }
-        //        if ($clock) {
-        //            $storeQuery
-        //                ->setValue('created_at', ':now')
-        //                ->setValue('updated_at', ':now')
-        //                ->setParameter('now', (string) $clock->getTime())
-        //            ;
-        //        }
+        $storeQuery
+            ->setValue('created_at', ':now')
+            ->setValue('updated_at', ':now')
+            ->setParameter('now', $this->getNow())
+        ;
 
         return (int) $storeQuery->executeStatement();
     }
@@ -69,13 +67,16 @@ abstract readonly class AbstractDbalRepository
                 ->setParameter($column, $value)
             ;
         }
-        //        if ($clock) {
-        //            $storeQuery
-        //                ->set('updated_at', ':now')
-        //                ->setParameter('now', (string) $clock->getTime())
-        //            ;
-        //        }
+        $storeQuery
+            ->set('updated_at', ':now')
+            ->setParameter('now', $this->getNow())
+        ;
 
         return (int) $storeQuery->executeStatement();
+    }
+
+    private function getNow(): string
+    {
+        return (new \DateTimeImmutable())->format('Y-m-d H:i:s');
     }
 }
