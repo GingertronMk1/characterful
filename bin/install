@@ -3,7 +3,9 @@
 . ./.env
 
 docker compose up -d --build --remove-orphans \
-  && docker compose exec app composer install \
-  && docker compose exec node npm install \
   && docker compose exec app echo '' > "$SQLITE_LOCATION" \
-  && docker compose exec app ./bin/console doctrine:migrations:migrate -n
+  && docker compose exec app composer install \
+  && docker compose exec app ./bin/console doctrine:migrations:migrate -n \
+  && docker compose exec node npm install \
+  && docker compose exec node npm run dev \
+  && echo "Up!"
