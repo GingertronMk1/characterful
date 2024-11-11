@@ -4,7 +4,7 @@ pwd
 
 ls -la
 
-. .env
+. ./.env
 
 docker compose up -d --build --remove-orphans \
   && touch "$SQLITE_LOCATION" \
