@@ -37,12 +37,12 @@ class AbilityScoreFormType implements FormTypeInterface
         ;
     }
 
-    public function buildView(FormView $view, FormInterface $form, array $options)
+    public function buildView(FormView $view, FormInterface $form, array $options): void
     {
         // TODO: Implement buildView() method.
     }
 
-    public function finishView(FormView $view, FormInterface $form, array $options)
+    public function finishView(FormView $view, FormInterface $form, array $options): void
     {
         // TODO: Implement finishView() method.
     }
