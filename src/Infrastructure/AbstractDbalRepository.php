@@ -5,11 +5,14 @@ namespace App\Infrastructure;
 use App\Application\Common\Service\ClockInterface;
 use App\Domain\Common\AbstractMappedEntity;
 use Doctrine\DBAL\Connection;
+use Doctrine\DBAL\Exception;
 
 abstract readonly class AbstractDbalRepository
 {
     /**
+     * @param AbstractMappedEntity|array<string, mixed> $entity
      * @param array<string, mixed> $externalServices
+     * @throws Exception
      */
     protected function storeNewEntity(
         AbstractMappedEntity|array $entity,
@@ -22,7 +25,12 @@ abstract readonly class AbstractDbalRepository
         $storeQuery
             ->insert($tableName)
         ;
-        foreach ($entity->getMappedData($externalServices) as $column => $value) {
+
+        $mappedData = $entity instanceof AbstractMappedEntity
+            ? $entity->getMappedData($externalServices)
+            : $entity;
+
+        foreach ($mappedData as $column => $value) {
             $storeQuery
                 ->setValue($column, ":{$column}")
                 ->setParameter($column, $value)

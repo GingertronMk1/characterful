@@ -21,6 +21,7 @@ class UpdateCharacterCommandHandler
         $entity = new CharacterEntity(
             id: $command->characterId,
             name: $command->name,
+            slug: $command->slug,
             species: $command->species,
             species_extra: $command->species_extra,
             levels: array_map(
