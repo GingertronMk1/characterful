@@ -11,21 +11,8 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
  *
  * @coversNothing
  */
-class CharacterControllerTest extends WebTestCase
+class CharacterControllerTest extends AbstractApplicationTestCase
 {
-    private UrlGeneratorInterface $urlGenerator;
-    private HttpKernelBrowser $client;
-
-    public function setUp(): void
-    {
-        $this->client = static::createClient();
-        $container = static::getContainer();
-
-        /** @var UrlGeneratorInterface $urlGenerator */
-        $urlGenerator = $container->get(UrlGeneratorInterface::class);
-        $this->urlGenerator = $urlGenerator;
-    }
-
     public function testIndex(): void
     {
         $crawler = $this->client->request('GET', $this->urlGenerator->generate('character.index'));
