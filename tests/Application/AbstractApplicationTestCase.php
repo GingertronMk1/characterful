@@ -2,28 +2,23 @@
 
 namespace App\Tests\Application;
 
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
+use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Output\BufferedOutput;
 use Symfony\Component\Console\Output\NullOutput;
 use Symfony\Component\HttpKernel\HttpKernelBrowser;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
 class AbstractApplicationTestCase extends WebTestCase
 {
     protected UrlGeneratorInterface $urlGenerator;
     protected HttpKernelBrowser $client;
-
-    public function setUp(): void
-    {
-        $this->client = static::createClient();
-        $container = static::getContainer();
-
-        /** @var UrlGeneratorInterface $urlGenerator */
-        $urlGenerator = $container->get(UrlGeneratorInterface::class);
-        $this->urlGenerator = $urlGenerator;
-    }
 
     /**
      * @throws \Exception
@@ -61,11 +56,19 @@ class AbstractApplicationTestCase extends WebTestCase
                 '%s %s',
                 $command['command'],
                 $output->fetch()
-            ) . PHP_EOL;
+            ).PHP_EOL;
         }
 
         echo PHP_EOL.PHP_EOL;
     }
 
+    public function setUp(): void
+    {
+        $this->client = static::createClient();
+        $container = static::getContainer();
 
+        /** @var UrlGeneratorInterface $urlGenerator */
+        $urlGenerator = $container->get(UrlGeneratorInterface::class);
+        $this->urlGenerator = $urlGenerator;
+    }
 }

@@ -2,10 +2,6 @@
 
 namespace App\Tests\Application;
 
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
-use Symfony\Component\HttpKernel\HttpKernelBrowser;
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-
 /**
  * @internal
  *
