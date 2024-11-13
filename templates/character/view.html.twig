@@ -58,7 +58,7 @@
         {% for value in character.skills %}
         <tr>
                 <td>{{ value.skill.value|capitalize }}</td>
-                <td>{{ value.proficiencies }}</td>
+                <td data-proficiency-for="{{ value.skill.value }}">{{ value.proficiencies }}</td>
                 <td>{{ character.getSkillModifier(value.skill) }}</td>
         </tr>
         {% endfor %}

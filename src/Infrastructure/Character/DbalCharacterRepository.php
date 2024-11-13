@@ -6,6 +6,7 @@ use App\Application\Util\Helpers;
 use App\Domain\Character\CharacterEntity;
 use App\Domain\Character\CharacterId;
 use App\Domain\Character\CharacterRepositoryInterface;
+use App\Domain\Util\ClockInterface;
 use App\Domain\Util\HelperInterface;
 use App\Infrastructure\AbstractDbalRepository;
 use Doctrine\DBAL\Connection;
@@ -17,6 +18,7 @@ readonly class DbalCharacterRepository extends AbstractDbalRepository implements
     public function __construct(
         private Connection $connection,
         private Helpers $helpers,
+        private ClockInterface $clock,
     ) {}
 
     public function generateId(): CharacterId
@@ -49,6 +51,7 @@ readonly class DbalCharacterRepository extends AbstractDbalRepository implements
             $characterEntity,
             $this->connection,
             self::CHARACTERS_TABLE,
+            clock: $this->clock,
             externalServices: [
                 HelperInterface::class => $this->helpers,
             ]
@@ -67,6 +70,7 @@ readonly class DbalCharacterRepository extends AbstractDbalRepository implements
             $characterEntity,
             $this->connection,
             self::CHARACTERS_TABLE,
+            clock: $this->clock,
             externalServices: [
                 HelperInterface::class => $this->helpers,
             ]

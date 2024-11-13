@@ -2,8 +2,8 @@
 
 namespace App\Infrastructure;
 
-use App\Application\Common\Service\ClockInterface;
 use App\Domain\Common\AbstractMappedEntity;
+use App\Domain\Util\ClockInterface;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Exception;
 
@@ -12,13 +12,14 @@ abstract readonly class AbstractDbalRepository
     /**
      * @param AbstractMappedEntity|array<string, mixed> $entity
      * @param array<string, mixed> $externalServices
+     *
      * @throws Exception
      */
     protected function storeNewEntity(
         AbstractMappedEntity|array $entity,
         Connection $connection,
         string $tableName,
-        //        ?ClockInterface $clock = null,
+        ?ClockInterface $clock = null,
         array $externalServices = [],
     ): int {
         $storeQuery = $connection->createQueryBuilder();
@@ -36,13 +37,15 @@ abstract readonly class AbstractDbalRepository
                 ->setParameter($column, $value)
             ;
         }
-        $storeQuery
-            ->setValue('created_at', ':now')
-            ->setValue('updated_at', ':now')
-            ->setParameter('now', $this->getNow())
-        ;
+        if ($clock) {
+            $storeQuery
+                ->setValue('created_at', ':now')
+                ->setValue('updated_at', ':now')
+                ->setParameter('now', (string) $clock->now())
+            ;
+        }
 
-        return (int) $storeQuery->executeStatement();
+        return $storeQuery->executeStatement();
     }
 
     /**
@@ -53,7 +56,7 @@ abstract readonly class AbstractDbalRepository
         AbstractMappedEntity $entity,
         Connection $connection,
         string $tableName,
-        //        ?ClockInterface $clock = null,
+        ?ClockInterface $clock = null,
         array $idColumn = ['id'],
         array $externalServices = []
     ): int {
@@ -75,16 +78,13 @@ abstract readonly class AbstractDbalRepository
                 ->setParameter($column, $value)
             ;
         }
-        $storeQuery
-            ->set('updated_at', ':now')
-            ->setParameter('now', $this->getNow())
-        ;
+        if ($clock) {
+            $storeQuery
+                ->set('updated_at', ':now')
+                ->setParameter('now', (string) $clock->now())
+            ;
+        }
 
-        return (int) $storeQuery->executeStatement();
-    }
-
-    private function getNow(): string
-    {
-        return (new \DateTimeImmutable())->format('Y-m-d H:i:s');
+        return $storeQuery->executeStatement();
     }
 }

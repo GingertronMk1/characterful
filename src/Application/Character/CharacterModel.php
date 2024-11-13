@@ -9,6 +9,7 @@ use App\Application\Util\Model\AbilityScore;
 use App\Application\Util\Model\Level;
 use App\Application\Util\Model\SkillScore;
 use App\Domain\Character\CharacterId;
+use App\Domain\Common\ValueObject\DateTime;
 use App\Domain\Util\HelperInterface;
 
 final class CharacterModel extends AbstractMappedModel
@@ -44,9 +45,9 @@ final class CharacterModel extends AbstractMappedModel
         public int $hit_dice_type,
         public int $current_hit_dice,
         public int $max_hit_dice,
-        public \DateTimeInterface $created_at,
-        public \DateTimeInterface $updated_at,
-        public ?\DateTimeInterface $deleted_at,
+        public DateTime $created_at,
+        public DateTime $updated_at,
+        public ?DateTime $deleted_at,
     ) {}
 
     public static function createFromRow(array $row, array $externalServices = []): static
@@ -61,13 +62,9 @@ final class CharacterModel extends AbstractMappedModel
         );
         usort($levels, fn ($a, $b) => $a->level - $b->level);
 
-        $createdAt = \DateTimeImmutable::createFromFormat('Y-m-d H:i:s', $row['created_at']);
-        $updatedAt = \DateTimeImmutable::createFromFormat('Y-m-d H:i:s', $row['updated_at']);
-        $deletedAt = $row['deleted_at'] ? \DateTimeImmutable::createFromFormat('Y-m-d H:i:s', $row['updated_at']) : null;
-
-        if (false === $createdAt || false === $updatedAt || false === $deletedAt) {
-            throw new \Exception('Invalid date');
-        }
+        $createdAt = DateTime::fromString($row['created_at']);
+        $updatedAt = DateTime::fromString($row['updated_at']);
+        $deletedAt = $row['deleted_at'] ? DateTime::fromString($row['updated_at']) : null;
 
         return new self(
             id: CharacterId::fromString($row['id']),
