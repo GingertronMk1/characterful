@@ -2,6 +2,7 @@
 
 namespace App\Framework\Form\Character;
 
+use App\Application\Util\Model\Weapon;
 use App\Framework\Form\Character\SubForm\AbilityScoreFormType;
 use App\Framework\Form\Character\SubForm\LevelFormType;
 use App\Framework\Form\Character\SubForm\SkillScoreFormType;
@@ -46,6 +47,7 @@ class CreateCharacterFormType extends AbstractType
                 'entry_type' => WeaponFormType::class,
                 'entry_options' => [
                     'label' => false,
+                    'data_class' => Weapon::class,
                 ],
             ])
             ->add('armours', CollectionType::class, [

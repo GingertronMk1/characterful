@@ -3,7 +3,6 @@
 namespace App\Framework\Form\Character\SubForm;
 
 use App\Application\Enum\AbilityEnum;
-use App\Application\Util\Model\Weapon;
 use Symfony\Component\Form\Extension\Core\Type\EnumType;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
@@ -21,12 +20,7 @@ class WeaponFormType implements FormTypeInterface
         return FormType::class;
     }
 
-    public function configureOptions(OptionsResolver $resolver): void
-    {
-        $resolver->setDefaults([
-            'data_class' => Weapon::class,
-        ]);
-    }
+    public function configureOptions(OptionsResolver $resolver): void {}
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {

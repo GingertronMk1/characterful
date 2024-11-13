@@ -9,7 +9,7 @@ readonly class CharacterEntity extends AbstractMappedEntity
 {
     /**
      * @param array<array<string, int|string>> $levels
-     * @param string[] $weapons
+     * @param array<array<string, int|string>> $weapons
      * @param string[] $armours
      * @param array<array<string, int|string>> $abilities
      * @param array<array<string, int|string>> $skills

@@ -8,6 +8,7 @@ use App\Application\Enum\SkillEnum;
 use App\Application\Util\Model\AbilityScore;
 use App\Application\Util\Model\Level;
 use App\Application\Util\Model\SkillScore;
+use App\Application\Util\Model\Weapon;
 use App\Domain\Character\CharacterId;
 use App\Domain\Common\ValueObject\DateTime;
 use App\Domain\Util\HelperInterface;
@@ -16,7 +17,7 @@ final class CharacterModel extends AbstractMappedModel
 {
     /**
      * @param Level[] $levels
-     * @param string[] $weapons
+     * @param Weapon[] $weapons
      * @param string[] $armours
      * @param AbilityScore[] $abilities
      * @param SkillScore[] $skills
@@ -66,6 +67,17 @@ final class CharacterModel extends AbstractMappedModel
         $updatedAt = DateTime::fromString($row['updated_at']);
         $deletedAt = $row['deleted_at'] ? DateTime::fromString($row['updated_at']) : null;
 
+        $weapons = array_map(
+            fn (array $weaponArr) => new Weapon(
+                name: $weaponArr['name'],
+                modifier_ability: AbilityEnum::from($weaponArr['modifier_ability']),
+                modifier: $weaponArr['modifier'],
+                dice_type: $weaponArr['dice_type'],
+                dice_count: $weaponArr['dice_count'],
+            ),
+            $helpers->jsonDecode($row['weapons']),
+        );
+
         return new self(
             id: CharacterId::fromString($row['id']),
             name: $row['name'],
@@ -80,7 +92,7 @@ final class CharacterModel extends AbstractMappedModel
             current_hit_points: (int) $row['current_hit_points'],
             max_hit_points: (int) $row['max_hit_points'],
             temporary_hit_points: (int) $row['temporary_hit_points'],
-            weapons: $helpers->jsonDecode($row['weapons']),
+            weapons: $weapons,
             armours: $helpers->jsonDecode($row['armours']),
             abilities: AbilityScore::fromArray($helpers->jsonDecode($row['abilities'])),
             skills: SkillScore::fromArray($helpers->jsonDecode($row['skills'])),

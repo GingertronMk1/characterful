@@ -6,6 +6,7 @@ use App\Application\Character\Command\UpdateCharacterCommand;
 use App\Application\Util\Model\AbilityScore;
 use App\Application\Util\Model\Level;
 use App\Application\Util\Model\SkillScore;
+use App\Application\Util\Model\Weapon;
 use App\Domain\Character\CharacterEntity;
 use App\Domain\Character\CharacterId;
 use App\Domain\Character\CharacterRepositoryInterface;
@@ -35,7 +36,10 @@ class UpdateCharacterCommandHandler
             current_hit_points: $command->current_hit_points,
             max_hit_points: $command->max_hit_points,
             temporary_hit_points: $command->temporary_hit_points,
-            weapons: $command->weapons,
+            weapons: array_map(
+                fn (Weapon $weapon) => $weapon->toArray(),
+                $command->weapons,
+            ),
             armours: $command->armours,
             abilities: array_map(
                 fn (AbilityScore $score) => $score->toArray(),
