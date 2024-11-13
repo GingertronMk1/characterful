@@ -38,6 +38,7 @@ class CharacterControllerTest extends AbstractApplicationTestCase
             $this->urlGenerator->generate('character.view', ['slug' => self::EXPECTED_SLUG])
         );
         $h1Text = $newCrawler->filter('h1')->text();
+        echo $newCrawler->text();
         $this->assertEquals(self::INITIAL_NAME, $h1Text);
     }
 
