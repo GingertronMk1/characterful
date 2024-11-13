@@ -33,12 +33,13 @@ class CharacterControllerTest extends AbstractApplicationTestCase
             'create_character_form[levels][0][subClass]' => 'Beserker',
             'create_character_form[levels][0][level]' => 1,
         ]);
-        $newCrawler = $this->client->submit($form);
-        $this->assertResponseRedirects(
-            $this->urlGenerator->generate('character.view', ['slug' => self::EXPECTED_SLUG])
-        );
+        $this->client->submit($form);
+
+        $expectedUrl = $this->urlGenerator->generate('character.view', ['slug' => self::EXPECTED_SLUG]);
+
+        $this->assertResponseRedirects( $expectedUrl );
+        $newCrawler = $this->client->request('GET', $expectedUrl);
         $h1Text = $newCrawler->filter('h1')->text();
-        echo $newCrawler->text();
         $this->assertEquals(self::INITIAL_NAME, $h1Text);
     }
 
