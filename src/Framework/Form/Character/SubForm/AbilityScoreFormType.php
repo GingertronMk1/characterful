@@ -1,18 +1,19 @@
 <?php
 
-namespace App\Framework\Form;
+namespace App\Framework\Form\Character\SubForm;
 
-use App\Application\Util\Model\Level;
+use App\Application\Enum\AbilityEnum;
+use App\Application\Util\Model\AbilityScore;
+use Symfony\Component\Form\Extension\Core\Type\EnumType;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class LevelFormType implements FormTypeInterface
+class AbilityScoreFormType implements FormTypeInterface
 {
     public function getParent(): string
     {
@@ -22,16 +23,17 @@ class LevelFormType implements FormTypeInterface
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Level::class,
+            'data_class' => AbilityScore::class,
         ]);
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('class', TextType::class)
-            ->add('subClass', TextType::class, ['required' => false])
-            ->add('level', IntegerType::class)
+            ->add('ability', EnumType::class, [
+                'class' => AbilityEnum::class,
+            ])
+            ->add('value', IntegerType::class, [])
         ;
     }
 

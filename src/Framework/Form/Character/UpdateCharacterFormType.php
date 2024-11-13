@@ -1,8 +1,12 @@
 <?php
 
-namespace App\Framework\Form;
+namespace App\Framework\Form\Character;
 
 use App\Application\Util\Model\Level;
+use App\Framework\Form\Character\SubForm\AbilityScoreFormType;
+use App\Framework\Form\Character\SubForm\LevelFormType;
+use App\Framework\Form\Character\SubForm\SkillScoreFormType;
+use App\Framework\Form\Character\SubForm\WeaponFormType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
@@ -41,7 +45,10 @@ class UpdateCharacterFormType extends AbstractType
             ->add('max_hit_points', IntegerType::class, [])
             ->add('temporary_hit_points', IntegerType::class, [])
             ->add('weapons', CollectionType::class, [
-                'entry_type' => TextType::class,
+                'entry_type' => WeaponFormType::class,
+                'entry_options' => [
+                    'label' => false,
+                ],
             ])
             ->add('armours', CollectionType::class, [
                 'entry_type' => TextType::class,

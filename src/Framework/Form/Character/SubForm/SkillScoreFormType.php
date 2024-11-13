@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Framework\Form;
+namespace App\Framework\Form\Character\SubForm;
 
 use App\Application\Enum\SkillEnum;
 use App\Application\Util\Model\SkillScore;
