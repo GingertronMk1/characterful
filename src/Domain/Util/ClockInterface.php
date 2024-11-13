@@ -6,5 +6,5 @@ use App\Domain\Common\ValueObject\DateTime;
 
 interface ClockInterface
 {
-    public function now(string $modifier = 'now'): DateTime;
+    public function now(?string $modifier = null): DateTime;
 }

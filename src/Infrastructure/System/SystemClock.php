@@ -10,7 +10,9 @@ class SystemClock implements ClockInterface
     public function now(?string $modifier = null): DateTime
     {
         $dateTime = new \DateTimeImmutable();
-        $dateTime = $dateTime->modify($modifier);
+        if ($modifier !== null) {
+            $dateTime = $dateTime->modify($modifier);
+        }
 
         return DateTime::fromDateTimeInterface($dateTime);
     }
