@@ -84,7 +84,7 @@ final class CharacterModel extends AbstractMappedModel
             species: $row['species'],
             species_extra: $row['species_extra'],
             slug: $row['slug'],
-            levels: $levels,
+            levels: LevelCollection::fromIterable($levels),
             armour_class: $helpers->jsonDecode($row['armour_class']),
             proficiency_bonus: (int) $row['proficiency_bonus'],
             speed: (int) $row['speed'],
@@ -92,10 +92,10 @@ final class CharacterModel extends AbstractMappedModel
             current_hit_points: (int) $row['current_hit_points'],
             max_hit_points: (int) $row['max_hit_points'],
             temporary_hit_points: (int) $row['temporary_hit_points'],
-            weapons: $weapons,
+            weapons: WeaponCollection::fromIterable($weapons),
             armours: $helpers->jsonDecode($row['armours']),
-            abilities: AbilityScore::fromArray($helpers->jsonDecode($row['abilities'])),
-            skills: SkillScore::fromArray($helpers->jsonDecode($row['skills'])),
+            abilities: AbilityScoreCollection::fromIterable(AbilityScore::fromArray($helpers->jsonDecode($row['abilities']))),
+            skills: SkillScoreCollection::fromIterable(SkillScore::fromArray($helpers->jsonDecode($row['skills']))),
             saving_throws: $helpers->jsonDecode($row['saving_throws']),
             hit_dice_type: $row['hit_dice_type'],
             current_hit_dice: (int) $row['current_hit_dice'],
@@ -104,27 +104,6 @@ final class CharacterModel extends AbstractMappedModel
             updated_at: $updatedAt,
             deleted_at: $deletedAt,
         );
-    }
-
-    public function getMainClass(): ?Level
-    {
-        if (!count($this->levels)) {
-            return null;
-        }
-
-        return array_values($this->levels)[0];
-    }
-
-    public function getSkillModifier(SkillEnum $skill): int
-    {
-        $ability = $skill->getAbilityEnum();
-        $abilityScore = $this->getAbilityScore($ability);
-        $abilityModifier = $abilityScore?->getModifier() ?? 0;
-
-        $skillScore = $this->getSkillScore($skill);
-        $skillModifier = $this->proficiency_bonus * ($skillScore?->proficiencies ?? 0);
-
-        return $abilityModifier + $skillModifier;
     }
 
     public function getAbilityScore(AbilityEnum $ability): ?AbilityScore

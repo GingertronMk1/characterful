@@ -2,15 +2,26 @@
 
 namespace App\Domain\Common;
 
-abstract class AbstractCollection implements \Iterator, \ArrayAccess
+/**
+ * @template TItemType
+ *
+ * @implements \Iterator<int, TItemType>
+ */
+abstract class AbstractCollection implements \Iterator
 {
-    public function __construct(
+    /**
+     * @param array<TItemType> $items
+     */
+    final public function __construct(
         protected array $items = [],
         protected int $position = 0,
     ) {}
 
     abstract public static function getClassName(): string;
 
+    /**
+     * @param array<mixed> $data
+     */
     public static function fromIterable(iterable $data, ?\Closure $mapFn = null): static
     {
         $returnVal = new static();
@@ -25,52 +36,36 @@ abstract class AbstractCollection implements \Iterator, \ArrayAccess
         return $returnVal;
     }
 
-    public function offsetExists(mixed $offset): bool
-    {
-        return isset($this->items[$offset]);
-    }
-
-    public function offsetGet(mixed $offset): mixed
-    {
-        return $this->items[$offset];
-    }
-
-    public function offsetSet(mixed $offset, mixed $value): void
-    {
-        if (is_null($offset)) {
-            $this->items[] = $value;
-        } else {
-            $this->items[$offset] = $value;
-        }
-    }
-
-    public function offsetUnset(mixed $offset): void
-    {
-        unset($this->items[$offset]);
-    }
-
     public function current(): mixed
     {
-        return current($this->items);
+        return $this->items[$this->position];
     }
 
-    public function key(): mixed
+    public function key(): int
     {
-        return key($this->items);
+        return $this->position;
     }
 
     public function next(): void
     {
-        next($this->items);
+        ++$this->position;
     }
 
     public function rewind(): void
     {
-        rewind($this->items);
+        $this->position = 0;
     }
 
     public function valid(): bool
     {
-        return null !== $this->key();
+        return isset($this->items[$this->position]);
+    }
+
+    /**
+     * @return array<TItemType>
+     */
+    public function toArray(): array
+    {
+        return iterator_to_array($this);
     }
 }
