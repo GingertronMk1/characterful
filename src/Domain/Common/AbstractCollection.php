@@ -68,4 +68,25 @@ abstract class AbstractCollection implements \Iterator
     {
         return iterator_to_array($this);
     }
+
+    public function filter(callable $callback): static
+    {
+        return static::fromIterable(
+            array_filter($this->items, $callback, ARRAY_FILTER_USE_BOTH)
+        );
+    }
+
+    /**
+     * @return ?TItemType
+     */
+    public function find(callable $callback): mixed
+    {
+        foreach ($this->items as $item) {
+            if ($callback($item)) {
+                return $item;
+            }
+        }
+
+        return null;
+    }
 }

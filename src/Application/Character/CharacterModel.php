@@ -120,24 +120,12 @@ final class CharacterModel extends AbstractMappedModel
 
     public function getAbilityScore(AbilityEnum $ability): ?AbilityScore
     {
-        foreach ($this->abilities as $thisAbility) {
-            if ($thisAbility->ability === $ability) {
-                return $thisAbility;
-            }
-        }
-
-        return null;
+        return $this->abilities->find(fn (AbilityScore $score) => $score->ability === $ability);
     }
 
     public function getSkillScore(SkillEnum $skill): ?SkillScore
     {
-        foreach ($this->skills as $thisSkill) {
-            if ($thisSkill->skill === $skill) {
-                return $thisSkill;
-            }
-        }
-
-        return null;
+        return $this->skills->find(fn (SkillScore $score) => $score->skill === $skill);
     }
 
     public function getSkillModifier(SkillEnum $skill): int
