@@ -22,7 +22,7 @@ abstract class AbstractCollection implements \Iterator
     /**
      * @param array<mixed> $data
      */
-    public static function fromIterable(iterable $data, ?\Closure $mapFn = null): static
+    final public static function fromIterable(iterable $data, ?\Closure $mapFn = null): static
     {
         $returnVal = new static();
         foreach ($data as $item) {

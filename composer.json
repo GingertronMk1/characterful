@@ -96,7 +96,11 @@
             "@deptrac",
             "@phpstan"
         ],
-        "phpunit": "@php ./vendor/bin/phpunit"
+        "phpunit": "@php ./vendor/bin/phpunit",
+        "preflight": [
+            "@lint",
+            "@phpunit"
+        ]
     },
     "conflict": {
         "symfony/symfony": "*"

@@ -106,6 +106,18 @@ final class CharacterModel extends AbstractMappedModel
         );
     }
 
+    public function getMainClass(): Level
+    {
+        $bestLevel = null;
+        foreach ($this->levels as $level) {
+            if (is_null($bestLevel) || $level->level > $bestLevel->level) {
+                $bestLevel = $level;
+            }
+        }
+
+        return $bestLevel;
+    }
+
     public function getAbilityScore(AbilityEnum $ability): ?AbilityScore
     {
         foreach ($this->abilities as $thisAbility) {
@@ -126,5 +138,17 @@ final class CharacterModel extends AbstractMappedModel
         }
 
         return null;
+    }
+
+    public function getSkillModifier(SkillEnum $skill): int
+    {
+        $ability = $skill->getAbilityEnum();
+        $abilityScore = $this->getAbilityScore($ability);
+        $abilityModifier = $abilityScore?->getModifier() ?? 0;
+
+        $skillScore = $this->getSkillScore($skill);
+        $skillModifier = $this->proficiency_bonus * ($skillScore?->proficiencies ?? 0);
+
+        return $abilityModifier + $skillModifier;
     }
 }
