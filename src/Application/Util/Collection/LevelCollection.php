@@ -14,11 +14,4 @@ class LevelCollection extends AbstractCollection
     {
         return Level::class;
     }
-
-    protected function sortItems(): void
-    {
-        usort($this->items, function (Level $a, Level $b) {
-            return $a->level - $b->level;
-        });
-    }
 }

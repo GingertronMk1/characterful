@@ -6,30 +6,10 @@ use App\Application\Enum\AbilityEnum;
 
 final class AbilityScore
 {
-    private function __construct(
+    public function __construct(
         public AbilityEnum $ability,
         public int $value,
     ) {}
-
-    /**
-     * @param array<int|string, array<int|string>> $arr
-     *
-     * @return array<self>
-     */
-    public static function fromArray(array $arr): array
-    {
-        $returnVal = [];
-        foreach ($arr as $key => $value) {
-            $returnVal[$key] = self::fromInteger((string) $value['ability'], (int) $value['value']);
-        }
-
-        return self::getBase($returnVal);
-    }
-
-    public static function fromInteger(string $ability, int $value): self
-    {
-        return new self(AbilityEnum::from($ability), $value);
-    }
 
     public function getModifier(): int
     {

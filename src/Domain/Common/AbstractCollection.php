@@ -26,10 +26,16 @@ abstract class AbstractCollection implements \Iterator
     {
         $returnVal = new static();
         foreach ($data as $item) {
-            if (is_a($item, $returnVal->getClassName())) {
-                $returnVal->items[] = is_null($mapFn) ? $item : $mapFn($item);
+            $processedItem = is_null($mapFn) ? $item : $mapFn($item);
+            if ($processedItem::class === static::getClassName()) {
+                $returnVal->items[] = $processedItem;
             } else {
-                throw new \InvalidArgumentException('Tried to create a collection but received an invalid item');
+                throw new \InvalidArgumentException(
+                    sprintf(
+                        'Tried to create a collection of `%s`, but received an invalid item.',
+                        static::getClassName(),
+                    )
+                );
             }
         }
 

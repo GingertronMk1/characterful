@@ -57,26 +57,9 @@ final class CharacterModel extends AbstractMappedModel
             HelperInterface::class => $helpers,
         ] = $externalServices;
 
-        $levels = array_map(
-            fn (array $row) => new Level($row['level'], $row['class'], $row['subClass']),
-            $helpers->jsonDecode($row['levels']),
-        );
-        usort($levels, fn ($a, $b) => $a->level - $b->level);
-
         $createdAt = DateTime::fromString($row['created_at']);
         $updatedAt = DateTime::fromString($row['updated_at']);
         $deletedAt = $row['deleted_at'] ? DateTime::fromString($row['updated_at']) : null;
-
-        $weapons = array_map(
-            fn (array $weaponArr) => new Weapon(
-                name: $weaponArr['name'],
-                modifier_ability: AbilityEnum::from($weaponArr['modifier_ability']),
-                modifier: $weaponArr['modifier'],
-                dice_type: $weaponArr['dice_type'],
-                dice_count: $weaponArr['dice_count'],
-            ),
-            $helpers->jsonDecode($row['weapons']),
-        );
 
         return new self(
             id: CharacterId::fromString($row['id']),
@@ -84,7 +67,10 @@ final class CharacterModel extends AbstractMappedModel
             species: $row['species'],
             species_extra: $row['species_extra'],
             slug: $row['slug'],
-            levels: LevelCollection::fromIterable($levels),
+            levels: LevelCollection::fromIterable(
+                $helpers->jsonDecode($row['levels']),
+                fn (array $row) => new Level($row['level'], $row['class'], $row['subClass']),
+            ),
             armour_class: $helpers->jsonDecode($row['armour_class']),
             proficiency_bonus: (int) $row['proficiency_bonus'],
             speed: (int) $row['speed'],
@@ -92,10 +78,25 @@ final class CharacterModel extends AbstractMappedModel
             current_hit_points: (int) $row['current_hit_points'],
             max_hit_points: (int) $row['max_hit_points'],
             temporary_hit_points: (int) $row['temporary_hit_points'],
-            weapons: WeaponCollection::fromIterable($weapons),
+            weapons: WeaponCollection::fromIterable(
+                $helpers->jsonDecode($row['weapons']),
+                fn (array $weaponArr) => new Weapon(
+                    name: $weaponArr['name'],
+                    modifier_ability: AbilityEnum::from($weaponArr['modifier_ability']),
+                    modifier: $weaponArr['modifier'],
+                    dice_type: $weaponArr['dice_type'],
+                    dice_count: $weaponArr['dice_count'],
+                ),
+            ),
             armours: $helpers->jsonDecode($row['armours']),
-            abilities: AbilityScoreCollection::fromIterable(AbilityScore::fromArray($helpers->jsonDecode($row['abilities']))),
-            skills: SkillScoreCollection::fromIterable(SkillScore::fromArray($helpers->jsonDecode($row['skills']))),
+            abilities: AbilityScoreCollection::fromIterable(
+                $helpers->jsonDecode($row['abilities']),
+                fn (array $arr) => new AbilityScore(AbilityEnum::from($arr['ability']), (int) $arr['value'])
+            ),
+            skills: SkillScoreCollection::fromIterable(
+                $helpers->jsonDecode($row['skills']),
+                fn (array $arr) => new SkillScore(SkillEnum::from($arr['skill']), (int) $arr['proficiencies'])
+            ),
             saving_throws: $helpers->jsonDecode($row['saving_throws']),
             hit_dice_type: $row['hit_dice_type'],
             current_hit_dice: (int) $row['current_hit_dice'],
