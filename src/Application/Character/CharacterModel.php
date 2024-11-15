@@ -5,6 +5,10 @@ namespace App\Application\Character;
 use App\Application\Common\AbstractMappedModel;
 use App\Application\Enum\AbilityEnum;
 use App\Application\Enum\SkillEnum;
+use App\Application\Util\Collection\AbilityScoreCollection;
+use App\Application\Util\Collection\LevelCollection;
+use App\Application\Util\Collection\SkillScoreCollection;
+use App\Application\Util\Collection\WeaponCollection;
 use App\Application\Util\Model\AbilityScore;
 use App\Application\Util\Model\Level;
 use App\Application\Util\Model\SkillScore;
@@ -16,11 +20,7 @@ use App\Domain\Util\HelperInterface;
 final class CharacterModel extends AbstractMappedModel
 {
     /**
-     * @param Level[] $levels
-     * @param Weapon[] $weapons
      * @param string[] $armours
-     * @param AbilityScore[] $abilities
-     * @param SkillScore[] $skills
      * @param string[] $armour_class
      * @param string[] $saving_throws
      */
@@ -30,7 +30,7 @@ final class CharacterModel extends AbstractMappedModel
         public string $species,
         public string $species_extra,
         public string $slug,
-        public array $levels,
+        public LevelCollection $levels,
         public array $armour_class,
         public int $proficiency_bonus,
         public int $speed,
@@ -38,10 +38,10 @@ final class CharacterModel extends AbstractMappedModel
         public int $current_hit_points,
         public int $max_hit_points,
         public int $temporary_hit_points,
-        public array $weapons,
+        public WeaponCollection $weapons,
         public array $armours,
-        public array $abilities,
-        public array $skills,
+        public AbilityScoreCollection $abilities,
+        public SkillScoreCollection $skills,
         public array $saving_throws,
         public int $hit_dice_type,
         public int $current_hit_dice,
