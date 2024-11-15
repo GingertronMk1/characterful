@@ -1,0 +1,22 @@
+<h3>Weapons</h3>
+<table>
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Modifier</th>
+        <th>Ability</th>
+        <th>Dice</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for weapon in weapons %}
+        <tr>
+            <td>{{ weapon.name }}</td>
+            <td>{{ weapon.modifier }}</td>
+            <td>{{ weapon.modifier_ability.value|title }}</td>
+            <td>{{ weapon.dice_count }}d{{ weapon.dice_type }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+

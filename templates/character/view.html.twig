@@ -5,97 +5,11 @@
     <a href="{{ path('character.update', {slug: character.slug}) }}">
         Edit
     </a>
-    <h3>Classes</h3>
-    <table>
-        <thead>
-        <tr>
-            <th>Class</th>
-            <th>Subclass</th>
-            <th>Level</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for level in character.levels %}
-        <tr>
-            <td>{{ level.class }}</td>
-            <td>{{ level.subClass }}</td>
-            <td>{{ level.level }}</td>
-        </tr>
-        {% endfor %}
-        </tbody>
-    </table>
 
-    <h3>Abilities</h3>
-    <table>
-        <thead>
-        <tr>
-            <th>Ability</th>
-            <th>Value</th>
-            <th>Modifier</th>
-            <th></th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for value in character.abilities %}
-            <tr>
-                <td>{{ value.ability.value|title }}</td>
-                <td>{{ value.value }}</td>
-                <td>{{ value.modifier }}</td>
-                <td>
-                    <button
-                            class="character-sheet__roll-skill-check"
-                            data-check-value="{{ value.ability.value|title }}"
-                            data-check-route="{{ path('api.get-ability-score', {characterId: character.id, ability: value.ability.value}) }}"
-                    >
-                        Roll
-                    </button></td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+    {% include 'character/fragments/levels.html.twig' with { character: character, levels: character.levels } only %}
+    {% include 'character/fragments/abilities.html.twig' with { character: character, abilities: character.abilities } only %}
+    {% include 'character/fragments/skills.html.twig' with { character: character, skills: character.skills } only %}
+    {% include 'character/fragments/weapons.html.twig' with { character: character, weapons: character.weapons } only %}
 
-    <h3>Skills</h3>
-    <table>
-        <thead>
-        <tr>
-            <th>Skill</th>
-            <th>Value</th>
-            <th>Modifier</th>
-            <th></th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for value in character.skills %}
-        <tr>
-                <td>{{ value.skill.value|title }}</td>
-                <td data-proficiency-for="{{ value.skill.value }}">{{ value.proficiencies }}</td>
-                <td>{{ character.getSkillModifier(value.skill) }}</td>
-                <td><button class="character-sheet__roll-skill-check" data-check-value="{{ value.skill.value }}" data-check-route="{{ path('api.get-skill-score', {characterId: character.id, skill: value.skill.value}) }}">Roll</button></td>
-        </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <h3>Weapons</h3>
-    <table>
-        <thead>
-        <tr>
-            <th>Name</th>
-            <th>Modifier</th>
-            <th>Ability</th>
-            <th>Dice</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for value in character.weapons %}
-            <tr>
-                <td>{{ value.name }}</td>
-                <td>{{ value.modifier }}</td>
-                <td>{{ value.modifier_ability.value|title }}</td>
-                <td>{{ value.dice_count }}d{{ value.dice_type }}</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
 
 {% endblock %}

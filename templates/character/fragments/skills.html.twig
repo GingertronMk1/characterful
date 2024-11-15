@@ -1,0 +1,29 @@
+<h3>Skills</h3>
+<table>
+    <thead>
+    <tr>
+        <th>Skill</th>
+        <th>Value</th>
+        <th>Modifier</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for skill in skills %}
+        <tr>
+            <td>{{ skill.skill.value|title }}</td>
+            <td data-proficiency-for="{{ skill.skill.value }}">{{ skill.proficiencies }}</td>
+            <td>{{ character.getSkillModifier(skill.skill) }}</td>
+            <td>
+                <button
+                        class="character-sheet__roll-skill-check"
+                        data-check-value="{{ skill.skill.value }}"
+                        data-check-route="{{ path('api.get-skill-score', {characterId: character.id, skill: skill.skill.value}) }}"
+                >
+                    Roll
+                </button>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

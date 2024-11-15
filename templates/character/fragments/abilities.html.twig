@@ -1,0 +1,29 @@
+<h3>Abilities</h3>
+<table>
+    <thead>
+    <tr>
+        <th>Ability</th>
+        <th>Value</th>
+        <th>Modifier</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for ability in abilities %}
+        <tr>
+            <td>{{ ability.ability.value|title }}</td>
+            <td>{{ ability.value }}</td>
+            <td>{{ ability.modifier }}</td>
+            <td>
+                <button
+                        class="character-sheet__roll-skill-check"
+                        data-check-value="{{ ability.ability.value|title }}"
+                        data-check-route="{{ path('api.get-ability-score', {characterId: character.id, ability: ability.ability.value}) }}"
+                >
+                    Roll
+                </button>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

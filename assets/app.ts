@@ -71,7 +71,6 @@ document
                 .then((resp: Response) => resp.json())
                 .then(val => window.alert(`Roll for '${checkVal}': ${val}`))
         })
-        console.log(dataset.checkRoute);
     })
 
-console.log('loaded app.js');
+console.log('loaded app.ts');
