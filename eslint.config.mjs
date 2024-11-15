@@ -9,25 +9,14 @@ export default [
   {
     files: ["./assets/**/*.{js,mjs,cjs,ts}"],
     languageOptions: {
-      globals: {
-        ...globals.browser,
-        ...globals.node,
-        es6: true,
-      }
+      ecmaVersion: 2020,
+      globals: {...globals.browser, ...globals.node},
+      parserOptions: {
+        ecmaVersion: 'latest',
+        ecmaFeatures: { jsx: true },
+        sourceType: 'module',
+      },
     },
-  },
-  {
-    files: ["**/*.{js,mjs,cjs}"],
-    rules: {
-      "@typescript-eslint/no-require-imports": "off",
-    },
-    languageOptions: {
-      globals: {
-        "require": "readonly",
-        "process": "readonly",
-        "module": "readonly",
-      }
-    }
   },
   {
     ignores: [
