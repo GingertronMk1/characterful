@@ -6,13 +6,14 @@ use App\Application\Character\CharacterModel;
 use App\Application\Util\Model\AbilityScore;
 use App\Application\Util\Model\Level;
 use App\Application\Util\Model\SkillScore;
+use App\Application\Util\Model\Weapon;
 use App\Domain\Character\CharacterId;
 
 class UpdateCharacterCommand
 {
     /**
      * @param Level[] $levels
-     * @param string[] $weapons
+     * @param Weapon[] $weapons
      * @param string[] $armours
      * @param AbilityScore[] $abilities
      * @param SkillScore[] $skills

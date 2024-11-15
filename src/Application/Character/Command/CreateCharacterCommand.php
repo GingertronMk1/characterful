@@ -2,15 +2,17 @@
 
 namespace App\Application\Character\Command;
 
+use App\Application\Enum\AbilityEnum;
 use App\Application\Util\Model\AbilityScore;
 use App\Application\Util\Model\Level;
 use App\Application\Util\Model\SkillScore;
+use App\Application\Util\Model\Weapon;
 
 class CreateCharacterCommand
 {
     /**
      * @param Level[] $levels
-     * @param string[] $weapons
+     * @param Weapon[] $weapons
      * @param string[] $armours
      * @param AbilityScore[] $abilities
      * @param SkillScore[] $skills
@@ -47,6 +49,17 @@ class CreateCharacterCommand
         }
         if (empty($this->levels)) {
             $this->levels = [new Level(1, '', '')];
+        }
+        if (empty($this->weapons)) {
+            $this->weapons = [
+                new Weapon(
+                    'Sword',
+                    AbilityEnum::Strength,
+                    2,
+                    8,
+                    1
+                ),
+            ];
         }
     }
 }
