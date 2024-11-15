@@ -38,12 +38,13 @@
         <tbody>
         {% for value in character.abilities %}
             <tr>
-                <td>{{ value.ability.value|capitalize }}</td>
+                <td>{{ value.ability.value|title }}</td>
                 <td>{{ value.value }}</td>
                 <td>{{ value.modifier }}</td>
                 <td>
                     <button
                             class="character-sheet__roll-skill-check"
+                            data-check-value="{{ value.ability.value|title }}"
                             data-check-route="{{ path('api.get-ability-score', {characterId: character.id, ability: value.ability.value}) }}"
                     >
                         Roll
@@ -66,10 +67,10 @@
         <tbody>
         {% for value in character.skills %}
         <tr>
-                <td>{{ value.skill.value|capitalize }}</td>
+                <td>{{ value.skill.value|title }}</td>
                 <td data-proficiency-for="{{ value.skill.value }}">{{ value.proficiencies }}</td>
                 <td>{{ character.getSkillModifier(value.skill) }}</td>
-                <td><button class="character-sheet__roll-skill-check" data-check-route="{{ path('api.get-skill-score', {characterId: character.id, skill: value.skill.value}) }}">Roll</button></td>
+                <td><button class="character-sheet__roll-skill-check" data-check-value="{{ value.skill.value }}" data-check-route="{{ path('api.get-skill-score', {characterId: character.id, skill: value.skill.value}) }}">Roll</button></td>
         </tr>
         {% endfor %}
         </tbody>
@@ -90,7 +91,7 @@
             <tr>
                 <td>{{ value.name }}</td>
                 <td>{{ value.modifier }}</td>
-                <td>{{ value.modifier_ability.value|capitalize }}</td>
+                <td>{{ value.modifier_ability.value|title }}</td>
                 <td>{{ value.dice_count }}d{{ value.dice_type }}</td>
             </tr>
         {% endfor %}

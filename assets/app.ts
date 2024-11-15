@@ -57,18 +57,19 @@ function addTagFormDeleteLink(item: Element) {
 }
 
 document
-    .querySelectorAll('button[data-check-route]')
+    .querySelectorAll('button[data-check-value][data-check-route]')
     .forEach(function (el: Element) {
         const { dataset } = el as HTMLElement;
         const checkRoute: string|undefined = dataset.checkRoute;
-        if (!checkRoute) {
+        const checkVal: string|undefined = dataset.checkValue;
+        if (!(checkRoute && checkVal)) {
             return;
         }
 
         el.addEventListener('click', (e) => {
             fetch(checkRoute)
                 .then((resp: Response) => resp.json())
-                .then(val => window.alert(val))
+                .then(val => window.alert(`Roll for '${checkVal}': ${val}`))
         })
         console.log(dataset.checkRoute);
     })
