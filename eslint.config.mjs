@@ -19,6 +19,19 @@ export default [
     },
   },
   {
+    files: ["**/*.{js,mjs,cjs}"],
+    rules: {
+      "@typescript-eslint/no-require-imports": "off",
+    },
+    languageOptions: {
+      globals: {
+        "require": "readonly",
+        "process": "readonly",
+        "module": "readonly",
+      }
+    }
+  },
+  {
     ignores: [
       "**/node_modules/**",
       "**/public/**",
