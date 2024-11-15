@@ -3,6 +3,7 @@
 namespace App\Application\Util;
 
 use App\Domain\Util\HelperInterface;
+use Random\RandomException;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
@@ -37,5 +38,13 @@ readonly class Helpers implements HelperInterface
     public function slug(string|\Stringable $sluggee): string
     {
         return $this->slugger->slug(strtolower(trim((string) $sluggee)));
+    }
+
+    /**
+     * @throws RandomException
+     */
+    public function roll(int $diceType, int $diceCount = 1): int
+    {
+        return $diceCount * random_int(0, $diceType);
     }
 }

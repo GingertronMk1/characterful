@@ -32,6 +32,7 @@
             <th>Ability</th>
             <th>Value</th>
             <th>Modifier</th>
+            <th></th>
         </tr>
         </thead>
         <tbody>
@@ -40,6 +41,13 @@
                 <td>{{ value.ability.value|capitalize }}</td>
                 <td>{{ value.value }}</td>
                 <td>{{ value.modifier }}</td>
+                <td>
+                    <button
+                            class="character-sheet__roll-skill-check"
+                            data-check-route="{{ path('api.get-ability-score', {characterId: character.id, ability: value.ability.value}) }}"
+                    >
+                        Roll
+                    </button></td>
             </tr>
         {% endfor %}
         </tbody>
@@ -52,6 +60,7 @@
             <th>Skill</th>
             <th>Value</th>
             <th>Modifier</th>
+            <th></th>
         </tr>
         </thead>
         <tbody>
@@ -60,6 +69,7 @@
                 <td>{{ value.skill.value|capitalize }}</td>
                 <td data-proficiency-for="{{ value.skill.value }}">{{ value.proficiencies }}</td>
                 <td>{{ character.getSkillModifier(value.skill) }}</td>
+                <td><button class="character-sheet__roll-skill-check" data-check-route="{{ path('api.get-skill-score', {characterId: character.id, skill: value.skill.value}) }}">Roll</button></td>
         </tr>
         {% endfor %}
         </tbody>

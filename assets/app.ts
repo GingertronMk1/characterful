@@ -56,4 +56,21 @@ function addTagFormDeleteLink(item: Element) {
     });
 }
 
+document
+    .querySelectorAll('button[data-check-route]')
+    .forEach(function (el: Element) {
+        const { dataset } = el as HTMLElement;
+        const checkRoute: string|undefined = dataset.checkRoute;
+        if (!checkRoute) {
+            return;
+        }
+
+        el.addEventListener('click', (e) => {
+            fetch(checkRoute)
+                .then((resp: Response) => resp.json())
+                .then(val => window.alert(val))
+        })
+        console.log(dataset.checkRoute);
+    })
+
 console.log('loaded app.js');
