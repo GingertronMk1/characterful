@@ -19,9 +19,7 @@ document
     })
 
 function addFormToCollection({currentTarget}: Event) {
-    console.log('adding')
     if (currentTarget instanceof HTMLElement) {
-        console.log(currentTarget.dataset.collectionHolderClass)
         const collectionHolder = document.querySelector(`[data-form-collection=${currentTarget.dataset.collectionHolderClass}]`) as HTMLElement;
 
         const item: HTMLLIElement = document.createElement('li');
@@ -44,12 +42,12 @@ function addFormToCollection({currentTarget}: Event) {
 }
 
 function addTagFormDeleteLink(item: Element) {
-    const removeFormButton = document.createElement('button');
+    const removeFormButton: HTMLButtonElement = document.createElement('button');
     removeFormButton.innerText = 'Delete';
 
     item.append(removeFormButton);
 
-    removeFormButton.addEventListener('click', (e) => {
+    removeFormButton.addEventListener('click', (e: MouseEvent) => {
         e.preventDefault();
         // remove the li for the level form
         item.remove();
@@ -59,18 +57,18 @@ function addTagFormDeleteLink(item: Element) {
 document
     .querySelectorAll('button[data-check-value][data-check-route]')
     .forEach(function (el: Element) {
-        const { dataset } = el as HTMLElement;
-        const checkRoute: string|undefined = dataset.checkRoute;
-        const checkVal: string|undefined = dataset.checkValue;
-        if (!(checkRoute && checkVal)) {
-            return;
+        if (el instanceof HTMLButtonElement) {
+            const {dataset} = el;
+            const checkRoute: string | undefined = dataset.checkRoute;
+            const checkVal: string | undefined = dataset.checkValue;
+            if (checkRoute && checkVal) {
+                el.addEventListener('click', (el: MouseEvent) => {
+                    fetch(checkRoute)
+                        .then((resp: Response) => resp.json())
+                        .then(val => window.alert(`Roll for '${checkVal}': ${val}`))
+                })
+            }
         }
-
-        el.addEventListener('click', (e) => {
-            fetch(checkRoute)
-                .then((resp: Response) => resp.json())
-                .then(val => window.alert(`Roll for '${checkVal}': ${val}`))
-        })
     })
 
 console.log('loaded app.ts');
