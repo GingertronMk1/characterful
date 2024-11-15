@@ -7,11 +7,11 @@ use App\Application\Enum\AbilityEnum;
 final class Weapon
 {
     public function __construct(
-        public string $name,
-        public AbilityEnum $modifier_ability,
-        public int $modifier,
-        public int $dice_type,
-        public int $dice_count
+        public string $name = '',
+        public AbilityEnum $modifier_ability = AbilityEnum::Strength,
+        public int $modifier = 0,
+        public int $dice_type = 0,
+        public int $dice_count = 0,
     ) {}
 
     /**

@@ -64,4 +64,27 @@
         {% endfor %}
         </tbody>
     </table>
+
+    <h3>Weapons</h3>
+    <table>
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Modifier</th>
+            <th>Ability</th>
+            <th>Dice</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for value in character.weapons %}
+            <tr>
+                <td>{{ value.name }}</td>
+                <td>{{ value.modifier }}</td>
+                <td>{{ value.modifier_ability.value|capitalize }}</td>
+                <td>{{ value.dice_count }}d{{ value.dice_type }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
 {% endblock %}

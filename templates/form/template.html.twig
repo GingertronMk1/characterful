@@ -6,3 +6,28 @@
     </div>
 {% endblock %}
 
+{% block collection_widget %}
+    <div class="form__widget">
+    <ul
+            data-form-collection="{{ form.vars.name }}"
+            data-index="{{ form|length > 0 ? form|last.vars.name + 1 : 0 }}"
+            data-prototype="{{ form.vars.prototype is defined ? form_widget(form.vars.prototype)|e('html_attr') : false }}"
+>
+
+        {% for item in form %}
+            <li>
+
+            {{ form_row(item) }}
+            </li>
+        {% endfor %}
+
+    </ul>
+    <button
+            type="button"
+            class="form__add-item-button"
+            data-collection-holder-class="{{ form.vars.name }}"
+    >
+        Add to {{ form.vars.name|replace({'_': ' '})|title }}
+    </button>
+    </div>
+{% endblock %}

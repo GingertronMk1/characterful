@@ -38,6 +38,8 @@ class UpdateCharacterFormType extends AbstractType
             )
             ->add('armour_class', CollectionType::class, [
                 'entry_type' => TextType::class,
+                'allow_add' => true,
+                'allow_delete' => true,
             ])
             ->add('proficiency_bonus', IntegerType::class, [])
             ->add('speed', IntegerType::class, [])
@@ -47,6 +49,8 @@ class UpdateCharacterFormType extends AbstractType
             ->add('temporary_hit_points', IntegerType::class, [])
             ->add('weapons', CollectionType::class, [
                 'entry_type' => WeaponFormType::class,
+                'allow_add' => true,
+                'allow_delete' => true,
                 'entry_options' => [
                     'label' => false,
                     'data_class' => Weapon::class,
@@ -54,21 +58,29 @@ class UpdateCharacterFormType extends AbstractType
             ])
             ->add('armours', CollectionType::class, [
                 'entry_type' => TextType::class,
+                'allow_add' => true,
+                'allow_delete' => true,
             ])
             ->add('abilities', CollectionType::class, [
                 'entry_type' => AbilityScoreFormType::class,
+                'allow_add' => true,
+                'allow_delete' => true,
                 'entry_options' => [
                     'label' => false,
                 ],
             ])
             ->add('skills', CollectionType::class, [
                 'entry_type' => SkillScoreFormType::class,
+                'allow_add' => true,
+                'allow_delete' => true,
                 'entry_options' => [
                     'label' => false,
                 ],
             ])
             ->add('saving_throws', CollectionType::class, [
                 'entry_type' => TextType::class,
+                'allow_add' => true,
+                'allow_delete' => true,
             ])
             ->add('hit_dice_type', IntegerType::class, [])
             ->add('current_hit_dice', IntegerType::class, [])

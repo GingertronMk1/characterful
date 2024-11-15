@@ -7,26 +7,7 @@
     {{ form_row(form.species_extra) }}
 </div>
 <div class="form__section form__section--levels">
-
-
-<h3>Levels</h3>
-<ul
-        class="levels"
-        data-index="{{ form.levels|length > 0 ? form.levels|last.vars.name + 1 : 0 }}"
-        data-prototype="{{ form_widget(form.levels.vars.prototype)|e('html_attr') }}"
->
-    {% for level in form.levels %}
-        <li>{{ form_row(level) }}</li>
-    {% endfor %}
-</ul>
-<button
-        type="button"
-        class="add_item_link"
-        data-collection-holder-class="levels"
->
-    Add a level
-</button>
-
+    {{ form_row(form.levels) }}
 </div>
 <div class="form__section form__section--combat-stats">
     {{ form_row(form.armour_class) }}

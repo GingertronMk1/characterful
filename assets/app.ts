@@ -8,19 +8,21 @@ import './bootstrap.js';
 import './styles/app.scss';
 
 document
-    .querySelectorAll('.add_item_link')
+    .querySelectorAll('.form__add-item-button')
     .forEach((btn: Element) => {
         btn.addEventListener("click", addFormToCollection)
     });
 document
-    .querySelectorAll('ul.levels > li')
+    .querySelectorAll('[data-index][data-prototype] > li')
     .forEach((level: Element) => {
         addTagFormDeleteLink(level)
     })
 
 function addFormToCollection({currentTarget}: Event) {
+    console.log('adding')
     if (currentTarget instanceof HTMLElement) {
-        const collectionHolder = document.querySelector(`.${currentTarget.dataset.collectionHolderClass}`) as HTMLElement;
+        console.log(currentTarget.dataset.collectionHolderClass)
+        const collectionHolder = document.querySelector(`[data-form-collection=${currentTarget.dataset.collectionHolderClass}]`) as HTMLElement;
 
         const item: HTMLLIElement = document.createElement('li');
         const {dataset} = collectionHolder;
@@ -43,7 +45,7 @@ function addFormToCollection({currentTarget}: Event) {
 
 function addTagFormDeleteLink(item: Element) {
     const removeFormButton = document.createElement('button');
-    removeFormButton.innerText = 'Delete this level';
+    removeFormButton.innerText = 'Delete';
 
     item.append(removeFormButton);
 
