@@ -7,11 +7,12 @@ export default [
   ...tseslint.configs.strict,
   ...tseslint.configs.stylistic,
   {
-    files: ["**/*.{js,mjs,cjs,ts}"],
+    files: ["./assets/**/*.{js,mjs,cjs,ts}"],
     languageOptions: {
       globals: {
         ...globals.browser,
         ...globals.node,
+        es6: true,
       }
     },
   },
@@ -19,6 +20,13 @@ export default [
     files: ["**/*.{js,mjs,cjs}"],
     rules: {
       "@typescript-eslint/no-require-imports": "off",
+    },
+    languageOptions: {
+      globals: {
+        "require": "readonly",
+        "process": "readonly",
+        "module": "readonly",
+      }
     }
   },
   {
