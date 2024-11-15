@@ -2,13 +2,18 @@
     "devDependencies": {
         "@babel/core": "^7.17.0",
         "@babel/preset-env": "^7.16.0",
+        "@eslint/js": "^9.14.0",
         "@symfony/webpack-encore": "^5.0.0",
+        "@types/eslint__js": "^8.42.3",
         "core-js": "^3.38.0",
+        "eslint": "^9.14.0",
+        "globals": "^15.12.0",
         "regenerator-runtime": "^0.13.9",
         "sass": "^1.80.6",
         "sass-loader": "^16.0.3",
         "ts-loader": "^9.5.1",
         "typescript": "^5.6.3",
+        "typescript-eslint": "^8.14.0",
         "webpack": "^5.74.0",
         "webpack-cli": "^5.1.0",
         "webpack-dev-server": "^5.1.0",
@@ -20,6 +25,8 @@
         "dev-server": "encore dev-server",
         "dev": "encore dev",
         "watch": "encore dev --watch",
-        "build": "encore production --progress"
+        "build": "encore production --progress",
+        "eslint": "eslint . --stats",
+        "eslint:fix": "npm run eslint -- --fix"
     }
 }

@@ -24,7 +24,7 @@ function addFormToCollection({currentTarget}: Event) {
 
         const item: HTMLLIElement = document.createElement('li');
         const {dataset} = collectionHolder;
-        if (!(dataset.index === undefined || dataset.prototype === undefined)) {
+        if (dataset.index !== undefined && dataset.prototype !== undefined) {
             const {index, prototype} = dataset;
 
             item.innerHTML = prototype
@@ -61,8 +61,8 @@ document
             const {dataset} = el;
             const checkRoute: string | undefined = dataset.checkRoute;
             const checkVal: string | undefined = dataset.checkValue;
-            if (checkRoute && checkVal) {
-                el.addEventListener('click', (el: MouseEvent) => {
+            if (checkRoute !== undefined && checkVal !== undefined) {
+                el.addEventListener('click', () => {
                     fetch(checkRoute)
                         .then((resp: Response) => resp.json())
                         .then(val => window.alert(`Roll for '${checkVal}': ${val}`))

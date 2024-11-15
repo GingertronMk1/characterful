@@ -40,3 +40,6 @@ jobs:
       - name: PHPUnit
         run: docker compose exec app composer phpunit
         if: always()
+      - name: ESlint
+        run: docker compose exec node npm run eslint
+        if: always()
