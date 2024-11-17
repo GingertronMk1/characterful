@@ -23,7 +23,7 @@ function addFormToCollection({currentTarget}: Event) {
     if (currentTarget instanceof HTMLElement) {
         const collectionHolder = document.querySelector(`[data-form-collection=${currentTarget.dataset.collectionHolderClass}]`) as HTMLElement;
 
-        const item: HTMLLIElement = document.createElement('li');
+        const item: HTMLDivElement = document.createElement('div');
         const {dataset} = collectionHolder;
         if (dataset.index !== undefined && dataset.prototype !== undefined) {
             const {index, prototype} = dataset;
@@ -35,6 +35,7 @@ function addFormToCollection({currentTarget}: Event) {
                 );
 
             addTagFormDeleteLink(item);
+            item.classList.add('form-control');
             collectionHolder.appendChild(item);
 
             collectionHolder.dataset.index = (parseInt(index) + 1).toString();
@@ -68,7 +69,13 @@ document
                 el.addEventListener('click', () => {
                     fetch(checkRoute)
                         .then((resp: Response) => resp.json())
-                        .then(val => window.alert(`Roll for '${checkVal}': ${val}`))
+                        .then(function ({ base, mod, total }) {
+                            window.alert([
+                                `Base roll: ${base}\n`,
+                                `Modifier: ${mod}\n`,
+                                `Total: ${total}`,
+                            ].join('\n'));
+                        })
                 })
             }
         }

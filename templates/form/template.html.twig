@@ -1,5 +1,5 @@
 {% block form_row %}
-    <div class="form__row {{ attr.class is defined ? attr.class : '' }}">
+    <div class="mb-3 {{ attr.class is defined ? attr.class : '' }}">
         {{ form_label(form, null, {label_attr: {class: 'form-label'}}) }}
         {{ form_errors(form) }}
         {{ form_widget(form, {attr: {class: 'form-control'}}) }}
@@ -7,7 +7,6 @@
 {% endblock %}
 
 {% block collection_widget %}
-    <div class="form__widget">
     <div
             data-form-collection="{{ form.vars.name }}"
             data-index="{{ form|length > 0 ? form|last.vars.name + 1 : 0 }}"
@@ -28,5 +27,4 @@
     >
         Add to {{ form.vars.name|replace({'_': ' '})|title }}
     </button>
-    </div>
 {% endblock %}

@@ -27,7 +27,14 @@ class ApiController extends AbstractController
         $character = $this->characterFinder->findById(CharacterId::fromString($characterId));
         $abilityEnum = AbilityEnum::from($ability);
 
-        return $this->json($this->helper->roll(20) + $character->getAbilityScore($abilityEnum)->getModifier());
+        $base = $this->helper->roll(20);
+        $mod = $character->getAbilityScore($abilityEnum)->getModifier();
+
+        return $this->json([
+            'base' => $base,
+            'mod' => $mod,
+            'total' => $base + $mod,
+        ]);
     }
 
     #[Route(path: '/get-skill-score/{characterId}/{skill}', name: 'get-skill-score', methods: ['GET'])]
@@ -38,6 +45,13 @@ class ApiController extends AbstractController
         $character = $this->characterFinder->findById(CharacterId::fromString($characterId));
         $skillEnum = SkillEnum::from($skill);
 
-        return $this->json($this->helper->roll(20) + $character->getSkillModifier($skillEnum));
+        $base = $this->helper->roll(20);
+        $mod = $character->getSkillModifier($skillEnum);
+
+        return $this->json([
+            'base' => $base,
+            'mod' => $mod,
+            'total' => $base + $mod,
+        ]);
     }
 }
