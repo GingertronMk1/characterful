@@ -1,5 +1,5 @@
 <h3>Skills</h3>
-<table>
+<table class="table">
     <thead>
     <tr>
         <th>Skill</th>
@@ -16,7 +16,7 @@
             <td>{{ character.getSkillModifier(skill.skill) }}</td>
             <td>
                 <button
-                        class="character-sheet__roll-skill-check"
+                        class="btn btn-success"
                         data-check-value="{{ skill.skill.value }}"
                         data-check-route="{{ path('api.get-skill-score', {characterId: character.id, skill: skill.skill.value}) }}"
                 >

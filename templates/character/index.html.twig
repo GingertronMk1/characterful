@@ -3,8 +3,8 @@
 {% block body %}
     <div class="character-index">
 
-    <a class="button character-index__add-button" href="{{ path('character.create') }}">Add</a>
-        <table class="character-index__table">
+    <a class="btn btn-check" href="{{ path('character.create') }}">Add</a>
+        <table class="table">
         <thead>
             <tr>
                 <th class="character-index__column character-index__column--slug">Slug</th>
@@ -23,10 +23,10 @@
                 <td>{{ character.current_hit_points }}</td>
                 <td>
 
-                    <a class="button" href="{{ path('character.view', {slug: character.slug}) }}">
+                    <a class="btn btn-primary" href="{{ path('character.view', {slug: character.slug}) }}">
                         View
                     </a>
-                    <a class="button" href="{{ path('character.update', {slug: character.slug}) }}">
+                    <a class="btn btn-outline-primary" href="{{ path('character.update', {slug: character.slug}) }}">
                         Update
                     </a>
                 </td>

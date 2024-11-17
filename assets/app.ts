@@ -6,9 +6,10 @@ import './bootstrap.js';
  * which should already be in your base.html.twig.
  */
 import './styles/app.scss';
+require('bootstrap');
 
 document
-    .querySelectorAll('.form__add-item-button')
+    .querySelectorAll('[data-collection-holder-class]')
     .forEach((btn: Element) => {
         btn.addEventListener("click", addFormToCollection)
     });
@@ -44,6 +45,8 @@ function addFormToCollection({currentTarget}: Event) {
 function addTagFormDeleteLink(item: Element) {
     const removeFormButton: HTMLButtonElement = document.createElement('button');
     removeFormButton.innerText = 'Delete';
+    removeFormButton.classList.add('btn');
+    removeFormButton.classList.add('btn-danger');
 
     item.append(removeFormButton);
 

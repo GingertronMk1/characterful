@@ -1,15 +1,26 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>{{ character.name }}</h1>
-    <a href="{{ path('character.update', {slug: character.slug}) }}">
-        Edit
-    </a>
+    <div class="row">
 
-    {% include 'character/fragments/levels.html.twig' with { character: character, levels: character.levels } only %}
-    {% include 'character/fragments/abilities.html.twig' with { character: character, abilities: character.abilities } only %}
-    {% include 'character/fragments/skills.html.twig' with { character: character, skills: character.skills } only %}
-    {% include 'character/fragments/weapons.html.twig' with { character: character, weapons: character.weapons } only %}
+    <h1 class="col-10">{{ character.name }}</h1>
+        <div class="col-2 text-end">
+            <a class="btn btn-outline-primary" href="{{ path('character.update', {slug: character.slug}) }}">
+                Edit
+            </a>
+        </div>
+        <div class="col-4">
+            {% include 'character/fragments/levels.html.twig' with { character: character, levels: character.levels } only %}
+            <hr>
+            {% include 'character/fragments/abilities.html.twig' with { character: character, abilities: character.abilities } only %}
+        </div>
+        <div class="col-4">
+            {% include 'character/fragments/skills.html.twig' with { character: character, skills: character.skills } only %}
+        </div>
+        <div class="col-4">
+            {% include 'character/fragments/weapons.html.twig' with { character: character, weapons: character.weapons } only %}
+        </div>
+    </div>
 
 
 {% endblock %}

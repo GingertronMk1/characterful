@@ -14,10 +14,8 @@
         {% endblock %}
     </head>
     <body>
-        <header>
-            {% block header %}Characterful{% endblock %}
-        </header>
-        <main>
+        {% include 'navbar.html.twig' %}
+        <main class="container py-3">
             {% block body %}{% endblock %}
         </main>
     </body>

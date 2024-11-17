@@ -1,27 +1,27 @@
 {{ form_start(form, { attr: { class: 'form character-form' } }) }}
 {{ form_errors(form) }}
     {{ form_row(form._token) }}
-<div class="form__section form__section--base-info">
+<div class="card">
     {{ form_row(form.name) }}
     {{ form_row(form.species) }}
     {{ form_row(form.species_extra) }}
 </div>
-<div class="form__section form__section--levels">
+<div class="card">
     {{ form_row(form.levels) }}
 </div>
-<div class="form__section form__section--combat-stats">
+<div class="card">
     {{ form_row(form.armour_class) }}
     {{ form_row(form.proficiency_bonus) }}
     {{ form_row(form.speed) }}
     {{ form_row(form.weapons) }}
     {{ form_row(form.armours) }}
 </div>
-<div class="form__section form__section--hit-points">
+<div class="card">
     {{ form_row(form.current_hit_points) }}
     {{ form_row(form.max_hit_points) }}
     {{ form_row(form.temporary_hit_points) }}
 </div>
-<div class="form__section form__section--skills-and-abilities">
+<div class="card">
     {{ form_row(form.abilities) }}
     <hr>
     {{ form_row(form.saving_throws) }}
@@ -30,7 +30,7 @@
     <hr>
     {{ form_row(form.passive_perception) }}
 </div>
-<div class="form__section form__section--hit-dice">
+<div class="card">
     {{ form_row(form.hit_dice_type) }}
     {{ form_row(form.current_hit_dice) }}
     {{ form_row(form.max_hit_dice) }}
