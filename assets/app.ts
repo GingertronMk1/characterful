@@ -6,7 +6,7 @@ import './bootstrap.js';
  * which should already be in your base.html.twig.
  */
 import './styles/app.scss';
-require('bootstrap');
+import 'bootstrap';
 
 document
     .querySelectorAll('[data-collection-holder-class]')
