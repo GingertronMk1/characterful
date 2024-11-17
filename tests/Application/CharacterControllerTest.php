@@ -76,8 +76,10 @@ class CharacterControllerTest extends AbstractApplicationTestCase
 
         $this->assertResponseRedirects($expectedUrl);
         $newCrawler = $this->client->request('GET', $expectedUrl);
-        $newProficiency = $newCrawler->filter("[data-proficiency-for={$newProficiencySkill}]")->text();
-        $this->assertEquals(1, $newProficiency);
+        $this->assertStringContainsString(
+            "{$newProficiencySkill} 1",
+            $newCrawler->text()
+        );
     }
 
     private function getExpectedUrl(): string
