@@ -1,22 +1,23 @@
-<h3>Weapons</h3>
-<table class="table">
-    <thead>
-    <tr>
-        <th>Name</th>
-        <th>Modifier</th>
-        <th>Ability</th>
-        <th>Dice</th>
-    </tr>
-    </thead>
-    <tbody>
-    {% for weapon in weapons %}
-        <tr>
-            <td>{{ weapon.name }}</td>
-            <td>{{ weapon.modifier }}</td>
-            <td>{{ weapon.modifier_ability.value|title }}</td>
-            <td>{{ weapon.dice_count }}d{{ weapon.dice_type }}</td>
-        </tr>
-    {% endfor %}
-    </tbody>
-</table>
-
+<div class="card">
+    <div class="card-header">Weapons</div>
+    <div class="list-group list-group-flush">
+        <div class="list-group-item">
+            <div class="row">
+                <div class="col-4">Name</div>
+                <div class="col-3">Ability</div>
+                <div class="col-2">+/-</div>
+                <div class="col-3">Dice</div>
+            </div>
+        </div>
+        {% for weapon in weapons %}
+            <div class="list-group-item">
+                <div class="row">
+                    <div class="col-4">{{ weapon.name }}</div>
+                    <div class="col-3">{{ weapon.modifier_ability.value|title }}</div>
+                    <div class="col-2">{{ weapon.modifier }}</div>
+                    <div class="col-3">{{ weapon.dice_count }}d{{ weapon.dice_type }}</div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>

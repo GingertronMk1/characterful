@@ -7,7 +7,7 @@ namespace App\Domain\Common;
  *
  * @implements \Iterator<int, TItemType>
  */
-abstract class AbstractCollection implements \Iterator
+abstract class AbstractCollection implements \Iterator, \Countable
 {
     /**
      * @param array<TItemType> $items
@@ -94,5 +94,10 @@ abstract class AbstractCollection implements \Iterator
         }
 
         return null;
+    }
+
+    public function count(): int
+    {
+        return count($this->items);
     }
 }

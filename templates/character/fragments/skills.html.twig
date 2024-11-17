@@ -1,29 +1,35 @@
-<h3>Skills</h3>
-<table class="table">
-    <thead>
-    <tr>
-        <th>Skill</th>
-        <th>Value</th>
-        <th>Modifier</th>
-        <th></th>
-    </tr>
-    </thead>
-    <tbody>
-    {% for skill in skills %}
-        <tr>
-            <td>{{ skill.skill.value|title }}</td>
-            <td data-proficiency-for="{{ skill.skill.value }}">{{ skill.proficiencies }}</td>
-            <td>{{ character.getSkillModifier(skill.skill) }}</td>
-            <td>
-                <button
-                        class="btn btn-success"
-                        data-check-value="{{ skill.skill.value }}"
-                        data-check-route="{{ path('api.get-skill-score', {characterId: character.id, skill: skill.skill.value}) }}"
-                >
-                    Roll
-                </button>
-            </td>
-        </tr>
-    {% endfor %}
-    </tbody>
-</table>
+<div class="card">
+    <div class="card-header">
+        Skills
+    </div>
+
+    <div class="list-group list-group-flush">
+
+        <div class="list-group-item">
+            <div class="row">
+                <div class="col-4">Skill</div>
+                <div class="col-3">Value</div>
+                <div class="col-2">+/-</div>
+                <div class="col-3"></div>
+            </div>
+        </div>
+        {% for skill in skills %}
+            <div class="list-group-item">
+                <div class="row">
+                    <div class="col-4">{{ skill.skill.value|title }}</div>
+                    <div class="col-3">{{ skill.proficiencies }}</div>
+                    <div class="col-2">{{ character.getSkillModifier(skill.skill) }}</div>
+                    <div class="col-3">
+                        <button
+                                class="btn btn-success"
+                                data-check-value="{{ skill.skill.value|title }}"
+                                data-check-route="{{ path('api.get-skill-score', {characterId: character.id, skill: skill.skill.value}) }}"
+                        >
+                            Roll
+                        </button>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
