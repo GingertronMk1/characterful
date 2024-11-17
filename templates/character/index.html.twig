@@ -1,15 +1,17 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <a href="{{ path('character.create') }}">Add</a>
-    <table>
+    <div class="character-index">
+
+    <a class="button character-index__add-button" href="{{ path('character.create') }}">Add</a>
+        <table class="character-index__table">
         <thead>
             <tr>
-                <th>Slug</th>
-                <th>Name</th>
-                <th>Main Class</th>
-                <th>Current HP</th>
-                <th>Actions</th>
+                <th class="character-index__column character-index__column--slug">Slug</th>
+                <th class="character-index__column character-index__column--name">Name</th>
+                <th class="character-index__column character-index__column--main-class">Main Class</th>
+                <th class="character-index__column character-index__column--current-hp">Current HP</th>
+                <th class="character-index__column character-index__column--actions">Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -20,10 +22,11 @@
                 <td>{{ character.mainClass ? character.mainClass.class : '' }}</td>
                 <td>{{ character.current_hit_points }}</td>
                 <td>
-                    <a href="{{ path('character.view', {slug: character.slug}) }}">
+
+                    <a class="button" href="{{ path('character.view', {slug: character.slug}) }}">
                         View
                     </a>
-                    <a href="{{ path('character.update', {slug: character.slug}) }}">
+                    <a class="button" href="{{ path('character.update', {slug: character.slug}) }}">
                         Update
                     </a>
                 </td>
@@ -31,4 +34,5 @@
         {% endfor %}
         </tbody>
     </table>
+    </div>
 {% endblock %}

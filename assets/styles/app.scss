@@ -1,3 +1,5 @@
+@use 'sass:color';
+
 html,
 body {
     width: 100%;
@@ -72,4 +74,61 @@ hr {
     width: 100%;
     margin: 1rem 0;
     border: 1px solid black;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+.character-index {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+
+    &__add-button {
+        margin-right: auto;
+    }
+
+    &__table {
+        width: 100%;
+
+        thead {
+            tr {
+            }
+
+            th {
+                padding: 1rem;
+                border-bottom: 0.2rem solid #000000;
+            }
+        }
+
+        tr {
+            td {
+                padding: 1rem;
+
+                &:last-of-type {
+                    text-align: right;
+                }
+            }
+            &:nth-of-type(2n) {
+                background-color: lightgray;
+            }
+        }
+    }
+}
+
+.button {
+    --corner-radius: 0.5rem;
+    display: inline-flex;
+    flex-direction: row;
+    padding: var(--corner-radius);
+    border-radius: var(--corner-radius);
+    background-color: #a78bfa;
+    text-decoration: none;
+    color: white;
+
+    &:hover {
+        background-color: color.adjust(#a78bfa, $lightness: -10%);
+    }
 }
