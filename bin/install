@@ -2,17 +2,16 @@
 
 . ./.env
 
-DOCKER_PROFILE_SETTING=''
 
 if [ -z "${GITHUB_ACTIONS}" ]; then
-  DOCKER_PROFILE_SETTING='--profile local'
+  COMPOSE_PROFILES=local
 fi
 
-echo "${DOCKER_PROFILE_SETTING}"
+echo "${COMPOSE_PROFILES}"
 
 mkdir -p "$(dirname "$SQLITE_LOCATION")" \
   && echo '' > "$SQLITE_LOCATION" \
-  && docker compose up -d --build --remove-orphans "${DOCKER_PROFILE_SETTING}" \
+  && docker compose up -d --build --remove-orphans \
   && docker compose exec app composer install \
   && docker compose exec app ./bin/console doctrine:migrations:migrate -n \
   && docker compose exec node npm install \
