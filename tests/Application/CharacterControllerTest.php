@@ -9,7 +9,7 @@ use Symfony\Component\DomCrawler\Field\FormField;
  *
  * @coversNothing
  */
-class CharacterControllerTest extends AbstractApplicationTestCase
+final class CharacterControllerTest extends AbstractApplicationTestCase
 {
     private const EXPECTED_SLUG = 'test-character-1';
     private const INITIAL_NAME = 'Test Character 1';
@@ -43,7 +43,7 @@ class CharacterControllerTest extends AbstractApplicationTestCase
         $this->assertResponseRedirects($expectedUrl);
         $newCrawler = $this->client->request('GET', $expectedUrl);
         $h1Text = $newCrawler->filter('h1')->text();
-        $this->assertEquals(self::INITIAL_NAME, $h1Text);
+        self::assertSame(self::INITIAL_NAME, $h1Text);
     }
 
     public function testUpdate(): void
@@ -58,13 +58,13 @@ class CharacterControllerTest extends AbstractApplicationTestCase
         $newProficiencySkillField = $form->get("{$nthSkillArrayItem}[skill]");
 
         if (!$newProficiencySkillField instanceof FormField) {
-            $this->fail("Should only be one form field for selector '{$nthSkillArrayItem}'.");
+            self::fail("Should only be one form field for selector '{$nthSkillArrayItem}'.");
         }
 
         $newProficiencySkill = $newProficiencySkillField->getValue();
 
-        if (!is_string($newProficiencySkill)) {
-            $this->fail("Should only be one form field for selector '{$nthSkillArrayItem}'.");
+        if (!\is_string($newProficiencySkill)) {
+            self::fail("Should only be one form field for selector '{$nthSkillArrayItem}'.");
         }
 
         $form->setValues([
@@ -76,7 +76,7 @@ class CharacterControllerTest extends AbstractApplicationTestCase
 
         $this->assertResponseRedirects($expectedUrl);
         $newCrawler = $this->client->request('GET', $expectedUrl);
-        $this->assertStringContainsString(
+        self::assertStringContainsString(
             "{$newProficiencySkill} 1",
             $newCrawler->text()
         );

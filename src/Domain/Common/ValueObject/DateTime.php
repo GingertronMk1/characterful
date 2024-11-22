@@ -42,7 +42,7 @@ class DateTime
             false !== \DateTimeImmutable::createFromFormat(self::FORMAT_MICROSECONDS, $dateString) => self::FORMAT_MICROSECONDS,
             false !== \DateTimeImmutable::createFromFormat(self::FORMAT_MILLISECONDS, $dateString) => self::FORMAT_MILLISECONDS,
             false !== \DateTimeImmutable::createFromFormat(self::FORMAT_SECONDS, $dateString) => self::FORMAT_SECONDS,
-            default => throw new \InvalidArgumentException(sprintf('Invalid date provided: %s. Format: %s.', $dateString, self::FORMAT_MICROSECONDS)),
+            default => throw new \InvalidArgumentException(\sprintf('Invalid date provided: %s. Format: %s.', $dateString, self::FORMAT_MICROSECONDS)),
         };
 
         $dateTimeImmutable = \DateTimeImmutable::createFromFormat($dateFormat, $dateString);
@@ -71,7 +71,7 @@ class DateTime
      */
     public static function fromTimestamp(int $timestamp): self
     {
-        $length = strlen((string) $timestamp);
+        $length = \strlen((string) $timestamp);
 
         switch ($length) {
             case $length <= 10: // seconds
@@ -138,7 +138,7 @@ class DateTime
      *
      * @return bool true if the two objects are equal
      */
-    public function equals(DateTime $dateTime): bool
+    public function equals(self $dateTime): bool
     {
         return $dateTime->date === $this->date;
     }
@@ -146,7 +146,7 @@ class DateTime
     /**
      * Determine if this date occurs before another date.
      */
-    public function isBefore(DateTime $other): bool
+    public function isBefore(self $other): bool
     {
         return $this->toTimestamp() < $other->toTimestamp();
     }
@@ -154,7 +154,7 @@ class DateTime
     /**
      * Determine if this date occurs after another date.
      */
-    public function isAfter(DateTime $other): bool
+    public function isAfter(self $other): bool
     {
         return $this->toTimestamp() > $other->toTimestamp();
     }

@@ -69,7 +69,7 @@ final class CharacterModel extends AbstractMappedModel
             slug: $row['slug'],
             levels: LevelCollection::fromIterable(
                 $helpers->jsonDecode($row['levels']),
-                fn (array $row) => new Level($row['level'], $row['class'], $row['subClass']),
+                static fn (array $row) => new Level($row['level'], $row['class'], $row['subClass']),
             ),
             armour_class: $helpers->jsonDecode($row['armour_class']),
             proficiency_bonus: (int) $row['proficiency_bonus'],
@@ -80,7 +80,7 @@ final class CharacterModel extends AbstractMappedModel
             temporary_hit_points: (int) $row['temporary_hit_points'],
             weapons: WeaponCollection::fromIterable(
                 $helpers->jsonDecode($row['weapons']),
-                fn (array $weaponArr) => new Weapon(
+                static fn (array $weaponArr) => new Weapon(
                     name: $weaponArr['name'],
                     modifier_ability: AbilityEnum::from($weaponArr['modifier_ability']),
                     modifier: $weaponArr['modifier'],
@@ -91,11 +91,11 @@ final class CharacterModel extends AbstractMappedModel
             armours: $helpers->jsonDecode($row['armours']),
             abilities: AbilityScoreCollection::fromIterable(
                 $helpers->jsonDecode($row['abilities']),
-                fn (array $arr) => new AbilityScore(AbilityEnum::from($arr['ability']), (int) $arr['value'])
+                static fn (array $arr) => new AbilityScore(AbilityEnum::from($arr['ability']), (int) $arr['value'])
             ),
             skills: SkillScoreCollection::fromIterable(
                 $helpers->jsonDecode($row['skills']),
-                fn (array $arr) => new SkillScore(SkillEnum::from($arr['skill']), (int) $arr['proficiencies'])
+                static fn (array $arr) => new SkillScore(SkillEnum::from($arr['skill']), (int) $arr['proficiencies'])
             ),
             saving_throws: $helpers->jsonDecode($row['saving_throws']),
             hit_dice_type: $row['hit_dice_type'],
@@ -111,7 +111,7 @@ final class CharacterModel extends AbstractMappedModel
     {
         $bestLevel = null;
         foreach ($this->levels as $level) {
-            if (is_null($bestLevel) || $level->level > $bestLevel->level) {
+            if (null === $bestLevel || $level->level > $bestLevel->level) {
                 $bestLevel = $level;
             }
         }
@@ -121,12 +121,12 @@ final class CharacterModel extends AbstractMappedModel
 
     public function getAbilityScore(AbilityEnum $ability): ?AbilityScore
     {
-        return $this->abilities->find(fn (AbilityScore $score) => $score->ability === $ability);
+        return $this->abilities->find(static fn (AbilityScore $score) => $score->ability === $ability);
     }
 
     public function getSkillScore(SkillEnum $skill): ?SkillScore
     {
-        return $this->skills->find(fn (SkillScore $score) => $score->skill === $skill);
+        return $this->skills->find(static fn (SkillScore $score) => $score->skill === $skill);
     }
 
     public function getSkillModifier(SkillEnum $skill): int

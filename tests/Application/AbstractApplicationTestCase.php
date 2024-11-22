@@ -15,7 +15,7 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
  *
  * @coversNothing
  */
-class AbstractApplicationTestCase extends WebTestCase
+final class AbstractApplicationTestCase extends WebTestCase
 {
     protected UrlGeneratorInterface $urlGenerator;
     protected HttpKernelBrowser $client;
@@ -52,7 +52,7 @@ class AbstractApplicationTestCase extends WebTestCase
             // You can use NullOutput() if you don't need the output
             $output = new BufferedOutput();
             $application->run($input, $output);
-            echo sprintf(
+            echo \sprintf(
                 '%s %s',
                 $command['command'],
                 $output->fetch()
@@ -62,7 +62,7 @@ class AbstractApplicationTestCase extends WebTestCase
         echo PHP_EOL.PHP_EOL;
     }
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->client = static::createClient();
         $container = static::getContainer();

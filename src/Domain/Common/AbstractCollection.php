@@ -26,12 +26,12 @@ abstract class AbstractCollection implements \Iterator, \Countable
     {
         $returnVal = new static();
         foreach ($data as $item) {
-            $processedItem = is_null($mapFn) ? $item : $mapFn($item);
+            $processedItem = null === $mapFn ? $item : $mapFn($item);
             if ($processedItem::class === static::getClassName()) {
                 $returnVal->items[] = $processedItem;
             } else {
                 throw new \InvalidArgumentException(
-                    sprintf(
+                    \sprintf(
                         'Tried to create a collection of `%s`, but received an invalid item.',
                         static::getClassName(),
                     )
@@ -98,6 +98,6 @@ abstract class AbstractCollection implements \Iterator, \Countable
 
     public function count(): int
     {
-        return count($this->items);
+        return \count($this->items);
     }
 }

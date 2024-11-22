@@ -26,7 +26,7 @@ class UpdateCharacterCommandHandler
             species: $command->species,
             species_extra: $command->species_extra,
             levels: array_map(
-                fn (Level $level) => $level->toArray(),
+                static fn (Level $level) => $level->toArray(),
                 $command->levels,
             ),
             armour_class: $command->armour_class,
@@ -37,16 +37,16 @@ class UpdateCharacterCommandHandler
             max_hit_points: $command->max_hit_points,
             temporary_hit_points: $command->temporary_hit_points,
             weapons: array_map(
-                fn (Weapon $weapon) => $weapon->toArray(),
+                static fn (Weapon $weapon) => $weapon->toArray(),
                 $command->weapons,
             ),
             armours: $command->armours,
             abilities: array_map(
-                fn (AbilityScore $score) => $score->toArray(),
+                static fn (AbilityScore $score) => $score->toArray(),
                 $command->abilities,
             ),
             skills: array_map(
-                fn (SkillScore $skillScore) => $skillScore->toArray(),
+                static fn (SkillScore $skillScore) => $skillScore->toArray(),
                 $command->skills,
             ),
             saving_throws: $command->saving_throws,

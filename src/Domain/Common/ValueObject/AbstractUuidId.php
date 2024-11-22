@@ -67,7 +67,7 @@ abstract readonly class AbstractUuidId extends AbstractId
      *
      * @return bool true if the two objects are equal
      */
-    public function equals(AbstractUuidId $uuid): bool
+    public function equals(self $uuid): bool
     {
         return (string) $uuid === (string) $this;
     }

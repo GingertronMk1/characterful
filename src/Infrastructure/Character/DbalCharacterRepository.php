@@ -39,12 +39,12 @@ readonly class DbalCharacterRepository extends AbstractDbalRepository implements
 
         $slugs = $slugExistsQuery->fetchFirstColumn();
         $slug = $initialSlug;
-        if (in_array($slug, $slugs)) {
+        if (\in_array($slug, $slugs, true)) {
             $i = 1;
             do {
                 $slug = $initialSlug.'-'.$i;
                 ++$i;
-            } while (in_array($slug, $slugs));
+            } while (\in_array($slug, $slugs, true));
         }
 
         $result = $this->storeNewEntity(
