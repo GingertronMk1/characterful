@@ -15,7 +15,7 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
  *
  * @coversNothing
  */
-final class AbstractApplicationTestCase extends WebTestCase
+abstract class AbstractApplicationTestCase extends WebTestCase
 {
     protected UrlGeneratorInterface $urlGenerator;
     protected HttpKernelBrowser $client;

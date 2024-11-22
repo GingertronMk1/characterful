@@ -14,6 +14,8 @@ services:
       - "443:443"
     networks:
       - characterful-network
+    profiles:
+      - local
 
   app:
     platform: linux/x86_64
@@ -48,6 +50,8 @@ services:
       - '${SQLITE_LOCATION}:/var/www/html/data.db'
     networks:
       - characterful-network
+    profiles:
+      - local
 
 networks:
   characterful-network:
