@@ -41,6 +41,8 @@ services:
   adminer:
     image: adminer:4-standalone
     platform: linux/x86_64
+    depends_on:
+      - app
     ports:
       - "8080:8080"
     env_file:
