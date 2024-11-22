@@ -4,14 +4,16 @@
 
 
 if [ -z "${GITHUB_ACTIONS}" ]; then
-  COMPOSE_PROFILES=local
+  _COMPOSE_PROFILES="local"
+else
+  _COMPOSE_PROFILES="github"
 fi
 
-echo "${COMPOSE_PROFILES}"
+echo "${_COMPOSE_PROFILES}"
 
 mkdir -p "$(dirname "$SQLITE_LOCATION")" \
   && echo '' > "$SQLITE_LOCATION" \
-  && docker compose up -d --build --remove-orphans \
+  && COMPOSE_PROFILES="${_COMPOSE_PROFILES}" docker compose up -d --build --remove-orphans \
   && docker compose exec app composer install \
   && docker compose exec app ./bin/console doctrine:migrations:migrate -n \
   && docker compose exec node npm install \

@@ -15,6 +15,7 @@ services:
     networks:
       - characterful-network
     profiles:
+      - github
       - local
 
   app:
@@ -27,6 +28,9 @@ services:
       - './_docker/config/app/php.ini:/usr/local/etc/php/conf.d/zzz_app.ini'
     networks:
       - characterful-network
+    profiles:
+      - github
+      - local
 
   node:
     platform: linux/x86_64
@@ -37,6 +41,9 @@ services:
         - '.:/app:delegated'
     networks:
         - characterful-network
+    profiles:
+      - github
+      - local
 
   adminer:
     image: adminer:4-standalone
