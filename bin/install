@@ -12,7 +12,7 @@ echo "${DOCKER_PROFILE_SETTING}"
 
 mkdir -p "$(dirname "$SQLITE_LOCATION")" \
   && echo '' > "$SQLITE_LOCATION" \
-  && docker compose up -d --build "${DOCKER_PROFILE_SETTING}" --remove-orphans \
+  && docker compose up -d --build --remove-orphans "${DOCKER_PROFILE_SETTING}" \
   && docker compose exec app composer install \
   && docker compose exec app ./bin/console doctrine:migrations:migrate -n \
   && docker compose exec node npm install \
