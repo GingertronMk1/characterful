@@ -12,7 +12,7 @@ return (new PhpCsFixer\Config())
     ->setRules([
         '@PER-CS2.0:risky' => true,
         '@PhpCsFixer:risky' => true,
-//        '@PHP84Migration:risky' => true,
+        '@PHP84Migration' => true,
         'phpdoc_align' => ['align' => 'left'],
     ])
     ->setFinder($finder)
