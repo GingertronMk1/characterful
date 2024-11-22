@@ -15,7 +15,6 @@ services:
     networks:
       - characterful-network
     profiles:
-      - github
       - local
 
   app:
