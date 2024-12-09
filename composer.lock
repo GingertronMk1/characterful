@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4b0d45ef195d1db0ce37c7dda77158b6",
+    "content-hash": "7450a561c1765128246e6be9aff099aa",
     "packages": [
         {
             "name": "composer/semver",
@@ -7355,16 +7355,16 @@
         },
         {
             "name": "symfony/web-link",
-            "version": "v7.1.6",
+            "version": "v7.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/web-link.git",
-                "reference": "383aa7566f25e3a1ab323732c2cc6a1748120d3a"
+                "reference": "f537556a885e14a1d28f6c759d41e57e93d0a532"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/web-link/zipball/383aa7566f25e3a1ab323732c2cc6a1748120d3a",
-                "reference": "383aa7566f25e3a1ab323732c2cc6a1748120d3a",
+                "url": "https://api.github.com/repos/symfony/web-link/zipball/f537556a885e14a1d28f6c759d41e57e93d0a532",
+                "reference": "f537556a885e14a1d28f6c759d41e57e93d0a532",
                 "shasum": ""
             },
             "require": {
@@ -7418,7 +7418,7 @@
                 "push"
             ],
             "support": {
-                "source": "https://github.com/symfony/web-link/tree/v7.1.6"
+                "source": "https://github.com/symfony/web-link/tree/v7.2.0"
             },
             "funding": [
                 {
@@ -7434,7 +7434,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-09-25T14:20:29+00:00"
+            "time": "2024-09-25T14:21:43+00:00"
         },
         {
             "name": "symfony/webpack-encore-bundle",
