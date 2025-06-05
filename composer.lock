@@ -6350,16 +6350,16 @@
         },
         {
             "name": "symfony/stimulus-bundle",
-            "version": "v2.25.2",
+            "version": "v2.26.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/stimulus-bundle.git",
-                "reference": "5a6aef0646119530da862d5afa1386ade3b9ed43"
+                "reference": "750c770f66b45b40135eb32d753dbd7d84182c92"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/stimulus-bundle/zipball/5a6aef0646119530da862d5afa1386ade3b9ed43",
-                "reference": "5a6aef0646119530da862d5afa1386ade3b9ed43",
+                "url": "https://api.github.com/repos/symfony/stimulus-bundle/zipball/750c770f66b45b40135eb32d753dbd7d84182c92",
+                "reference": "750c770f66b45b40135eb32d753dbd7d84182c92",
                 "shasum": ""
             },
             "require": {
@@ -6399,7 +6399,7 @@
                 "symfony-ux"
             ],
             "support": {
-                "source": "https://github.com/symfony/stimulus-bundle/tree/v2.25.2"
+                "source": "https://github.com/symfony/stimulus-bundle/tree/v2.26.0"
             },
             "funding": [
                 {
@@ -6415,7 +6415,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2025-05-19T11:54:27+00:00"
+            "time": "2025-05-23T09:27:30+00:00"
         },
         {
             "name": "symfony/stopwatch",
@@ -7090,16 +7090,16 @@
         },
         {
             "name": "symfony/ux-turbo",
-            "version": "v2.25.2",
+            "version": "v2.26.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/ux-turbo.git",
-                "reference": "11ebca138005c7e25678c3f98a07ddf718a0480c"
+                "reference": "12d9989fb945f2074b41aad4915fc593ecd4ed00"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/ux-turbo/zipball/11ebca138005c7e25678c3f98a07ddf718a0480c",
-                "reference": "11ebca138005c7e25678c3f98a07ddf718a0480c",
+                "url": "https://api.github.com/repos/symfony/ux-turbo/zipball/12d9989fb945f2074b41aad4915fc593ecd4ed00",
+                "reference": "12d9989fb945f2074b41aad4915fc593ecd4ed00",
                 "shasum": ""
             },
             "require": {
@@ -7113,7 +7113,8 @@
                 "dbrekelmans/bdi": "dev-main",
                 "doctrine/doctrine-bundle": "^2.4.3",
                 "doctrine/orm": "^2.8 | 3.0",
-                "phpstan/phpstan": "^1.10",
+                "php-webdriver/webdriver": "^1.15",
+                "phpstan/phpstan": "^2.1.17",
                 "symfony/asset-mapper": "^6.4|^7.0",
                 "symfony/debug-bundle": "^5.4|^6.0|^7.0",
                 "symfony/expression-language": "^5.4|^6.0|^7.0",
@@ -7121,7 +7122,7 @@
                 "symfony/framework-bundle": "^6.4|^7.0",
                 "symfony/mercure-bundle": "^0.3.7",
                 "symfony/messenger": "^5.4|^6.0|^7.0",
-                "symfony/panther": "^2.1",
+                "symfony/panther": "^2.2",
                 "symfony/phpunit-bridge": "^5.4|^6.0|^7.0",
                 "symfony/process": "^5.4|6.3.*|^7.0",
                 "symfony/property-access": "^5.4|^6.0|^7.0",
@@ -7168,7 +7169,7 @@
                 "turbo-stream"
             ],
             "support": {
-                "source": "https://github.com/symfony/ux-turbo/tree/v2.25.2"
+                "source": "https://github.com/symfony/ux-turbo/tree/v2.26.0"
             },
             "funding": [
                 {
@@ -7184,7 +7185,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2025-05-19T11:54:27+00:00"
+            "time": "2025-05-26T20:34:50+00:00"
         },
         {
             "name": "symfony/validator",
