@@ -10,7 +10,7 @@
         "eslint": "^9.35.0",
         "globals": "^15.15.0",
         "regenerator-runtime": "^0.14.1",
-        "sass": "^1.92.1",
+        "sass": "^1.93.0",
         "sass-loader": "^16.0.5",
         "ts-loader": "^9.5.4",
         "typescript": "^5.9.2",
