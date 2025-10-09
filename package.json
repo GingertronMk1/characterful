@@ -6,7 +6,7 @@
         "@symfony/webpack-encore": "^5.2.0",
         "@types/bootstrap": "^5.2.10",
         "@types/eslint__js": "^8.42.3",
-        "core-js": "^3.45.1",
+        "core-js": "^3.46.0",
         "eslint": "^9.37.0",
         "globals": "^15.15.0",
         "regenerator-runtime": "^0.14.1",
