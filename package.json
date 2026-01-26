@@ -8,7 +8,7 @@
         "@types/eslint__js": "^8.42.3",
         "core-js": "^3.48.0",
         "eslint": "^9.39.2",
-        "globals": "^15.15.0",
+        "globals": "^17.1.0",
         "regenerator-runtime": "^0.14.1",
         "sass": "^1.97.3",
         "sass-loader": "^16.0.6",
